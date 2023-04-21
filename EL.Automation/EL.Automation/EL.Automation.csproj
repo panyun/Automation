@@ -1,0 +1,153 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48;net47;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<EnableComHosting>true</EnableComHosting>
+		<EnableRegFreeCom>true</EnableRegFreeCom>
+		<LangVersion>10.0</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<BaseOutputPath>..\..\EL.Bin\EL.Automation</BaseOutputPath>
+		<Configurations>Debug;Release;</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Com\CaptureInfoResponse.cs" />
+		<Compile Include="Com\CaptureServerHelper.cs" />
+		<Compile Include="Com\ElementServer.cs" />
+		<Compile Include="Com\InspectCaptureExServer.cs" />
+		<Compile Include="Com\InspectCaptureServer.cs" />
+		<Compile Include="Com\WeiXinMsgCatchServer.cs" />
+		<Compile Include="Inspect\Component\IEFormInspectComponent.cs" />
+		<Compile Include="Inspect\Component\JavaFormInspectComponent.cs" />
+		<Compile Include="Inspect\Component\JavaPathComponent.cs" />
+		<Compile Include="Inspect\Component\PlaywrightInspectComponent.cs" />
+		<Compile Include="Inspect\Component\WinFormInspectComponent.cs" />
+		<Compile Include="Inspect\Component\WinPathComponent.cs" />
+		<Compile Include="Inspect\DTO\CatchRequest.cs" />
+		<Compile Include="Inspect\Entity\Element.cs" />
+		<Compile Include="Inspect\Entity\ElementPlaywright.cs" />
+		<Compile Include="Inspect\Entity\ElementMSAA.cs" />
+		<Compile Include="Inspect\Entity\ElementVcOcr.cs" />
+		<Compile Include="Inspect\Entity\LightProperty.cs" />
+		<Compile Include="Inspect\Entity\ElementUIA.cs" />
+		<Compile Include="Inspect\Entity\ElementNode.cs" />
+		<Compile Include="Inspect\Entity\ElementJAB.cs" />
+		<Compile Include="Inspect\Entity\InspectChatStart.cs">
+		  <SubType>Form</SubType>
+		</Compile>
+		<Compile Include="Inspect\Entity\InspectChatStart.Designer.cs" />
+		<Compile Include="Inspect\Entity\InspectChat.cs">
+		  <SubType>Form</SubType>
+		</Compile>
+		<Compile Include="Inspect\Entity\InspectChat.Designer.cs" />
+		<Compile Include="Inspect\Entity\ProcessInfo.cs" />
+		<Compile Include="Inspect\Entity\ElementPath.cs" />
+		<Compile Include="Inspect\Helper\InspectHelper.cs" />
+		<Compile Include="Inspect\Helper\PrintComponent.cs" />
+		<Compile Include="Inspect\InspectComponent.cs" />
+		<Compile Include="Inspect\InspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\IEFormInspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\JavaFormInspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\PlaywrightInspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\VcOcrInspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\WinInspectComponentSystem.cs" />
+		<Compile Include="Inspect\System\JavaPathComponentSystem.cs" />
+		<Compile Include="Inspect\System\WinPathComponentSystem.cs" />
+		<Compile Include="Parser\DTO\ChildsElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\ParentElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\GenerateCosineSimilarActionRequest.cs" />
+		<Compile Include="Parser\DTO\GenerateExcelDataActionRequest.cs" />
+		<Compile Include="Parser\DTO\Playwright\GenerateHtmlActionRequest.cs" />
+		<Compile Include="Parser\DTO\GenerateTableActionRequest.cs" />
+		<Compile Include="Parser\DTO\Playwright\HighlightActionRequest.cs" />
+		<Compile Include="Parser\DTO\Playwright\OpenBrowserActionequest.cs" />
+		<Compile Include="Parser\DTO\RequestBase.cs" />
+		<Compile Include="Parser\DTO\CosineSimilarElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\SimilarElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\ElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\ElementPropertyActionRequest.cs" />
+		<Compile Include="Parser\DTO\ElementVerificationActionRequest.cs" />
+		<Compile Include="Parser\DTO\GenerateSimilarElementActionRequest.cs" />
+		<Compile Include="Parser\DTO\StartMsgActionRequest.cs" />
+		<Compile Include="Parser\DTO\InputActionRequest.cs" />
+		<Compile Include="Parser\DTO\MouseActionRequest.cs" />
+		<Compile Include="Parser\DTO\WaitElementActionRequest.cs" />
+		<Compile Include="Parser\Entity\Msg.cs" />
+		<Compile Include="Parser\Entity\RequestType.cs" />
+		<Compile Include="Parser\Entity\ResponseExtensions.cs" />
+		<Compile Include="Component\DataBaseComponent.cs" />
+		<Compile Include="Parser\Exception\NotFindException.cs" />
+		<Compile Include="Parser\ParserComponentSystem.cs" />
+		<Compile Include="Parser\ParserComponent.cs" />
+		<Compile Include="Inspect\System\CatchElementSystem.cs" />
+		<Compile Include="Parser\System\Avigation\Avigation.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_CvOcr.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_Msaa.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_Runtime.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_ConsineSimilarity.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_Similarity.cs" />
+		<Compile Include="Parser\System\ChildsElementActionSystem.cs" />
+		<Compile Include="Parser\System\GenerateCosineSimilarActionSystem.cs" />
+		<Compile Include="Parser\System\CosineSimilarElementActionSystem.cs" />
+		<Compile Include="Parser\System\GenerateExcelDataActionSytem.cs" />
+		<Compile Include="Parser\System\GenerateHtmlActionSystem.cs" />
+		<Compile Include="Parser\System\GenerateTableActionSystem.cs" />
+		<Compile Include="Parser\System\HighlightActionSystem.cs" />
+		<Compile Include="Parser\System\OpenBrowserActionSystem.cs" />
+		<Compile Include="Parser\System\ParentElementActionSystem.cs" />
+		<Compile Include="Parser\System\SimilarElementActionSystem.cs" />
+		<Compile Include="Parser\System\ElementPropertyActionSystem.cs" />
+		<Compile Include="Parser\System\GenerateSimilarElementActionSystem.cs" />
+		<Compile Include="Parser\System\StartMsgActionSystem.cs" />
+		<Compile Include="Parser\System\ElementActionSystem.cs" />
+		<Compile Include="Parser\System\Avigation\ElementNodeSystem.cs" />
+		<Compile Include="Parser\System\ElementVerificationActionSystem.cs" />
+		<Compile Include="Parser\System\InputActionSystem.cs" />
+		<Compile Include="Parser\System\MouseActionSystem.cs" />
+		<Compile Include="Parser\System\Avigation\Java\ElementNodeAvigationSystem_Java.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem_Edit.cs" />
+		<Compile Include="Parser\System\Avigation\Win\ElementNodeAvigationSystem.cs" />
+		<Compile Include="RequestManager.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		<PackageReference Include="Interop.UIAutomationClient" Version="10.19041.0" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
+		<PackageReference Include="Microsoft.Playwright" Version="1.31.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NPOI" Version="2.6.0" />
+		<PackageReference Include="OpenCvSharp3-AnyCPU" Version="4.0.0.20181129" />
+		<PackageReference Include="SimMetrics.Net" Version="1.0.5" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="MSHTML">
+		  <HintPath>..\..\EL.Bin\2.EL.Common.DLL\MSHTML.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Forms">
+		  <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Windows.Forms.dll</HintPath>
+		</Reference>
+		<Reference Include="WindowsAccessBridgeInterop">
+		  <HintPath>..\..\EL.Bin\2.EL.Common.DLL\WindowsAccessBridgeInterop.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Parser\Component\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\EL.Basic\EL.Basic.Component\EL.Basic.Component.csproj" />
+	  <ProjectReference Include="..\..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+	  <ProjectReference Include="..\..\EL.Basic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+	  <ProjectReference Include="..\EL.JavaBridge.Installer\EL.JavaBridge.Installer.csproj" />
+	</ItemGroup>
+
+</Project>

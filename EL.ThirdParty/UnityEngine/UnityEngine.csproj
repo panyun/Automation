@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+		<TargetFrameworks>net48;net60;net47;</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>10.0</LangVersion>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<BaseOutputPath>..\..\EL.Bin\UnityEngine</BaseOutputPath>
+		<BaseIntermediateOutputPath>..\..\EL.Bin\UnityEngine</BaseIntermediateOutputPath>
+		<Configurations>Debug;Release;tt</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='tt'">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+syntax = "proto3";
+package Example.Protos.Map;
+
+import "OuterMessage.proto";
+
+option go_package = "./pb/map";
+
+//怪物刷新 --首次加载的时候会全部加载玩家怪物
+message P2C_MonsterAdd //IActorMessage
+{
+	int32 RpcId = 90;
+	
+	repeated Formation Formations = 1;
+}
+//怪物过时移除
+message P2C_MonsterRemove //IActorMessage
+{
+	int32 RpcId = 90;
+	repeated int64 FormationIds = 1;
+}
+
+message Formation
+{
+	// 编队Id
+	int64 FormationId = 1;
+	//怪物信息
+	FormationMonster FormationMonster = 2;
+	//编队名称 怪物取配置
+	string Name = 3; 
+	//编队在场景的位置
+	Example.Protos.Position Where = 4;
+	//舰船信息
+	repeated Ship Ships = 5;
+}
+message FormationMonster
+{
+	int32 FormationConfigId = 1;
+	int32 MonsterConfigId = 2;
+}                      
+message Ship
+{
+	//舰船DNA信息
+	string DNA = 50;
+	//舰船数据id
+	int64 ShipId = 1; 
+	//武器系统
+	repeated Example.Protos.Equip Equips = 6;
+}

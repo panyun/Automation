@@ -1,0 +1,129 @@
+syntax = "proto3";
+package Example.Protos;
+
+option go_package = "./pb/base" ;
+
+// TODO: [Client <=> Realm]
+
+//ResponseType R2C_Login
+message C2R_Login // IRequest
+{
+	int32 RpcId = 90;
+
+	int64	UserId	 = 1;	// 账号唯一id	
+	int32       Type = 2; //客服端类型
+}
+
+message R2C_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string Address = 1;
+	int32 Port = 2;
+	int64 UserId = 3;
+	int64 Key	   = 4;
+}
+
+// TODO: [Client <=> Gate]
+
+//ResponseType G2C_Enter
+message C2G_Enter // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Key = 1;
+}
+
+message G2C_Enter // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_Ping
+message C2G_Ping // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_Ping // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int64 Time = 1;
+}
+
+
+message G2C_Abandoned // IActorMessage
+{
+	int32 RpcId = 90;
+
+	int32 Code = 1;
+	string Reason = 2;
+}
+
+message C2G_MsgAgent // IAgentRequest
+{
+	int32 RpcId = 90;
+	string Content = 1;
+	int64 TargetUserId = 2;
+      int64 SelfUserId = 3;
+}
+message G2C_MsgAgent // IAgentResponse
+{
+	int32 RpcId = 90;
+	string Content = 1;
+	int64 TargetUserId = 2;
+      int64 SelfUserId = 3;
+}
+message C2G_FileAgent // IAgentMessage
+{
+	int32 RpcId = 90;
+	string Content = 1;
+	int64 TargetUserId = 2;
+      int64 SelfUserId = 3;
+}
+message G2C_FileAgent // IAgentMessage
+{
+	int32 RpcId = 90;
+	string Content = 1;
+	int64 TargetUserId = 2;
+      int64 SelfUserId = 3;
+}
+message G2C_OnLine // IMessage
+{
+	int32 RpcId = 90;
+
+	int64 UserId = 1;
+      string ClientType = 2;
+}
+message G2C_OffLine // IMessage
+{
+	int32 RpcId = 90;
+
+	int64 UserId = 1;
+      string ClientType = 2;
+}
+
+//ResponseType M2C_TestRobotCase
+message C2M_TestRobotCase // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 N = 1;
+}
+
+message M2C_TestRobotCase // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 N = 1;
+}
+
+

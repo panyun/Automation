@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48;net47;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<EnableComHosting>true</EnableComHosting>
+		<EnableRegFreeCom>true</EnableRegFreeCom>
+		<LangVersion>10.0</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<BaseOutputPath>..\..\EL.Bin\EL.JavaBridge.Installer</BaseOutputPath>
+		<Configurations>Debug;Release;</Configurations>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Include="Program.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="System.Activities" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="BridgeLib\access-bridge-32.jar">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\access-bridge-64.jar">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\access-bridge.jar">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\accessibility.properties">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\COPYRIGHT">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\jabswitch.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\jabswitch32\jabswitch.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\jaccess.jar">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaAccessBridge-32.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaAccessBridge-64.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaAccessBridge.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaFerret-32.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaFerret-64.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaFerret.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaMonkey-32.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaMonkey-64.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JavaMonkey.exe">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JAWTAccessBridge-32.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JAWTAccessBridge-64.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\JAWTAccessBridge.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\LICENSE.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\README.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\THIRDPARTYLICENSEREADME.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\WindowsAccessBridge-32.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\WindowsAccessBridge-64.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="BridgeLib\WindowsAccessBridge.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

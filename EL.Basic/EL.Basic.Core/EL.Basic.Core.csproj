@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>net48;net6.0-windows;net47;</TargetFrameworks>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <!--<Nullable>enable</Nullable>-->
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <LangVersion>10.0</LangVersion>
+	  <Platforms>AnyCPU;x86;x64</Platforms>
+	  <BaseOutputPath>..\..\EL.Bin\EL.Basic.Core</BaseOutputPath>
+	  <BaseIntermediateOutputPath>..\..\EL.Bin\EL.Basic.Core</BaseIntermediateOutputPath>
+	  <Configurations>Debug;Release;tt</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="MongoDB.Bson" Version="2.13.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.1\System.Windows.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Config\AutomationConfig.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dll1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

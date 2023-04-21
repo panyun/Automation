@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<BaseOutputPath>..\..\..\..\EL.Bin\MsgBin</BaseOutputPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<NoWin32Manifest>true</NoWin32Manifest>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\..\..\EL.Bin\MsgBin</OutputPath>
+		<DefineConstants>TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>..\..\..\..\EL.Bin\MsgBin</OutputPath>
+		<DefineConstants>TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RPCBus.Server.Hotfix\RPCBus.Server.Hotfix.csproj" />
+	  <ProjectReference Include="..\RPCBus.Server.Model\RPCBus.Server.Model.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="NLog.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="NLog.xsd">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Template.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

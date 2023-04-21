@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "EL.DeepLearning": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\Administrator\\Desktop\\net47\\EL.CollectWebPages.exe",
+      "remoteDebugEnabled": false
+    }
+  }
+}

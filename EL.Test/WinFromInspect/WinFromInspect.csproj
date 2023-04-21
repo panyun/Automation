@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net47;</TargetFrameworks>
+		<!--<TargetFrameworks>net6.0-windows;net47;net48;</TargetFrameworks>-->
+		<Nullable>enable</Nullable>
+		<LangVersion>10.0</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+			  <BaseOutputPath>..\..\EL.Bin\WinFromInspect</BaseOutputPath>
+			  <Configurations>Debug;Release;tt</Configurations>
+	
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|AnyCPU'">
+		<OutputPath>bin\Debug\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|x86'">
+		<OutputPath>bin\Debug\x86\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|x64'">
+		<OutputPath>bin\Debug\x64\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+		<ItemGroup>
+		  <None Remove="SQLite\SQLite.db" />
+		</ItemGroup>
+		<ItemGroup>
+		  <Content Include="SQLite\SQLite.db">
+		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  </Content>
+		</ItemGroup>
+		<ItemGroup>
+		  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		  <PackageReference Include="Interop.UIAutomationClient" Version="10.19041.0" />
+		  <PackageReference Include="IronPython" Version="3.4.0" />
+		  <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
+		  <PackageReference Include="OpenCvSharp4Extern" Version="1.0.0" />
+		</ItemGroup>
+		<ItemGroup>
+		  <ProjectReference Include="..\..\EL.Automation\EL.Automation\EL.Automation.csproj" />
+		  <ProjectReference Include="..\..\EL.Basic\EL.Basic.Component\EL.Basic.Component.csproj" />
+		  <ProjectReference Include="..\..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+		  <ProjectReference Include="..\..\EL.Basic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+		</ItemGroup>
+		<ItemGroup>
+		  <Reference Include="Interop.SHDocVw">
+		    <HintPath>..\..\EL.Bin\Common\Interop.SHDocVw.dll</HintPath>
+		  </Reference>
+		  <Reference Include="MSHTML">
+		    <HintPath>..\..\EL.Bin\Common\MSHTML.dll</HintPath>
+		  </Reference>
+		</ItemGroup>
+		<ItemGroup>
+		  <Compile Update="InspectWinXinMsg_form.cs">
+		    <SubType>Form</SubType>
+		  </Compile>
+		  <Compile Update="OverlayRobotForm.cs">
+		    <SubType>Form</SubType>
+		  </Compile>
+		  <Compile Update="Properties\Resources.Designer.cs">
+		    <DesignTime>True</DesignTime>
+		    <AutoGen>True</AutoGen>
+		    <DependentUpon>Resources.resx</DependentUpon>
+		  </Compile>
+		  <Compile Update="Properties\Settings.Designer.cs">
+		    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+		    <AutoGen>True</AutoGen>
+		    <DependentUpon>Settings.settings</DependentUpon>
+		  </Compile>
+		</ItemGroup>
+		<ItemGroup>
+		  <EmbeddedResource Update="Properties\Resources.resx">
+		    <Generator>ResXFileCodeGenerator</Generator>
+		    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		  </EmbeddedResource>
+		</ItemGroup>
+		<ItemGroup>
+		  <None Update="App.config">
+		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  </None>
+		  <None Update="demo.py">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  </None>
+		  <None Update="Properties\Settings.settings">
+		    <Generator>SettingsSingleFileGenerator</Generator>
+		    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		  </None>
+		</ItemGroup>
+
+</Project>

@@ -1,0 +1,350 @@
+syntax = "proto3";
+package Example.Protos;
+
+option go_package = "./pb" ;
+
+// TODO: [Client <=> Realm]
+
+//ResponseType R2C_Login
+message C2R_Login // IRequest
+{
+	int32 RpcId = 90;
+
+	string	Account	 = 1;	// 帐号
+	string	Password = 2;	// 密码
+}
+
+message R2C_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string Address = 1;
+	int32 Port = 2;
+	int64 PlayerId = 3;
+	int64 Key	   = 4;
+}
+
+// TODO: [Client <=> Gate]
+
+//ResponseType G2C_Enter
+message C2G_Enter // IRequest
+{
+	int32 RpcId = 90;
+
+	int64 Key = 1;
+}
+
+message G2C_Enter // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_Ping
+message C2G_Ping // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message G2C_Ping // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int64 Time = 1;
+}
+
+
+message G2C_Abandoned // IActorMessage
+{
+	int32 RpcId = 90;
+
+	int32 Code = 1;
+	string Reason = 2;
+}
+
+message P2C_CreatePlayer // IActorMessage
+{
+	int32 RpcId = 90;
+	
+	RoleInfo RoleInfo = 1;
+	repeated Formation Formations = 2;
+	repeated Ship Ships = 3;//舰船信息
+}
+
+//ResponseType P2C_TestActor
+message C2P_TestActor // IActorRequest
+{
+	int32 RpcId = 90;
+
+	string Data = 1;
+}
+
+message P2C_TestActor // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+// 创建编队
+//ResponseType P2C_FormationCreate
+message C2P_FormationCreate // IActorRequest
+{
+	int32 RpcId = 90;
+
+	//编队名称
+	string Name = 1;
+	//舰船列表
+	repeated int64 ShipIds = 2;
+}
+
+message P2C_FormationCreate // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	// 编队id
+	int64 FormationId = 1;
+}
+
+//向编队中添加舰船
+//ResponseType P2C_FormationAddShip
+message C2P_FormationAddShip // IActorRequest
+{
+	int32 RpcId = 90;
+
+	// 编队id
+	int64 FormationId = 1;
+	//舰传id列表
+	repeated int64 ShipIds = 2;
+}
+
+message P2C_FormationAddShip // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//从编队中移除舰船
+//ResponseType P2C_FormationRemoveShip
+message C2P_FormationRemoveShip // IActorRequest
+{
+	int32 RpcId = 90;
+
+	// 编队id
+	int64 FormationId = 1;
+	//舰传id列表
+	repeated int64 ShipIds = 2;
+}
+
+message P2C_FormationRemoveShip // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//解散编队
+//ResponseType P2C_FormationDisband
+message C2P_FormationDisband // IActorRequest
+{
+	int32 RpcId = 90;
+
+	// 编队id
+	int64 FormationId = 1;
+}
+
+message P2C_FormationDisband // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//编队改名(最好不要支持)
+//ResponseType P2C_FormationRename
+message C2P_FormationRename // IActorRequest
+{
+	int32 RpcId = 90;
+
+	// 编队id
+	int64 FormationId = 1;
+	string Name = 2;
+}
+
+message P2C_FormationRename // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 获得编队日记，编队日记保存三个月
+//ResponseType P2C_FormationGetEventLog
+message C2P_FormationGetEventLog // IActorRequest
+{
+	int32 RpcId = 90;
+
+	int64 FormationId = 1; 
+	int64 Time = 2;
+}
+
+message P2C_FormationGetEventLog //IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated EventLog Logs = 1;
+}
+//推送最新事件日记
+message P2C_FormationGetNewEventLog // IActorMessage
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	EventLog Logs = 1;
+}
+//获取怪物列表和信息
+//ResponseType P2C_MonsterGets
+message C2P_MonsterGets // IActorRequest
+{
+	int32 RpcId = 90;
+}
+
+message P2C_MonsterGets // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated Monster Monsters = 1;
+}
+
+message RoleInfo
+{
+	int64 PlayerId  = 1;
+	string Nickname = 2;
+  	// 等级
+	int32 Level = 3;
+	// 星系
+	int64 Galaxias = 4;
+	// 繁荣度
+	int64 Prosperity = 5;
+	// 暗晶
+	int64 DarkCrystal = 6;
+	// 金属
+	int64 Metal = 7;
+	// 水晶
+	int64 CrystalMine = 8;
+	// 重氢
+	int64 Hydrogen = 9;
+	// 电子货币
+	int64 ElectronicMoney = 10;
+	
+}
+// 格子
+message Tile
+{
+	int32 X = 1;
+	int32 Y = 2;
+}
+
+// 位置
+message Position
+{
+	// 所在星系
+	int32 Galaxy = 1;
+	// 格子坐标
+	Tile Tile = 2;
+}
+
+//编队
+message Formation
+{
+	// 编队Id
+	int64 FormationId = 1;
+	//编队名称
+	string Name = 2; 
+	//编队状态 1.探索 2.战斗 3.基地待命
+    int32 State = 3;
+	// 编队在场景的位置
+	Position Where = 4;
+	//舰船信息
+	repeated Ship Ships = 5;
+}
+//舰船信息
+message Ship
+{
+	 //舰船DNA信息
+	string DNA = 50;
+	//舰船数据id
+	int64 ShipId = 1; 
+	//是否维修中 
+	bool IsRepairing = 2;
+	//预计修复完成时间
+	int32 CostTime = 3;
+	//是否摧毁，被摧毁的舰船是不能上场战斗。
+	bool IsDestroy = 4;
+	//舰船当前血量
+	int64  Hp = 5;
+    //武器系统
+	repeated Equip Equips = 6;
+}
+//装备
+message Equip
+{
+	//舰船DNA信息
+ 	string DNA = 50;
+	//装备id
+  	int64 EquipId = 1;
+
+}
+//日记
+message EventLog
+{
+	//消息配置id
+  	int32 ConfigId = 51;
+	int64 	Time = 1; 
+    //参数数组
+	repeated string Params = 2;
+}
+//怪兽
+message Monster
+{
+	//怪兽Id
+	int64 MonsterId = 1;
+	//怪兽配置信息
+	int32 ConfigId = 2;
+	//怪兽对应的舰队
+	MonsterFormation MonsterFormation = 3;
+}
+//怪兽编队
+message MonsterFormation
+{
+  	// 编队Id
+	int64 MonsterFormationId = 1;
+	//编队配置Id
+	int32 ConfigId = 2;
+	//编队舰船信息
+	repeated MonsterShip Ships = 3;
+}
+//怪兽舰船
+message MonsterShip
+{
+	//舰船DNA信息
+	string DNA = 50;
+	//配置id
+	int32 ConfigId = 1;
+	//舰船数据id
+	int64 ShipId = 2; 
+	//舰船当前血量
+	int64  Hp = 3;
+}

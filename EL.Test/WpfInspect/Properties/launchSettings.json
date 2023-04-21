@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WpfInspect": {
+      "commandName": "Project",
+      "commandLineArgs": "window",
+      "nativeDebugging": false
+    }
+  }
+}

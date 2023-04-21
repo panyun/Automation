@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WinFromInspect": {
+      "commandName": "Project",
+      "commandLineArgs": "window",
+      "nativeDebugging": true
+    }
+  }
+}

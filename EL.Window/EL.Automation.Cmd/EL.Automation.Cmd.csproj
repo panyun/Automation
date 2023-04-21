@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFrameworks>net6.0-windows;net47;net48;</TargetFrameworks>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <!--<Nullable>enable</Nullable>-->
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <LangVersion>10.0</LangVersion>
+	  <Platforms>AnyCPU;x86;x64</Platforms>
+	  <Configurations>Debug;Release;tt</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EL.Automation\EL.Automation\EL.Automation.csproj" />
+    <ProjectReference Include="..\..\EL.Basic\EL.Basic.Component\EL.Basic.Component.csproj" />
+    <ProjectReference Include="..\..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+    <ProjectReference Include="..\..\EL.Basic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.Windows.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

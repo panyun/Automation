@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net47;</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<LangVersion>10.0</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Configurations>Debug;Release;tt</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <COMReference Include="UIA">
+	    <WrapperTool>tlbimp</WrapperTool>
+	    <VersionMinor>0</VersionMinor>
+	    <VersionMajor>1</VersionMajor>
+	    <Guid>930299ce-9965-4dec-b0f4-a54848d4b667</Guid>
+	    <Lcid>0</Lcid>
+	    <Isolated>false</Isolated>
+	    <EmbedInteropTypes>true</EmbedInteropTypes>
+	  </COMReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
+	  <PackageReference Include="Microsoft.Playwright" Version="1.31.1" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="NPOI" Version="2.6.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\EL.Automation\EL.Automation\EL.Automation.csproj" />
+		<ProjectReference Include="..\..\EL.Basic\EL.Basic.Component\EL.Basic.Component.csproj" />
+		<ProjectReference Include="..\..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+		<ProjectReference Include="..\..\EL.Basic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="UIAutomationClient">
+	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\UIAutomationClient.dll</HintPath>
+	  </Reference>
+	  <Reference Include="WindowsAccessBridgeInterop">
+	    <HintPath>..\..\EL.Bin\2.EL.Common.DLL\WindowsAccessBridgeInterop.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Form2.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="e_sqlite3.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	  <None Update="TaskList\urltasks.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="urltasks.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="清单.xlsx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+</Project>

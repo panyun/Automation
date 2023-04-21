@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RPCBus.Server.App": {
+      "commandName": "Project",
+      "commandLineArgs": "--AppType 0 --Process 1 --Develop 1 --LogLevel 2 --Console 0 --CreateScenes 1"
+    }
+  }
+}

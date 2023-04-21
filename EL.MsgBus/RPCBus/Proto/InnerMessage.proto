@@ -1,0 +1,133 @@
+syntax = "proto3";
+package Example.Protos;
+
+option go_package = "./pb/base" ;
+
+// TODO: [Realm <=> Gate]
+
+//ResponseType G2R_GetLoginKey
+message R2G_GetLoginKey // IActorRequest
+{
+    int32 RpcId = 90;
+    //int64 ActorId = 93;
+
+    int64 UserId = 1;    
+    string Nickname = 2;
+    string SessionId = 3;
+    int32       ClientType = 4; //客服端类型
+}
+
+message G2R_GetLoginKey // IActorResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 Key = 1;
+}
+
+// TODO: [Gate <=> Player]
+
+//ResponseType P2G_Enter
+message G2P_Enter // IActorRequest
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1;
+    string Nickname = 2;
+    string SessionId = 3;
+    int64 ClientActorId = 4;
+    int32       ClientType = 5; //客服端类型
+}
+
+message P2G_Enter // IActorResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 PlayerActorId = 1;
+}
+
+message G2P_Leave // IActorMessage
+{
+    int32 RpcId = 90;
+
+    string SessionId = 1;
+}
+
+//ResponseType DisconnectResponse
+message DisconnectRequest // IActorRequest
+{
+    int32 RpcId = 90;
+
+    int32 Code = 1;
+    int32 Delay = 2;
+    string Reason = 3;
+}
+
+message DisconnectResponse // IActorResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+message RemoveNotification // IActorNotification
+{
+    int32 RpcId = 90;
+    int64 NotificationId = 93;
+
+    int64 Receiver = 1;
+}
+
+message FungibleToken
+{
+    string ItemId = 1;
+    int64 ConfigId = 2;
+}
+
+
+message FTObjectAdd // IActorNotification
+{
+    int32 RpcId = 90;
+    int64 NotificationId = 93;
+
+    int64 Receiver = 1;
+    FungibleToken Value = 2;
+}
+//ResponseType MsgAgentResponse 
+message MsgAgentRequest // IActorRequest
+{
+	int32 RpcId = 90;
+	string Content = 1;
+      int64 UserId = 2;
+}
+message MsgAgentResponse // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+     
+	string Content = 1;
+       int64 UserId = 2;
+}
+
+message LogWrite // IActorMessage
+{
+    int32 RpcId = 90;
+
+    int64 UserId = 1; //玩家id
+    int64 Date = 2;  //动作发生的时间
+    int64 ProcessId = 3; //进程id
+    int64 SceneId = 4;
+    string SceneType = 5;
+    string KeyWorld = 6;
+    string Component = 7;
+    repeated DBLog DBLogs = 8; //详细项
+}
+message DBLog
+{
+    string Tag = 1;
+    string Msg = 2;
+}

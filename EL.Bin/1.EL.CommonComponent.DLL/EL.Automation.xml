@@ -1,0 +1,1020 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EL.Automation</name>
+    </assembly>
+    <members>
+        <member name="T:Automation.Com.CaptureInfoResponse">
+            <summary>
+            截图信息返回结果
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.TitleName">
+            <summary>
+            窗口标题
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.X">
+            <summary>
+            对应的x坐标
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.Y">
+            <summary>
+            对应的y坐标
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.FileName">
+            <summary>
+            截图路径
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.ProcessId">
+            <summary>
+            流程id
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.ClassName">
+            <summary>
+            节点对应的类名
+            </summary>
+        </member>
+        <member name="P:Automation.Com.CaptureInfoResponse.CurrIntptr">
+            <summary>
+            节点对应的当前窗口
+            </summary>
+        </member>
+        <member name="M:Automation.Com.CaptureServerHelper.CaptureSave(System.Drawing.Bitmap,System.String)">
+            <summary>
+            保存截图文件
+            </summary>
+            <param name="bitmap">截图文件流</param>
+            <param name="fileName">文件信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.CaptureServerHelper.MostTop(Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            程序置顶
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:Automation.Com.CaptureServerHelper.FindWindow(System.String,System.String)">
+            <summary>
+            通过titleName和className查找窗口
+            </summary>
+            <param name="titleName">窗口Name</param>
+            <param name="className">窗口对应的className</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Com.InspectCaptureExServer">
+            <summary>
+            桌面句柄截图
+            </summary>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.GetCaptureInfo">
+            <summary>
+            通过鼠标函数截图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.GetCaptureInfo(System.Int32,System.Int32)">
+            <summary>
+            通过坐标 xy查找element并截图
+            </summary>
+            <param name="x">鼠标对应的x坐标</param>
+            <param name="y">鼠标对应的y坐标</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.GetCaptureInfo(System.String,System.String)">
+            <summary>
+            通过名称和className查找节点并截图
+            </summary>
+            <param name="titleName">窗口名称</param>
+            <param name="className">窗口对应的Class名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.SetCapturePath(System.String)">
+            <summary>
+            设置截图文件夹路径
+            </summary>
+            <param name="path">截图文件夹的相对路径../ 或 cap</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureExServer.SetLogPath(System.String)">
+            <summary>
+            设置日记文件夹路径
+            </summary>
+            <param name="path">日记文件夹的相对路径../log 或 log</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Com.InspectCaptureServer">
+            <summary>
+            窗口句柄截图
+            </summary>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureServer.GetCaptureInfo">
+            <summary>
+            通过鼠标函数截图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureServer.GetCaptureInfo(System.Int32,System.Int32)">
+            <summary>
+            通过坐标 xy查找element并截图
+            </summary>
+            <param name="x">鼠标对应的x坐标</param>
+            <param name="y">鼠标对应的y坐标</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureServer.GetCaptureInfo(System.String,System.String)">
+            <summary>
+            通过名称和className查找节点并截图
+            </summary>
+            <param name="titleName">窗口名称</param>
+            <param name="className">窗口对应的Class名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureServer.SetCapturePath(System.String)">
+            <summary>
+            设置截图文件夹路径
+            </summary>
+            <param name="path">截图文件夹的相对路径../ 或 cap</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Com.InspectCaptureServer.SetLogPath(System.String)">
+            <summary>
+            设置日记文件夹路径
+            </summary>
+            <param name="path">日记文件夹的相对路径../log 或 log</param>
+            <returns></returns>
+        </member>
+        <member name="P:Automation.Inspect.JavaPathComponent.ElementNodes">
+            <summary>
+            查询的节点集合
+            </summary>
+        </member>
+        <member name="T:Automation.Inspect.WinFormInspectComponent">
+            <summary>
+            展示空间树
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.WinFormInspectComponent.ElementPaths">
+            <summary>
+            缓存节点
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.WinFormInspectComponent.RootElement">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.WinFormInspectComponent.UIAFactory">
+            <summary>
+            UIA 对象
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.WinFormInspectComponent.ControlViewWalker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.WinPathComponent.ElementNodes">
+            <summary>
+            查询的节点集合
+            </summary>
+        </member>
+        <member name="F:Automation.Inspect.CatchType.Element">
+            <summary>
+            普通节点
+            </summary>
+        </member>
+        <member name="F:Automation.Inspect.CatchType.Window">
+            <summary>
+            窗口
+            </summary>
+        </member>
+        <member name="F:Automation.Inspect.CatchType.WxChat">
+            <summary>
+            微信窗口
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.CatchUIRequest.Msg">
+            <summary>
+            界面探测器打开时显示信息
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.CatchUIRequest.Mode">
+            <summary>
+            捕获模式
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.CatchUIRequest.CatchType">
+            <summary>
+            捕获类型
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementVcOcr.MatchImg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.LightProperty.IsLight">
+            <summary>
+            是否高亮显示
+            </summary>
+        </member>
+        <member name="T:Automation.Inspect.ElementUIA">
+            <summary>
+            节点信息
+            </summary>
+        </member>
+        <member name="M:Automation.Inspect.ElementUIA.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:Automation.Inspect.ElementUIA.#ctor(Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="self"></param>
+        </member>
+        <member name="T:Automation.Inspect.ElementNode">
+            <summary>
+            节点树
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementNode.CompareValues">
+            <summary>
+            匹配值
+            </summary>
+        </member>
+        <member name="F:Automation.Inspect.InspectChatStart.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Automation.Inspect.InspectChatStart.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Automation.Inspect.InspectChatStart.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Automation.Inspect.InspectChat.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Automation.Inspect.InspectChat.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Automation.Inspect.InspectChat.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.MainWindowTitle">
+            <summary>
+            进程对应的mainwindowTtile
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.BoundingRectangle">
+            <summary>
+            节点矩形
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.Width">
+            <summary>
+            width
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.Height">
+            <summary>
+            height
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.Name">
+            <summary>
+            节点名称
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.ControlType">
+            <summary>
+            节点类型
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.Path">
+            <summary>
+            节点路径
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.ElementEditNodes">
+            <summary>
+            路径编辑信息
+            </summary>
+        </member>
+        <member name="P:Automation.Inspect.ElementPath.CosineValue">
+            <summary>
+            余弦相似度
+            </summary>
+        </member>
+        <member name="T:Automation.Inspect.InspectComponent">
+            <summary>
+            探测器组件
+            </summary>
+        </member>
+        <member name="T:Automation.Inspect.InspectComponentAwake">
+            <summary>
+            界面探测器入口
+            </summary>
+        </member>
+        <member name="M:Automation.Inspect.IEFormInspectComponentSystem.IsIE(Automation.Inspect.IEInspectComponent)">
+            <summary>
+            是否是IE判断
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.IEFormInspectComponentSystem.GetXPath(Automation.Inspect.IEInspectComponent,MSHTML.IHTMLElement)">
+            <summary>
+            获取Xpath路径
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.IEFormInspectComponentSystem.GetCap(Automation.Inspect.IEInspectComponent,MSHTML.IHTMLElement)">
+            <summary>
+            获取截图
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaFormInspectComponentSystem.LoadChildren(Automation.Inspect.JavaFormInspectComponent,WindowsAccessBridgeInterop.AccessibleNode)">
+            <summary>
+            根据节点获取下一级目录
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaFormInspectComponentSystem.GetParent(Automation.Inspect.JavaFormInspectComponent,WindowsAccessBridgeInterop.AccessibleNode)">
+            <summary>
+            获取父节点
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaFormInspectComponentSystem.GetAllParentNode(Automation.Inspect.JavaFormInspectComponent,WindowsAccessBridgeInterop.AccessibleNode)">
+            <summary>
+            获取所有的父节点
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaFormInspectComponentSystem.FindIndex(Automation.Inspect.JavaFormInspectComponent,WindowsAccessBridgeInterop.AccessibleNode)">
+            <summary>
+            获取同级元素的下标
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.VcOcrInspectComponentSystem.BitmapToByte(System.Drawing.Bitmap)">
+            <summary>
+            将BitMap转换成bytes数组
+            </summary>
+            <param name="bitmap">要转换的图像</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.VcOcrInspectComponentSystem.PreprocessText(Automation.Inspect.VcOcrInspectComponent,OpenCvSharp.Mat)">
+            <summary>
+            文本处理
+            </summary>
+            <param name="self"></param>
+            <param name="src"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.VcOcrInspectComponentSystem.PreprocessButtion(Automation.Inspect.VcOcrInspectComponent,OpenCvSharp.Mat)">
+            <summary>
+            文本处理
+            </summary>
+            <param name="self"></param>
+            <param name="src"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetProcessInfo(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            获取流程信息
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.ElementFromPoint(Automation.Inspect.WinFormInspectComponent)">
+            <summary>
+            根据x,y获取坐标点
+            </summary>
+            <param name="self"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.ElementFromWindow(Automation.Inspect.WinFormInspectComponent)">
+            <summary>
+            获取应用桌面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.WindowFromPoint(Automation.Inspect.WinFormInspectComponent)">
+            <summary>
+            根据x,y获取坐标点
+            </summary>
+            <param name="self"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.ElementFromHandle(Automation.Inspect.WinFormInspectComponent,System.IntPtr)">
+            <summary>
+            根据x,y获取坐标点
+            </summary>
+            <param name="self"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetParent(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            获取父节点
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetAllParentNode(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            获取所有的父节点
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.FindIndex(Automation.Inspect.WinFormInspectComponent,Automation.Inspect.ElementUIA)">
+            <summary>
+            获取同级元素的下标
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetAllChildrenNode(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement,System.Int32)">
+            <summary>
+            获取所有的子节点
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <param name="LevelIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetNativeWindowHandle(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            查找存在句柄的窗口。
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetNativeWindowHandle(Interop.UIAutomationClient.IUIAutomationElement)">
+            <summary>
+            查找存在句柄的窗口。
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinFormInspectComponentSystem.GetMinElement(Automation.Inspect.WinFormInspectComponent,Interop.UIAutomationClient.IUIAutomationElement,System.Drawing.Point)">
+            <summary>
+            查找最小节点信息
+            </summary>
+            <param name="self"></param>
+            <param name="el"></param>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaPathComponentSystem.GetXPath(Automation.Inspect.JavaPathComponent,Automation.Inspect.ElementNode)">
+            <summary>
+            获取xpath路径
+            </summary>
+            <param name="self"></param>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.JavaPathComponentSystem.GetJson(Automation.Inspect.JavaPathComponent,Automation.Inspect.ElementNode)">
+            <summary>
+            获取node的json信息
+            </summary>
+            <param name="self"></param>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinPathComponentSystem.GetXPath(Automation.Inspect.WinPathComponent,Automation.Inspect.ElementNode)">
+            <summary>
+            获取xpath路径
+            </summary>
+            <param name="self"></param>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Inspect.WinPathComponentSystem.GetJson(Automation.Inspect.WinPathComponent,Automation.Inspect.ElementNode)">
+            <summary>
+            获取node的json信息
+            </summary>
+            <param name="self"></param>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ChildsElementActionRequest">
+            <summary>
+            父节点
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ChildsElementActionRequest.IsElementPath">
+            <summary>
+            是否返回路径信息
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ParentElementActionRequest">
+            <summary>
+            父节点
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ParentElementActionRequest.IsElementPath">
+            <summary>
+            是否返回路径信息
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.GenerateCosineSimilarActionRequest.CosineValue">
+            <summary>
+            余弦相似度值
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.GenerateCosineSimilarActionResponse.ElementPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.GenerateCosineSimilarActionResponse.Count">
+            <summary>
+            相似条数
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.RequestBase.IsAvigationPath">
+            <summary>
+            是否动态搜寻地址
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.RequestBase.TimeOut">
+            <summary>
+            时间超时
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.CosineSimilarElementActionRequest">
+            <summary>
+            节点高亮
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.SimilarElementActionRequest">
+            <summary>
+            节点高亮
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ElementActionRequest">
+            <summary>
+            节点高亮
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ElementVerificationActionRequest">
+            <summary>
+            节点验证
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ElementVerificationActionRequest.ElementEditNodes">
+            <summary>
+            修改节点
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ElementProperty.IsActive">
+            <summary>
+            是否选用此项
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ElementProperty.DefalutRuntimeId">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.GenerateSimilarElementActionResponse.Count">
+            <summary>
+            相似条数
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.MouseActionRequest.ActionType">
+            <summary>
+            事件点击、 鼠标模拟点击
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.MouseActionRequest.LocationType">
+            <summary>
+            中心、左上、左下、右上、右下
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.MouseActionRequest.ClickType">
+            <summary>
+            左键单击 中键单击 右键单击 左键双击
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.MouseActionRequest.OffsetX">
+            <summary>
+            x坐标偏差值
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.MouseActionRequest.OffsetY">
+            <summary>
+            Y坐标偏差值
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.CatchElementRequest">
+            <summary>
+            抓取节点
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.MouseActionRequest">
+            <summary>
+            目标点击
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.InputActionRequest">
+            <summary>
+            目标输入
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.ElementActionRequest">
+            <summary>
+            目标高亮
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.ElementVerificationActionRequest">
+            <summary>
+            目标验证
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.CatchElementChatRequest">
+            <summary>
+            聊天窗口探测
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.StartMsgActionRequest">
+            <summary>
+            聊天消息识别
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.UpdateElement">
+            <summary>
+            修改元素
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.GenerateSimilarElementActionRequest">
+            <summary>
+            生成相似元素请求
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.ElementPropertyActionRequest">
+            <summary>
+            节点属性获取
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.SimilarElementActionRequest">
+            <summary>
+            相似元素请求
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.GenerateCosineSimilarActionRequest">
+            <summary>
+            余弦相似度
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.CosineSimilarElementActionRequest">
+            <summary>
+            余弦相似度
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.GenerateTableActionRequest">
+            <summary>
+            捕获表格数据
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.GenerateExcelDataActionRequest">
+            <summary>
+            提取excel文件数据
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.CatchWindowRequest">
+            <summary>
+            抓取窗口
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.GenerateHtmlActionRequest">
+            <summary>
+            获取Html对象
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.HighlightActionRequest">
+            <summary>
+            PlayWright高亮
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.OpenBrowserActionRequest">
+            <summary>
+            Playwright打开浏览器
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.ChildsElementActionRequest">
+            <summary>
+            获取子节点信息
+            </summary>
+        </member>
+        <member name="F:Automation.Parser.RequestType.ParentElementActionRequest">
+            <summary>
+            获取父节点信息
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ParserComponentSystem.SetForeground(Automation.Inspect.ElementUIA)">
+            <summary>
+            Brings a window to the foreground.
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ParserComponent">
+            <summary>
+            探测器组件
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ParserComponentAwake">
+            <summary>
+            界面探测器入口
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.Avigation">
+            <summary>
+            路径导航
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.Avigation.Create(Automation.Inspect.ElementPath)">
+            <summary>
+            路径解析器入口
+            </summary>
+            <param name="elementPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeAvigationSystem_Runtime">
+            <summary>
+            定位主体方法
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem_Runtime.SearchElement(Automation.Inspect.ElementPath)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeAvigationSystem_ConsineSimilarity">
+            <summary>
+            节点编辑方法入口
+            </summary>
+        </member>
+        <member name="P:Automation.Parser.ElementNodeAvigationSystem_ConsineSimilarity.CurrentProcessIds">
+            <summary>
+            流程名称
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem_ConsineSimilarity.SearchElementTemp(Automation.Inspect.ElementNode)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem_ConsineSimilarity.SearchElement(Automation.Inspect.ElementPath)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeAvigationSystem_Similarity">
+            <summary>
+            节点编辑方法入口
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem_Similarity.SearchElement(Automation.Inspect.ElementNode)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.SimHashAnalyser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.GenerateTableActionSystem.IsTable(Automation.Inspect.ElementUIA)">
+            <summary>
+            ControlType Table
+            Role  grid
+            ClassName dataintable
+            </summary>
+            <param name="elementWin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Parser.GenerateTableActionSystem.FindTableData(Automation.Parser.GenerateTableActionRequest,Automation.Inspect.ElementUIA)">
+            <summary>
+            ControlType Table
+            Role  grid
+            ClassName dataintable
+            </summary>
+            <param name="self"></param>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.Parser.GenerateSimilarElementActionSystem.Analyse(Automation.Inspect.ElementPath,Automation.Inspect.ElementPath)">
+             <summary>
+             获取至少2个待查模板元素，通过2个待查模板元素的DOM路径，提取出路径的差异
+            点，进而定位2个待查模板元素的最小公共DOM层级，即该层DOM开始分叉相似元素，最后通
+            过差异路径点后续的相同路径，即可获取到全部的相似元素。
+             </summary>
+             <param name="basePath"></param>
+             <param name="elementPath"></param>
+             <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.IdentifyMsgActionSystem">
+            <summary>
+            聊天消息识别
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeSystem">
+            <summary>
+            定位入口
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeSystem.GenerateCompareId_Java(Automation.Inspect.ElementNode)">
+            <summary>
+            生成比较值
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeSystem.GenerateCompareId(Automation.Inspect.ElementNode)">
+            <summary>
+            生成比较值
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeSystem.EscapeDataString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeTempSystem">
+            <summary>
+            精准定位 备用
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.MouseActionSystem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.Main(Automation.Parser.MouseActionRequest)">
+            <summary>
+            
+            </summary>
+            <param name="self"></param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.JABMain(Automation.Parser.MouseActionRequest)">
+            <summary>
+            
+            </summary>
+            <param name="self"></param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.UIAMain(Automation.Parser.MouseActionRequest)">
+            <summary>
+            
+            </summary>
+            <param name="self"></param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.DoubleClick(Automation.Inspect.ElementUIA,System.Boolean)">
+            <summary>
+            Performs a double left click on the element.
+            </summary>
+            <param name="moveMouse">Flag to indicate, if the mouse should move slowly (true) or instantly (false).</param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.RightClick(Automation.Inspect.ElementUIA,System.Boolean)">
+            <summary>
+            Performs a right click on the element.
+            </summary>
+            <param name="moveMouse">Flag to indicate, if the mouse should move slowly (true) or instantly (false).</param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.RightDoubleClick(Automation.Inspect.ElementUIA,System.Boolean)">
+            <summary>
+            Performs a double right click on the element.
+            </summary>
+            <param name="moveMouse">Flag to indicate, if the mouse should move slowly (true) or instantly (false).</param>
+        </member>
+        <member name="M:Automation.Parser.MouseActionSystem.Capture(Automation.Inspect.ElementUIA)">
+            <summary>
+            Captures the object as screenshot in <see cref="T:System.Drawing.Bitmap"/> format.
+            </summary>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeAvigationSystem_Edit">
+            <summary>
+            节点编辑方法入口
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem_Edit.SearchElement(Automation.Inspect.ElementNode)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automation.Parser.ElementNodeAvigationSystem">
+            <summary>
+            定位主体方法
+            </summary>
+        </member>
+        <member name="M:Automation.Parser.ElementNodeAvigationSystem.SearchElement(Automation.Inspect.ElementNode)">
+            <summary>
+            精度搜素
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Automation.RequestOptionComponent.IsJVM">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Automation.RequestManager.Start(System.String)">
+            <summary>
+            协议入口
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Automation.RequestManager.StartAsync(System.String)">
+            <summary>
+            协议异步回调
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.RequestManager.GetRequest(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.RequestManager.StartToJsonAsync(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automation.RequestManager.StartAsync(EL.IRequest)">
+            <summary>
+            SDK异步回调
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

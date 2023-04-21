@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net6.0-windows;net47;net48;</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<LangVersion>10.0</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|AnyCPU'">
+		<OutputPath>bin\Debug\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|x86'">
+		<OutputPath>bin\Debug\x86\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+		<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|Release|net47|x64'">
+		<OutputPath>bin\Debug\x64\</OutputPath>
+		<!--编译后的文件输出目录-->
+	</PropertyGroup>
+		<ItemGroup>
+		  <Compile Remove="Form1.cs" />
+		  <Compile Remove="Form1.Designer.cs" />
+		</ItemGroup>
+		<ItemGroup>
+		  <EmbeddedResource Remove="Form1.resx" />
+		</ItemGroup>
+		<ItemGroup>
+		  <COMReference Include="UIAutomationClient">
+		    <WrapperTool>tlbimp</WrapperTool>
+		    <VersionMinor>0</VersionMinor>
+		    <VersionMajor>1</VersionMajor>
+		    <Guid>944de083-8fb8-45cf-bcb7-c477acb2f897</Guid>
+		    <Lcid>0</Lcid>
+		    <Isolated>false</Isolated>
+		    <EmbedInteropTypes>False</EmbedInteropTypes>
+		  </COMReference>
+		</ItemGroup>
+		<ItemGroup>
+		  <ProjectReference Include="..\..\ELAutomation\EL.Automation\EL.Automation.csproj" />
+		  <ProjectReference Include="..\..\ELBasic\EL.Basic.Component\EL.Basic.Component.csproj" />
+		  <ProjectReference Include="..\..\ELBasic\EL.Basic.Core\EL.Basic.Core.csproj" />
+		  <ProjectReference Include="..\..\ELBasic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+		</ItemGroup>
+		<ItemGroup>
+		  <Reference Include="Interop.SHDocVw">
+		    <HintPath>..\..\ThirdParty\Interop.SHDocVw.dll</HintPath>
+		  </Reference>
+		  <Reference Include="MSHTML">
+		    <HintPath>..\..\ThirdParty\MSHTML.dll</HintPath>
+		  </Reference>
+		</ItemGroup>
+
+</Project>

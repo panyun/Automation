@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;tt</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EL.Automation\EL.Automation\EL.Automation.csproj" />
+    <ProjectReference Include="..\EL.Basic\EL.Basic.Component\EL.Basic.Component.csproj" />
+    <ProjectReference Include="..\EL.Basic\EL.Basic.Core\EL.Basic.Core.csproj" />
+    <ProjectReference Include="..\EL.Basic\EL.Basic.FormComponent\EL.Basic.FormComponent.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFrameworks>net6.0-windows;net48;net47;</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>10.0</LangVersion>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<BaseOutputPath>..\..\EL.Bin\EL.Basic.FormComponent</BaseOutputPath>
+		<Configurations>Debug;Release;tt</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\EL.Basic.Component\EL.Basic.Component.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Interop.UIAutomationClient">
+	    <HintPath>..\..\EL.Bin\2.EL.Common.DLL\Interop.UIAutomationClient.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Overlay\OverlayMsgForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	</ItemGroup>
+
+</Project>

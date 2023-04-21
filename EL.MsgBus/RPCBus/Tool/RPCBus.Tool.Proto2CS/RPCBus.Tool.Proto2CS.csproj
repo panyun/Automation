@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>RPCBus.Tool.Proto2CS</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<NoWin32Manifest>true</NoWin32Manifest>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+		<OutputPath>../../../Bin</OutputPath>
+		<DefineConstants>TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>../../../Bin</OutputPath>
+		<DefineConstants>TRACE;TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Server\Hotfix\Server.Hotfix.csproj" />
+		<ProjectReference Include="..\..\..\Server\Model\Server.Model.csproj" />
+	</ItemGroup>
+
+</Project>

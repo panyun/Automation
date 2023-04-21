@@ -1,0 +1,55 @@
+syntax = "proto3";
+package Example.Protos.Battle;
+
+import "OuterMessage.proto";
+
+option go_package = "./pb/battle" ;
+
+// 挑战
+//ResponseType P2C_Challenge
+message C2P_Challenge // IActorRequest
+{
+	int32 RpcId = 90;
+
+	int64 FormationId = 1;
+	int64 MonsterId = 2;
+}
+
+message P2C_Challenge // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+// 获得战斗录像（重回战斗）
+//ResponseType P2C_BattleGetVideo
+message C2P_BattleGetVideo    // IActorRequest
+{
+    int32 RpcId = 90;
+
+    int64 FormationId = 1;
+}
+
+message P2C_BattleGetVideo    // IActorResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    int64 Winner = 1;
+    // 战斗总时长
+    int32 Time = 2;
+    // 战斗进行了多久(毫秒)
+    int32 ElapsedTime = 3;
+    // 当NumberOfBlocks为 1 时， 完整的数据在 Zip.Content 中， 当 NumberOfBlocks > 1 时， 后续数据在 NumberOfBlocks-1 个 ZipBlock 中。
+    int32 NumberOfBlocks = 4;
+    Example.Protos.ZipData Zip = 5;
+}
+
+// ZIp数据块(用于 Zip 数据分包)
+message ZipBlock // IActorMessage
+{
+    int32 RpcId = 90;
+    string Content = 1;
+}

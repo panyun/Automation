@@ -1,0 +1,23 @@
+syntax = "proto3";
+package Example.Protos.Stage;
+
+option go_package = "./pb/stage" ;
+
+message Item
+{
+    int32 Id = 1;
+    int32 Number = 2;
+}
+
+message Reward  // IActorMessage
+{
+    int32 RpcId = 90;
+
+    string Tag = 1;
+    repeated Item Items = 2;
+}
+
+message Ready   // IActorMessage
+{
+    int32 RpcId = 90;
+}

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<NoWin32Manifest>true</NoWin32Manifest>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>../../../Bin</OutputPath>
+		<DefineConstants>TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>../../../Bin</OutputPath>
+		<DefineConstants>TRACE2_0;SERVER;NOT_UNITY</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Server\Hotfix\Server.Hotfix.csproj" />
+	  <ProjectReference Include="..\..\..\Server\Model\Server.Model.csproj" />
+	  <ProjectReference Include="..\RPCBus.Server.Model\RPCBus.Server.Model.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Client\Handler\RobotClient\" />
+	  <Folder Include="Gate\P2P\" />
+	</ItemGroup>
+
+</Project>

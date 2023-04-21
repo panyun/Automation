@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33214.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UKeyAutomation", "UKeyAutomation.csproj", "{AA089958-C4E0-4117-AA45-2CDDD45BF536}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA089958-C4E0-4117-AA45-2CDDD45BF536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA089958-C4E0-4117-AA45-2CDDD45BF536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA089958-C4E0-4117-AA45-2CDDD45BF536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA089958-C4E0-4117-AA45-2CDDD45BF536}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2B129A1-7681-4504-861A-98847E69B1C5}
+	EndGlobalSection
+EndGlobal
