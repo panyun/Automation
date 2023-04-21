@@ -1,0 +1,175 @@
+﻿<Window x:Class="Robot.BlueWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Robot" xmlns:viewmodel="clr-namespace:Robot.ViewModel" xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen" BorderThickness="8"
+        Title="全面智能" Height="700" Width="470">
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="20" Color="#FF858484" Direction="-90" ShadowDepth="1" Opacity="0.3"/>
+    </Window.Effect>
+    <Window.Resources>
+        <ContextMenu x:Key="taskMenu">
+            <MenuItem Header="运行正常">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="异常" >
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="322"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/resources/images/blue/top.png"/>
+            </Grid.Background>
+            <Border BorderThickness="0" BorderBrush="#F3F0F3" Background="#01FFFFFF" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10">
+                <Button Style="{StaticResource Circle.Button}" Margin="5" ToolTip="最小化" Background="#4BA047"/>
+                <Button Style="{StaticResource Circle.Button}" Margin="5" Background="#F49731"/>
+                <Button Style="{StaticResource Circle.Button}" Margin="5" ToolTip="关闭" Background="#C25145" Click="Button_Click"/>
+            </StackPanel>
+            <TextBlock Text="机器人：小智" FontFamily="黑体" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="16" Margin="0,0,0,30" Opacity=".8"/>
+            <TextBlock Text="24小时不宕机" FontFamily="黑体" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="12" Margin="0,0,0,5" Opacity=".8"/>
+            <Border Width="50" Height="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"   Margin="0,0,150,12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="Transparent" Offset="0">
+                        </GradientStop>
+                        <GradientStop Color="White" Offset="1">
+                        </GradientStop>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border Width="50" Height="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"   Margin="150,0,0,12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="White" Offset="0">
+                        </GradientStop>
+                        <GradientStop Color="Transparent" Offset="1">
+                        </GradientStop>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Style="{StaticResource Big.Button}" Width="200" Height="110" Margin="5,20,0,0">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Resources/Images/Button/blue.12.png" Opacity=".8"/>
+                    </Grid.Background>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/Resources/Images/Button/blue.11.png" Width="65" Height="65"/>
+                        <TextBlock Text="聊天" TextAlignment="Center" Foreground="#7C8289" Margin="0,10,0,0" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource Big.Button}" Width="200" Height="110" Grid.Column="1"  Margin="0,20,5,0" Click="Button_Click_2">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Resources/Images/Button/blue.22.png" Opacity=".8"/>
+                    </Grid.Background>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/Resources/Images/Button/blue.21.png" Width="65" Height="65"/>
+                        <TextBlock Text="调度" TextAlignment="Center" Foreground="#7C8289" Margin="0,10,0,0" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource Big.Button}" Width="200" Height="110" Grid.Row="1"  Margin="5,0,0,15" Click="Button_Click_1">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Resources/Images/Button/blue.32.png" Opacity=".8"/>
+                    </Grid.Background>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/Resources/Images/Button/blue.31.png" Width="65" Height="65"/>
+                        <TextBlock Text="管理" TextAlignment="Center" Foreground="#7C8289" Margin="0,10,0,0" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource Big.Button}" Width="200" Height="110" Grid.Column="1" Grid.Row="1" Margin="0,0,5,15">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Resources/Images/Button/blue.42.png" Opacity=".8"/>
+                    </Grid.Background>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/Resources/Images/Button/blue.41.png" Width="65" Height="65"/>
+                        <TextBlock Text="调试" TextAlignment="Center" Foreground="#7C8289" Margin="0,10,0,0" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+        </Grid>
+
+        <Border Grid.Row="2" Background="#E5E5E7" CornerRadius="0,0,6,6">
+            <TextBlock Text="@rpail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#BFBEC1"/>
+        </Border>
+
+
+        <tb:TaskbarIcon x:Name="notifyIcon"
+                    Visibility="Visible"
+                    ToolTipText="" Grid.Row="2"
+                    IconSource="/Resources/Images/n.ico"
+                    ContextMenu="{StaticResource taskMenu}"
+                    MenuActivation="LeftOrRightClick" 
+                    PopupActivation="DoubleClick">
+            <tb:TaskbarIcon.TrayToolTip>
+                <Border Width="150">
+                    <ListView>
+                        <ListViewItem>
+                            <ListViewItem.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Images/zc.png" Width="20"/>
+                                    <TextBlock Text="XXXX项目" Margin="10,3,0,0"/>
+                                </StackPanel>
+                            </ListViewItem.Content>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <ListViewItem.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Images/zc.png" Width="20"/>
+                                    <TextBlock Text="BBBB项目" Margin="10,3,0,0"/>
+                                </StackPanel>
+                            </ListViewItem.Content>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <ListViewItem.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/Images/yc.png" Width="20"/>
+                                    <TextBlock Text="CCCCCC项目" Margin="10,3,0,0"/>
+                                </StackPanel>
+                            </ListViewItem.Content>
+                        </ListViewItem>
+                    </ListView>
+                </Border>
+            </tb:TaskbarIcon.TrayToolTip>
+        </tb:TaskbarIcon>
+    </Grid>
+
+</Window>

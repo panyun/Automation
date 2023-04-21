@@ -1,0 +1,347 @@
+﻿<Window
+    x:Class="EL.Robot.WpfMain.DispatchWindows.Plan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convers="clr-namespace:WpfInspect.Convers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Robot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:test="clr-namespace:Robot.Test"
+    xmlns:viewmodel="clr-namespace:Robot.ViewModel"
+    xmlns:viewmodel1="clr-namespace:EL.Robot.WpfMain.DispatchWindows.ViewModel"
+    Title="计划"
+    Width="550"
+    Height="330"
+    AllowsTransparency="True"
+    Background="Transparent"
+    BorderThickness="2"
+    ResizeMode="CanResize"
+    ShowInTaskbar="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="ItemContainerStyle1" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border
+                            Name="Border"
+                            Padding="7"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true" />
+                            <Trigger Property="IsEnabled" Value="false" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyRadioButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid>
+                            <CheckBox
+                                Content="{TemplateBinding Content}"
+                                Foreground="Black"
+                                IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsChecked, Mode=TwoWay}"
+                                IsHitTestVisible="False" />
+                            <CheckBox
+                                Content="{TemplateBinding Content}"
+                                IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsChecked, Mode=TwoWay}"
+                                Opacity="0" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <viewmodel1:SelectKindConverter x:Key="SelectKindConverter" />
+        <convers:BoolToVisible x:Key="BoolToVisible" />
+    </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect
+            BlurRadius="20"
+            Direction="-90"
+            Opacity="0.1"
+            ShadowDepth="1"
+            Color="#FF858484" />
+    </Window.Effect>
+    <Border
+        Background="White"
+        BorderThickness="1"
+        CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Background="#4091FA"
+                BorderBrush="#F3F0F3"
+                BorderThickness="0,0,0,1"
+                CornerRadius="6,6,0,0"
+                MouseLeftButtonDown="Border_MouseLeftButtonDown" />
+
+            <TextBlock
+                Margin="10,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Foreground="#F9F9F9"
+                IsHitTestVisible="False"
+                Text="{Binding PlanTitle}"
+                TextAlignment="Center" />
+
+            <StackPanel
+                Margin="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <Button
+                    Width="15"
+                    Height="15"
+                    Margin="5"
+                    Click="Button_Click"
+                    Cursor="Hand"
+                    Style="{StaticResource Path.Button}"
+                    ToolTip="关闭">
+                    <Border Background="Transparent">
+                        <Path
+                            Width="15"
+                            Height="15"
+                            Fill="White"
+                            Opacity=".8"
+                            Stretch="Fill">
+                            <Path.Data>
+                                M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z
+                            </Path.Data>
+                        </Path>
+                    </Border>
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="0"
+                    Margin="32,16,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Grid.IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="head" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <Run Foreground="Red">*</Run>
+                        <Run>脚本名称:</Run>
+                    </TextBlock>
+                    <ComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="300"
+                        Margin="4"
+                        HorizontalAlignment="Left"
+                        IsEnabled="{Binding PlanChange}"
+                        ItemsSource="{Binding Plans}"
+                        SelectedItem="{Binding SelectPlanName, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <Run Foreground="Red">*</Run>
+                        <Run>重复:</Run></TextBlock>
+                    <UniformGrid
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Columns="4">
+                        <RadioButton
+                            Margin="4"
+                            Content="每天"
+                            GroupName="MyGroup"
+                            IsChecked="{Binding SelectKind, Converter={StaticResource SelectKindConverter}, ConverterParameter=0}"
+                            Style="{StaticResource MyRadioButton}" />
+                        <RadioButton
+                            Margin="4"
+                            Content="每周"
+                            GroupName="MyGroup"
+                            IsChecked="{Binding SelectKind, Converter={StaticResource SelectKindConverter}, ConverterParameter=1}"
+                            Style="{StaticResource MyRadioButton}" />
+                        <RadioButton
+                            Margin="4"
+                            Content="每月"
+                            GroupName="MyGroup"
+                            IsChecked="{Binding SelectKind, Converter={StaticResource SelectKindConverter}, ConverterParameter=2}"
+                            Style="{StaticResource MyRadioButton}" />
+                    </UniformGrid>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding WeekInfo, Converter={StaticResource BoolToVisible}}">
+                        <Run Foreground="Red">*</Run>
+                        <Run>:</Run>
+                    </TextBlock>
+                    <UniformGrid
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Columns="4"
+                        Visibility="{Binding WeekInfo, Converter={StaticResource BoolToVisible}}">
+                        <CheckBox
+                            Margin="4"
+                            Content="周一"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week1, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周二"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week2, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周三"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week3, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周四"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week4, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周五"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week5, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周六"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week6, Mode=TwoWay}" />
+                        <CheckBox
+                            Margin="4"
+                            Content="周日"
+                            Foreground="Black"
+                            IsChecked="{Binding WeekInfos.Week7, Mode=TwoWay}" />
+                    </UniformGrid>
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <Run Foreground="Red">*</Run> <Run>特定时间:</Run></TextBlock>
+                    <StackPanel
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <StackPanel
+                            Margin="8,0,8,0"
+                            Orientation="Horizontal"
+                            Visibility="{Binding MonthInfo, Converter={StaticResource BoolToVisible}}">
+                            <ComboBox
+                                Width="48"
+                                ItemsSource="{Binding DaysInfo}"
+                                SelectedItem="{Binding SelectDaysInfo, Mode=TwoWay}" />
+                            <TextBlock VerticalAlignment="Center">：天</TextBlock>
+                        </StackPanel>
+                        <ComboBox
+                            Width="48"
+                            Margin="8,0,8,0"
+                            ItemsSource="{Binding HoursInfo}"
+                            SelectedItem="{Binding SelectHoursInfo, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center">：时</TextBlock>
+                        <ComboBox
+                            Width="48"
+                            Margin="8,0,8,0"
+                            ItemsSource="{Binding MinuteInfo}"
+                            SelectedItem="{Binding SelectMinuteInfo, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center">：分</TextBlock>
+                        <ComboBox
+                            Width="48"
+                            Margin="8,0,8,0"
+                            ItemsSource="{Binding SecondInfo}"
+                            SelectedItem="{Binding SelectSecondInfo, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center">：秒</TextBlock>
+                    </StackPanel>
+                    <TextBlock
+                        Grid.Row="9"
+                        Grid.Column="1"
+                        Margin="0,16,0,0"
+                        VerticalAlignment="Center">
+                        <Run Foreground="Blue">▋</Run>
+                        <Run Text="{Binding PlanTip}" />
+                    </TextBlock>
+                </Grid>
+                <Border
+                    Grid.Row="2"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,1" />
+                <StackPanel
+                    Grid.Row="3"
+                    Height="48"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="60"
+                        Height="26"
+                        Margin="0,0,8,0"
+                        Background="Transparent"
+                        Command="{Binding CancelCommand}">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="Black">取消</TextBlock>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
+                    <Button
+                        Width="60"
+                        Height="26"
+                        Background="#4091F7"
+                        Command="{Binding SaveCommand}">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="White">确定</TextBlock>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

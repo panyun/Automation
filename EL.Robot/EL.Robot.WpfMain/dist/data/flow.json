@@ -1,0 +1,188 @@
+{
+	"id": 70,
+	"name": "asdfasdfasdfasdf",
+	"steps": [{
+		"id": "22596569",
+		"componentName": "startComponent",
+		"name": "开始节点"
+	}, {
+		"id": "1665659559539",
+		"name": "界面探测器-捕获目标元素",
+		"componentName": "ElementActionComponent",
+		"annotation": "",
+		"ignore": false,
+		"debug": false,
+		"outParameterName": "@ ",
+		"parameters": [{
+			"key": "preTimeDelay",
+			"title": "前置延时（毫秒）",
+			"value": "0"
+		}, {
+			"key": "rearTimeDelay",
+			"title": "后置延时（毫秒）",
+			"value": "0"
+		}, {
+			"key": "timeout",
+			"title": "超时时间（毫秒）",
+			"value": "20000"
+		}, {
+			"key": "exceptionHandling",
+			"title": "异常处理",
+			"value": "1"
+		}, {
+			"key": "retryCount",
+			"title": "重试次数（次）",
+			"value": "0"
+		}, {
+			"key": "retryInterval",
+			"title": "重试间隔（毫秒）",
+			"value": "1000"
+		}, {
+			"key": "elementDetection_xpath",
+			"title": "目标元素",
+			"value": ""
+		}, null, {
+			"key": "content",
+			"title": "数据",
+			"value": []
+		}, {
+			"key": "TimeOut",
+			"title": "超时时间（毫秒）",
+			"value": 10000
+		}, {
+			"key": "rename",
+			"title": "保存对象至",
+			"value": "@ "
+		}],
+		"steps": []
+	}, {
+		"id": "1665659570355",
+		"name": "界面探测器-点击目标元素",
+		"componentName": "uiAuto_mouseClick",
+		"annotation": "选择探测元素对象，选择点击方式点击",
+		"ignore": false,
+		"debug": false,
+		"parameters": [],
+		"steps": []
+	}, {
+		"id": "1665659540623",
+		"name": "流程组件-流程块",
+		"componentName": "flowBlock",
+		"annotation": "",
+		"ignore": false,
+		"debug": false,
+		"parameters": [],
+		"steps": [{
+			"type": "StartOrCmdProgramComponent",
+			"nodeName": "应用程序-打开或运行",
+			"nodeType": "node",
+			"parent": "1665659540623",
+			"id": "1665659547657",
+			"catch": false,
+			"inParams": [],
+			"outParams": [],
+			"debug": false,
+			"lock": false,
+			"signColor": "",
+			"Base64": [],
+			"annotation": "打开或运行",
+			"ignore": false,
+			"parameters": [],
+			"isSceneComponent": false,
+			"errorFlag": 0,
+			"steps": [],
+			"extend": {
+				"active": false,
+				"open": false,
+				"showMenu": false,
+				"switchIndex": 0
+			},
+			"component": {
+				"required": [{
+					"type": "cascade",
+					"name": "SelectStartType",
+					"title": "打开或运行方式",
+					"list": [{
+						"actionType": "add",
+						"action": [{
+							"type": "input",
+							"name": "filePath",
+							"title": "应用程序路径",
+							"annotation": "填写程序路径",
+							"placeholder": "",
+							"value": ""
+						}],
+						"value": "指定应用程序路径"
+					}, {
+						"actionType": "add",
+						"action": [{
+							"type": "input",
+							"name": "cmd",
+							"title": "Windows命令",
+							"annotation": "",
+							"placeholder": ""
+						}],
+						"value": "运行Windows命令"
+					}],
+					"value": "指定应用程序路径"
+				}],
+				"optional": [],
+				"output": [{
+					"type": "input",
+					"name": "rename",
+					"title": "保存对象至",
+					"palaceholder": "",
+					"value": [],
+					"annnotation": ""
+				}]
+			},
+			"title": "应用程序-打开或运行",
+			"key": "1665659547657",
+			"exec": {
+				"id": "1665659547657",
+				"name": "应用程序-打开或运行",
+				"componentName": "StartOrCmdProgramComponent",
+				"annotation": "打开或运行",
+				"ignore": false,
+				"debug": false,
+				"parameters": [],
+				"steps": []
+			},
+			"children": []
+		}]
+	}, {
+		"id": "1665659541588",
+		"name": "控制流程-条件判断",
+		"componentName": "if",
+		"annotation": "设定条件，满足条件，则默认继续执行左侧流程，不满足条件，则默认执行右侧流程",
+		"ignore": false,
+		"debug": false,
+		"parameters": [],
+		"switch": [
+			[],
+			[]
+		]
+	}, {
+		"id": "1665659543940",
+		"name": "流程组件-子流程",
+		"componentName": "childrenFlow",
+		"annotation": "",
+		"ignore": false,
+		"debug": false,
+		"parameters": [],
+		"steps": []
+	}, {
+		"id": "150242459",
+		"componentName": "endcomponent",
+		"name": "结束节点"
+	}],
+	"variables": [{
+		"key": "157903822",
+		"name": [],
+		"type": "string",
+		"isGlobal": true,
+		"context": "",
+		"componentId": "1665659559539",
+		"initType": "string"
+	}]
+}

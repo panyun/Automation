@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F1F7E98-AA34-46B1-A123-AF0FA8D18E49}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Robot</RootNamespace>
+    <AssemblyName>Robot</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>packages\ControlzEx.4.4.0\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphX.Standard.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphX.3.0.0\lib\net461\GraphX.Standard.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphX.Standard.Logic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphX.3.0.0\lib\net461\GraphX.Standard.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphX.WPF.Controls, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphX.3.0.0\lib\net461\GraphX.WPF.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.NotifyIcon.Wpf, Version=1.1.0.0, Culture=neutral, PublicKeyToken=682384a853a08aad, processorArchitecture=MSIL">
+      <HintPath>packages\Hardcodet.NotifyIcon.Wpf.1.1.0\lib\net45\Hardcodet.NotifyIcon.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\QuickGraphCore.1.0.0\lib\net40\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\QuickGraphPCL.3.6.61114.2\lib\net40-client\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>packages\QuickGraphPCL.3.6.61114.2\lib\net40-client\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\QuickGraphPCL.3.6.61114.2\lib\net40-client\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="YAXLib, Version=2.14.0.0, Culture=neutral, PublicKeyToken=15c43682c986900f, processorArchitecture=MSIL">
+      <HintPath>packages\YAXLib.2.14\lib\YAXLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\DataEdge.cs" />
+    <Compile Include="Controls\DataVertex.cs" />
+    <Compile Include="Controls\DiagramControl.xaml.cs">
+      <DependentUpon>DiagramControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GraphAreaExample.cs" />
+    <Compile Include="Controls\LogicCoreExample.cs" />
+    <Compile Include="Converters\StringToBrushConverter.cs" />
+    <Compile Include="Converters\IndexToImageSourceConverter.cs" />
+    <Compile Include="FloatWindow.xaml.cs">
+      <DependentUpon>FloatWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageWindow.xaml.cs">
+      <DependentUpon>ManageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesWindow.xaml.cs">
+      <DependentUpon>PagesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestData.cs" />
+    <Compile Include="VioletWindow.xaml.cs">
+      <DependentUpon>VioletWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\UriToImageSourceConverter.cs" />
+    <Compile Include="SmallRobot.xaml.cs">
+      <DependentUpon>SmallRobot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartUp.xaml.cs">
+      <DependentUpon>StartUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\PropertyChangeBase.cs" />
+    <Compile Include="ViewModel\StartUpViewModel.cs" />
+    <Page Include="Controls\DiagramControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GraphTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FloatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VioletWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BlueWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="BlueWindow.xaml.cs">
+      <DependentUpon>BlueWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="SmallRobot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Loading\00000.png" />
+    <Resource Include="Resources\Images\Loading\00001.png" />
+    <Resource Include="Resources\Images\Loading\00002.png" />
+    <Resource Include="Resources\Images\Loading\00003.png" />
+    <Resource Include="Resources\Images\Loading\00004.png" />
+    <Resource Include="Resources\Images\Loading\00005.png" />
+    <Resource Include="Resources\Images\Loading\00006.png" />
+    <Resource Include="Resources\Images\Loading\00007.png" />
+    <Resource Include="Resources\Images\Loading\00008.png" />
+    <Resource Include="Resources\Images\Loading\00009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\robot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Blue\top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.42.png" />
+    <Resource Include="Resources\Images\Button\blue.41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\blue.22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Violet\top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\violet.22.png" />
+    <Resource Include="Resources\Images\Button\violet.32.png" />
+    <Resource Include="Resources\Images\Button\violet.12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\violet.42.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Button\violet.31.png" />
+    <Resource Include="Resources\Images\Button\violet.11.png" />
+    <Resource Include="Resources\Images\Button\violet.21.png" />
+    <Resource Include="Resources\Images\Button\violet.41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\n.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\yc.png" />
+    <Resource Include="Resources\Images\zc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\manage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\robot1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\dispatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ls.png" />
+    <Resource Include="Resources\Images\yxz.png" />
+    <Resource Include="Resources\Images\pd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Loading\00010.png" />
+    <Resource Include="Resources\Images\Loading\00011.png" />
+    <Resource Include="Resources\Images\Loading\00012.png" />
+    <Resource Include="Resources\Images\Loading\00013.png" />
+    <Resource Include="Resources\Images\Loading\00014.png" />
+    <Resource Include="Resources\Images\Loading\00015.png" />
+    <Resource Include="Resources\Images\Loading\00016.png" />
+    <Resource Include="Resources\Images\Loading\00017.png" />
+    <Resource Include="Resources\Images\Loading\00018.png" />
+    <Resource Include="Resources\Images\Loading\00019.png" />
+    <Resource Include="Resources\Images\Loading\00020.png" />
+    <Resource Include="Resources\Images\Loading\00021.png" />
+    <Resource Include="Resources\Images\Loading\00022.png" />
+    <Resource Include="Resources\Images\Loading\00023.png" />
+    <Resource Include="Resources\Images\Loading\00024.png" />
+    <Resource Include="Resources\Images\Loading\00025.png" />
+    <Resource Include="Resources\Images\Loading\00026.png" />
+    <Resource Include="Resources\Images\Loading\00027.png" />
+    <Resource Include="Resources\Images\Loading\00028.png" />
+    <Resource Include="Resources\Images\Loading\00029.png" />
+    <Resource Include="Resources\Images\Loading\00030.png" />
+    <Resource Include="Resources\Images\Loading\00031.png" />
+    <Resource Include="Resources\Images\Loading\00032.png" />
+    <Resource Include="Resources\Images\Loading\00033.png" />
+    <Resource Include="Resources\Images\Loading\00034.png" />
+    <Resource Include="Resources\Images\Loading\00035.png" />
+    <Resource Include="Resources\Images\Loading\00036.png" />
+    <Resource Include="Resources\Images\Loading\00037.png" />
+    <Resource Include="Resources\Images\Loading\00038.png" />
+    <Resource Include="Resources\Images\Loading\00039.png" />
+    <Resource Include="Resources\Images\Loading\00040.png" />
+    <Resource Include="Resources\Images\Loading\00041.png" />
+    <Resource Include="Resources\Images\Loading\00042.png" />
+    <Resource Include="Resources\Images\Loading\00043.png" />
+    <Resource Include="Resources\Images\Loading\00044.png" />
+    <Resource Include="Resources\Images\Loading\00045.png" />
+    <Resource Include="Resources\Images\Loading\00046.png" />
+    <Resource Include="Resources\Images\Loading\00047.png" />
+    <Resource Include="Resources\Images\Loading\00048.png" />
+    <Resource Include="Resources\Images\Loading\00049.png" />
+    <Resource Include="Resources\Images\Loading\00050.png" />
+    <Resource Include="Resources\Images\Loading\00051.png" />
+    <Resource Include="Resources\Images\Loading\00052.png" />
+    <Resource Include="Resources\Images\Loading\00053.png" />
+    <Resource Include="Resources\Images\Loading\00054.png" />
+    <Resource Include="Resources\Images\Loading\00055.png" />
+    <Resource Include="Resources\Images\Loading\00056.png" />
+    <Resource Include="Resources\Images\Loading\00057.png" />
+    <Resource Include="Resources\Images\Loading\00058.png" />
+    <Resource Include="Resources\Images\Loading\00059.png" />
+    <Resource Include="Resources\Images\Loading\00060.png" />
+    <Resource Include="Resources\Images\Loading\00061.png" />
+    <Resource Include="Resources\Images\Loading\00062.png" />
+    <Resource Include="Resources\Images\Loading\00063.png" />
+    <Resource Include="Resources\Images\Loading\00064.png" />
+    <Resource Include="Resources\Images\Loading\00065.png" />
+    <Resource Include="Resources\Images\Loading\00066.png" />
+    <Resource Include="Resources\Images\Loading\00067.png" />
+    <Resource Include="Resources\Images\Loading\00068.png" />
+    <Resource Include="Resources\Images\Loading\00069.png" />
+    <Resource Include="Resources\Images\Loading\00070.png" />
+    <Resource Include="Resources\Images\Loading\00071.png" />
+    <Resource Include="Resources\Images\Loading\00072.png" />
+    <Resource Include="Resources\Images\Loading\00073.png" />
+    <Resource Include="Resources\Images\Loading\00074.png" />
+    <Resource Include="Resources\Images\Loading\00075.png" />
+    <Resource Include="Resources\Images\Loading\00076.png" />
+    <Resource Include="Resources\Images\Loading\00077.png" />
+    <Resource Include="Resources\Images\Loading\00078.png" />
+    <Resource Include="Resources\Images\Loading\00079.png" />
+    <Resource Include="Resources\Images\Loading\00080.png" />
+    <Resource Include="Resources\Images\Loading\00081.png" />
+    <Resource Include="Resources\Images\Loading\00082.png" />
+    <Resource Include="Resources\Images\Loading\00083.png" />
+    <Resource Include="Resources\Images\Loading\00084.png" />
+    <Resource Include="Resources\Images\Loading\00085.png" />
+    <Resource Include="Resources\Images\Loading\00086.png" />
+    <Resource Include="Resources\Images\Loading\00087.png" />
+    <Resource Include="Resources\Images\Loading\00088.png" />
+    <Resource Include="Resources\Images\Loading\00089.png" />
+    <Resource Include="Resources\Images\Loading\00090.png" />
+    <Resource Include="Resources\Images\Loading\00091.png" />
+    <Resource Include="Resources\Images\Loading\00092.png" />
+    <Resource Include="Resources\Images\Loading\00093.png" />
+    <Resource Include="Resources\Images\Loading\00094.png" />
+    <Resource Include="Resources\Images\Loading\00095.png" />
+    <Resource Include="Resources\Images\Loading\00096.png" />
+    <Resource Include="Resources\Images\Loading\00097.png" />
+    <Resource Include="Resources\Images\Loading\00098.png" />
+    <Resource Include="Resources\Images\Loading\00099.png" />
+    <Resource Include="Resources\Images\Loading\00100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Diagram\2.png" />
+    <Resource Include="Resources\Images\Diagram\1.png" />
+    <Resource Include="Resources\Images\Diagram\3.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

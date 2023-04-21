@@ -1,0 +1,15 @@
+﻿<Application x:Class="Robot.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Robot"
+             StartupUri="PagesWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Default.xaml"/>
+                <ResourceDictionary Source="/Themes/DataGrid.xaml"/>
+                <ResourceDictionary Source="/Themes/TreeView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

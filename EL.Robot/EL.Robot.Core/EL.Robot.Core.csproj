@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48;</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>10.0</LangVersion>
+		<Platforms>AnyCPU;x86;x64</Platforms>
+		<BaseOutputPath>..\..\EL.Bin\EL.Robot.Core</BaseOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Fleck" Version="1.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets" Version="2.2.1" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.17.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Quartz" Version="3.5.0" />
+		<PackageReference Include="System.ComponentModel" Version="4.3.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="System.Net.Sockets" Version="4.3.0" />
+		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Core\Entity\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="EL.Automation">
+	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Automation.dll</HintPath>
+	  </Reference>
+	  <Reference Include="EL.Basic.Component">
+	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Component.dll</HintPath>
+	  </Reference>
+	  <Reference Include="EL.Basic.Core">
+	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Core.dll</HintPath>
+	  </Reference>
+	  <Reference Include="EL.Basic.FormComponent">
+	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.FormComponent.dll</HintPath>
+	  </Reference>
+	  <Reference Include="PresentationCore" />
+	  <Reference Include="PresentationFramework" />
+	  <Reference Include="System.Configuration" />
+	  <Reference Include="WindowsBase" />
+	  <Reference Include="WpfInspect">
+	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\WpfInspect.exe</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

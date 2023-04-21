@@ -1,0 +1,289 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="Robot.DicEvent"
+                    xmlns:controls="http://schemas.panthernet.ru/graphx/" 
+                  
+                    xmlns:converters="clr-namespace:Robot.Converters">
+
+    <converters:KeyToImageSourceConverter x:Key="KeyToImageSource"/>
+    <converters:StringToBrushConverter x:Key="StringToBrush"/>
+    <Style x:Key="ItemTemplate" TargetType="Label">
+        <Setter Property="Template" Value="{x:Null}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Type}" Value="1">
+                <Setter Property="Template" Value="{DynamicResource ItemTemplate1}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="2">
+                <Setter Property="Template" Value="{DynamicResource ItemTemplate2}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="3">
+                <Setter Property="Template" Value="{DynamicResource ItemTemplate3}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="4">
+                <Setter Property="Template" Value="{DynamicResource ItemTemplate4}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--MouseMove="OnMouseMove"-->
+    <ControlTemplate x:Key="ItemTemplate1">
+        <Grid Width="198" Height="39">
+            <Border CornerRadius="15" BorderThickness="1"  BorderBrush="Azure"  Background="{Binding BackGround}" >
+                <Grid>
+                    <Image MaxHeight="18" MaxWidth="18" Source="{Binding ImageKey,Converter={StaticResource KeyToImageSource}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <!--<Button Width="250" Height="100" Content="{Binding Name}"  Background="#4d6600"  FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <Tri
+                    gger Property="Content">
+                                        <Setter Property="Background" Value="#c6ff1a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>-->
+
+                    <TextBlock Text="{Binding Name}" Foreground="#333333" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center">
+                   
+                    </TextBlock>
+                </Grid>
+            
+            </Border>
+            <Border CornerRadius="15" BorderThickness="1" BorderBrush="#5D8AC4" Visibility="{Binding IsSelected,Converter={StaticResource BoolVisibilityConverter}}"/>
+            <Border CornerRadius="15" BorderThickness="2" Visibility="{Binding ShowOutLine,Converter={StaticResource BoolVisibilityConverter}}" Margin="-3" >
+                <Border.BorderBrush>
+                    <DrawingBrush Viewport="0,0,4,4" ViewportUnits="Absolute" TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="#4B9BEA">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,50,50" />
+                                            <RectangleGeometry Rect="50,50,50,50" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.BorderBrush>
+            </Border>
+
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ItemTemplate2">
+        <Grid Width="150" Height="30">
+            <Border CornerRadius="3" BorderThickness="1" BorderBrush="#F0EFF2" Background="#BBFFFFFF">
+                <Grid>
+                    <Image MaxHeight="18" MaxWidth="18"  Source="{Binding ImageKey,Converter={StaticResource KeyToImageSource}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <TextBlock Text="{Binding Name}"  Foreground="#333333" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="3" BorderThickness="1" BorderBrush="#5D8AC4" Visibility="{Binding IsSelected,Converter={StaticResource BoolVisibilityConverter}}">
+            </Border>
+            <Border CornerRadius="3" BorderThickness="2" Visibility="{Binding ShowOutLine,Converter={StaticResource BoolVisibilityConverter}}" Margin="-3" >
+                <Border.BorderBrush>
+                    <DrawingBrush Viewport="0,0,4,4" ViewportUnits="Absolute" TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="#4B9BEA">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,50,50" />
+                                            <RectangleGeometry Rect="50,50,50,50" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.BorderBrush>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+
+    <ControlTemplate x:Key="ItemTemplate3">
+        <Grid Width="150" Height="30">
+            <Border CornerRadius="3" BorderThickness="1" BorderBrush="#F0EFF2" Background="#BBFFFFFF">
+                <Grid>
+                    <Border Width="6" Background="#F19C30" HorizontalAlignment="Left" CornerRadius="3,0,0,3"/>
+                    <Image MaxHeight="18" MaxWidth="18" Source="{Binding ImageKey,Converter={StaticResource KeyToImageSource}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <TextBlock Text="{Binding Name}" Foreground="#333333" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Path Width="6" Height="10" Stretch="Fill" Fill="Gray" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <Path.Data>
+                            M704 512c0-8.288-3.232-15.776-8.4-21.456l0.08-0.064-320-352-0.08 0.08A31.76 31.76 0 0 0 352 128a32 32 0 0 0-32 32c0 8.288 3.232 15.76 8.4 21.456l-0.08 0.08L628.752 512 328.32 842.464l0.08 0.08A31.776 31.776 0 0 0 320 864a32 32 0 0 0 32 32 31.84 31.84 0 0 0 23.6-10.544l0.08 0.08 320-352-0.08-0.08c5.168-5.68 8.4-13.168 8.4-21.456z
+                        </Path.Data>
+                    </Path>
+                </Grid>
+            </Border>
+            <Border CornerRadius="3" BorderThickness="1" BorderBrush="#5D8AC4" Visibility="{Binding IsSelected,Converter={StaticResource BoolVisibilityConverter}}"/>
+            <Border CornerRadius="3" BorderThickness="2" Visibility="{Binding ShowOutLine,Converter={StaticResource BoolVisibilityConverter}}" Margin="-3" >
+                <Border.BorderBrush>
+                    <DrawingBrush Viewport="0,0,4,4" ViewportUnits="Absolute" TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="#4B9BEA">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,50,50" />
+                                            <RectangleGeometry Rect="50,50,50,50" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.BorderBrush>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ItemTemplate4">
+        <Grid   Width="180" Height="110">
+            <Grid  Width="150" Height="80" Panel.ZIndex="100">
+                <Image MaxHeight="22" MaxWidth="22" Source="{Binding ImageKey,Converter={StaticResource KeyToImageSource}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <TextBlock Text="{Binding Name}" Foreground="#333333" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Width="80" Height="80">
+                <Border CornerRadius="3" BorderThickness="1" BorderBrush="#F0EFF2"  Background="#BBFFFFFF">
+                    <Border.RenderTransform>
+                        <RotateTransform  CenterX="40" CenterY="40" Angle="45"></RotateTransform>
+                    </Border.RenderTransform>
+                </Border>
+                <Border CornerRadius="3" BorderThickness="1" BorderBrush="#5D8AC4" Visibility="{Binding IsSelected,Converter={StaticResource BoolVisibilityConverter}}">
+                    <Border.RenderTransform>
+                        <RotateTransform CenterX="40" CenterY="40" Angle="45"></RotateTransform>
+                    </Border.RenderTransform>
+                </Border>
+                <Border CornerRadius="3" BorderThickness="2" Visibility="{Binding ShowOutLine,Converter={StaticResource BoolVisibilityConverter}}" Margin="-3" >
+                    <Border.RenderTransform>
+                        <RotateTransform CenterX="40" CenterY="40" Angle="45"></RotateTransform>
+                    </Border.RenderTransform>
+                    <Border.BorderBrush>
+                        <DrawingBrush Viewport="0,0,4,4" ViewportUnits="Absolute" TileMode="Tile">
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <GeometryDrawing Brush="#4B9BEA">
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <RectangleGeometry Rect="0,0,50,50" />
+                                                <RectangleGeometry Rect="50,50,50,50" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Border.BorderBrush>
+                </Border>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type controls:VertexControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:VertexControl}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="HoverOn">
+                            <DoubleAnimation Duration="00:00:00.1000000" Storyboard.TargetName="g1" Storyboard.TargetProperty="Opacity" To=".9" />
+                        </Storyboard>
+                        <Storyboard x:Key="HoverOff">
+                            <DoubleAnimation Duration="00:00:00.4000000" Storyboard.TargetName="g1" Storyboard.TargetProperty="Opacity" To="1" />
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+
+                    <Label x:Name="g1" Style="{DynamicResource ItemTemplate }" ToolTip="{Binding Name}"/>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HoverOff}" x:Name="HoverOff_BeginStoryboard" />
+                            </Trigger.ExitActions>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource HoverOn}" />
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+
+        <!-- VERTEX DRAGGING CONTROL -->
+        <Setter Property="controls:DragBehaviour.IsDragEnabled"  Value="False" />
+        <Setter Property="controls:DragBehaviour.UpdateEdgesOnMove"  Value="False" />
+
+        <!--<Setter Property="IsSelfLooped"  Value="False" />-->
+
+        <Style.Triggers>
+            <Trigger Property="controls:HighlightBehaviour.Highlighted" Value="True">
+                <Setter Property="BorderBrush" Value="Gold"/>
+                <Setter Property="BorderThickness" Value="7"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+    <Style TargetType="{x:Type controls:EdgeControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:EdgeControl}">
+                    <Grid>
+                        <Path Stroke="{TemplateBinding Foreground}"
+                          StrokeThickness="2" MinWidth="1" MinHeight="1"
+                          ToolTip="{TemplateBinding ToolTip}"
+                          x:Name="PART_edgePath"/>
+                        <controls:DefaultEdgePointer NeedRotation="true" x:Name="PART_EdgePointerForTarget">
+                            <Path  Visibility="{Binding ShowAllow,Converter={StaticResource BoolVisibilityConverter}}" Data="M0,0.5 L1,1 1,0" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Width="10" Height="10"/>
+                        </controls:DefaultEdgePointer>
+                        <controls:DefaultEdgePointer NeedRotation="true" x:Name="PART_EdgePointerForSource" >
+                            <Path  Visibility="{Binding ShowAllow,Converter={StaticResource BoolVisibilityConverter}}" Data="M512 512m-448 0a448 448 0 1 0 896 0 448 448 0 1 0-896 0Z" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Width="8" Height="8"/>
+                        </controls:DefaultEdgePointer>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="MinWidth" Value="1" />
+        <Setter Property="MinHeight" Value="1" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="{Binding LineColor,Converter={StaticResource StringToBrush}}" />
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="DashStyle" Value="{Binding LineType}" />
+
+        <Style.Triggers>
+            <Trigger Property="controls:HighlightBehaviour.Highlighted" Value="True">
+                <Setter Property="Foreground" Value="Gold"/>
+                <Setter Property="StrokeThickness" Value="5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type controls:AttachableEdgeLabelControl}">
+        <Setter Property="LabelVerticalOffset" Value="0"/>
+        <Setter Property="ShowLabel" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:AttachableEdgeLabelControl}">
+                    <Grid    Cursor="Hand"  Visibility="{Binding AttachNode.Edge.ShowAddButton,Converter={StaticResource BoolVisibilityConverter}}">
+                        <Border Background="White" CornerRadius="10"></Border>
+                        <Path Stretch="Fill" Width="20" Height="20" Fill="#498CF9" Name="p1">
+                            <Path.Data>
+                                M512 64C264.8 64 64 264.8 64 512s200.8 448 448 448 448-200.8 448-448S759.2 64 512 64z m256 483.2H544.8V768h-65.6V547.2H256v-65.6h223.2V256h65.6v225.6H768v65.6z
+                            </Path.Data>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="p1" Property="Width" Value="18"/>
+                            <Setter TargetName="p1" Property="Height" Value="18"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="DisplayForSelfLoopedEdges" Value="False"/>
+    </Style>
+</ResourceDictionary>

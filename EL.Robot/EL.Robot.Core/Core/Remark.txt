@@ -1,0 +1,53 @@
+﻿//这个是流程文件信息
+//[
+//   {
+//        flow_id:232342349394329432,
+//        flow_name:"流程名称",
+//        is_main:true,
+//        params:"{'p1':124,'p2':123','p3':'[abc,124]'}",
+//        output:"{'out1':123}",
+//        parent_id:0,//上级流程
+//        flow_nodes:[
+//            {
+//                id:23234234939432555,
+//                name:"节点1",//节点名称
+//                group:"group1",//所属分组，层级已英文逗号分隔
+//                data_type:""，//节点类型
+//                annotation:"",//节点注释
+//                ignore:0,//是否忽略
+//                debug:0,//是否调试
+//                lock:0,//是否锁定
+//                base64,"",//截图
+//            }
+//        ],//节点列表
+//        flow_variables:
+//[
+//            { name: "age",value: 12,is_fx: 0,type: "Number",context: "group1"},
+//            { name: "friends",value: abc.getList(),is_fx: 1,type: "Array",context: "group1"}
+//        ],//流程变量池
+//    },
+//   {
+//flow_id: 232342349394329433,
+//        flow_name: "流程名称",
+//        is_main: true,
+//        params:"{'p1':124,'p2;:'123','p3':'[abc,124]'}",
+//        output: "{'out1':123}",
+//        parent_id: 232342349394329432,//上级流程
+//        flow_nodes:
+//    [
+//            {
+//    id: 23234234939432344,
+//                name: "节点2",//节点名称
+//                group: "group1",//所属分组，层级已英文逗号分隔
+//                data_type: ""，//节点类型
+//                annotation: "",//节点注释
+//                ignore: 0,//是否忽略
+//                debug: 0,//是否调试
+//                lock:0,//是否锁定
+//                base64,"",//截图
+//				  OutName:"t1"
+//            }
+//        ],//节点列表
+//    },
+
+//]

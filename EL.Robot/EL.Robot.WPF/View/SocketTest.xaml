@@ -1,0 +1,15 @@
+﻿<Window x:Class="EL.Robot.WPF.View.SocketTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EL.Robot.WPF.View"
+        mc:Ignorable="d"
+        Title="SocketTest" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="btn_Login_Copy" Content="继续"  HorizontalAlignment="Left" Margin="250,26,0,0" VerticalAlignment="Top" Click="btn_Login_Copy_Click" />
+        <Button x:Name="btn_Login_Copy1" Content="机器人模拟登录"  HorizontalAlignment="Left" Margin="39,26,0,0" VerticalAlignment="Top" Click="btn_Login_Copy1_ClickAsync" RenderTransformOrigin="-2.387,-6.69"/>
+        <Label x:Name="lal_Text" Content="节点执行信息" HorizontalAlignment="Left" Margin="49,126,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

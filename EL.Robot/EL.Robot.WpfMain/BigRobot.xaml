@@ -1,0 +1,296 @@
+﻿<Window
+    x:Class="Robot.BigRobot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Robot.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Robot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tb="http://www.hardcodet.net/taskbar"
+    xmlns:viewmodel="clr-namespace:Robot.ViewModel"
+    Title="Robot"
+    Width="186"
+    Height="180"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <viewmodel:BigRobotViewModel Sleep="120" />
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:UriToImageSourceConverter x:Key="UriToImageSourceConverter" />
+        <converters:MsgColorConverter x:Key="MsgColorConverter" />
+        <ContextMenu x:Key="taskMenu" Name="taskMenu">
+            <MenuItem
+                Name="showConsole"
+                Click="MenuItem_Click_Show_Console"
+                Header="显示控制台"
+                Visibility="Visible">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem
+                Name="showMenuItem"
+                Click="MenuItem_Click"
+                Header="显示流程图"
+                Visibility="Visible">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_2" Header="设置...">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_3" Header="打开画中画">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_1" Header="登录">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click3" Header="退出机器人">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+        <ContextMenu
+            x:Key="taskMenu1"
+            Name="taskMenu1"
+            Closed="taskMenu1_Closed">
+            <MenuItem
+                Name="showConsole1"
+                Click="MenuItem_Click_Show_Console"
+                Header="显示控制台"
+                Visibility="Visible">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem
+                Name="showMenuItem1"
+                Click="MenuItem_Click"
+                Header="显示流程图"
+                Visibility="Visible">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_2" Header="设置...">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_3" Header="打开画中画">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click_1" Header="登录">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/yc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click3" Header="退出机器人">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Images/zc.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+
+    <Grid Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="23" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="23" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Border
+            Name="IconBorder"
+            Width="46"
+            Height="40"
+            MouseEnter="IconBorder_MouseEnter"
+            Visibility="Collapsed">
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Images/RobotIconRight.png" Stretch="Fill" />
+            </Border.Background>
+        </Border>
+        <Border
+            Name="IconBorderLeft"
+            Grid.Column="2"
+            Width="46"
+            Height="40"
+            Margin="-23,0,0,0"
+            MouseEnter="IconBorderLeft_MouseEnter"
+            Visibility="Collapsed">
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Images/RobotIconLeft.png" Stretch="Fill" />
+            </Border.Background>
+        </Border>
+        <Border
+            Name="IconBorderTop"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="40"
+            Height="43"
+            Margin="0,-20,0,0"
+            VerticalAlignment="Top"
+            MouseEnter="IconBorderTop_MouseEnter"
+            Visibility="Collapsed">
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Images/RobotIconTop.png" Stretch="Fill" />
+            </Border.Background>
+        </Border>
+
+        <Grid
+            Grid.Column="1"
+            Background="Transparent"
+            MouseLeave="Grid_MouseLeave">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="180" />
+            </Grid.RowDefinitions>
+            <Grid
+                Name="bigImg"
+                ContextMenu="{StaticResource ResourceKey=taskMenu1}"
+                MouseLeftButtonDown="bigImg_MouseDown">
+                <Grid.Background>
+                    <ImageBrush ImageSource="{Binding Image, Converter={StaticResource UriToImageSourceConverter}}" Stretch="Uniform" />
+                </Grid.Background>
+            </Grid>
+
+            <Popup
+                Name="PopupLable"
+                AllowsTransparency="True"
+                HorizontalOffset="-23"
+                IsOpen="{Binding ShowMsg}"
+                Placement="Top"
+                PlacementTarget="{Binding ElementName=bigImg}">
+                <Grid Height="120">
+                    <Border
+                        Width="180"
+                        Height="120"
+                        Margin="2"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        CornerRadius="5">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="5"
+                                Direction="0"
+                                Opacity="0.5"
+                                RenderingBias="Performance"
+                                ShadowDepth="0"
+                                Color="Gray">
+                                <Storyboard.TargetProperty>
+                                    BlurRadius
+                                </Storyboard.TargetProperty>
+                            </DropShadowEffect>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Path
+                                    Width="15"
+                                    Height="15"
+                                    Margin="15,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Fill="{Binding MsgType, Converter={StaticResource MsgColorConverter}}"
+                                    Stretch="Fill">
+                                    <Path.Data>
+                                        M527.521137 48.558949c-246.731527 0-446.746141 200.00622-446.746141 446.727391s200.014615 446.727391 446.746141 446.727391 446.746141-200.00622 446.746141-446.727391S774.252663 48.558949 527.521137 48.558949zM527.521137 790.815123c-31.452636 0-56.950404-25.496697-56.950404-56.948013s25.497767-56.948013 56.950404-56.948013 56.950404 25.496697 56.950404 56.948013S558.973773 790.815123 527.521137 790.815123zM584.47154 549.187971c0 31.451316-25.497767 56.948013-56.950404 56.948013s-56.950404-25.496697-56.950404-56.948013L470.570733 306.138422c0-31.450293 25.497767-56.94699 56.950404-56.94699s56.950404 25.496697 56.950404 56.948013L584.47154 549.187971z
+                                    </Path.Data>
+                                </Path>
+                                <TextBlock
+                                    Margin="40,8,0,0"
+                                    FontSize="15"
+                                    Foreground="{Binding MsgType, Converter={StaticResource MsgColorConverter}}"
+                                    Text="{Binding MsgTitle}" />
+                            </Grid>
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="15,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="Thin"
+                                Text="{Binding MsgContent}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap" />
+
+                            <Grid Grid.Row="2">
+                                <Button
+                                    Name="btn_Msg"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalContentAlignment="Center"
+                                    Click="HideFloat_Click"
+                                    Style="{StaticResource Path.Button}">
+                                    <Border
+                                        Width="40"
+                                        Height="22"
+                                        Background="#01000000"
+                                        BorderBrush="{Binding MsgType, Converter={StaticResource MsgColorConverter}}"
+                                        BorderThickness="1"
+                                        CornerRadius="11">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            FontWeight="Thin"
+                                            Foreground="{Binding MsgType, Converter={StaticResource MsgColorConverter}}"
+                                            Text="{Binding MsgButtonTxt}" />
+                                    </Border>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Path
+                        Width="15"
+                        Height="8"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Fill="White"
+                        Stretch="Fill">
+                        <Path.Data>
+                            M1536 64H0l768 896z
+                        </Path.Data>
+                    </Path>
+                </Grid>
+            </Popup>
+        </Grid>
+
+        <tb:TaskbarIcon
+            x:Name="notifyIcon"
+            Grid.Row="2"
+            ContextMenu="{StaticResource taskMenu}"
+            IconSource="/Resources/Images/n.ico"
+            MenuActivation="LeftOrRightClick"
+            PopupActivation="DoubleClick"
+            ToolTipText=""
+            Visibility="Visible" />
+    </Grid>
+
+</Window>

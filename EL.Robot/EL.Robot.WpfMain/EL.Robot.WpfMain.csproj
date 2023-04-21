@@ -1,0 +1,681 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net48</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<LangVersion>10.0</LangVersion>
+		<UseWPF>true</UseWPF>
+		<BaseOutputPath>..\..\EL.Bin\EL.Robot.WpfMain</BaseOutputPath>
+		<Platforms>AnyCPU;x64</Platforms>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="bin\**" />
+	  <EmbeddedResource Remove="bin\**" />
+	  <None Remove="bin\**" />
+	  <Page Remove="bin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="AssemblyInfo.cs" />
+		<Compile Remove="ChromiumWebBrowserFlowWpf.xaml.cs" />
+		<Compile Remove="ChromiumWebBrowser\ChromiumWebBrowserFlowWpf.xaml.cs" />
+		<Compile Remove="ChromiumWebBrowser\JsEvent.cs" />
+		<Compile Remove="JsEvent.cs" />
+		<Compile Remove="ProjectWindow.xaml.cs" />
+		<Compile Remove="StepProjectWindow.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Checked.png" />
+		<None Remove="Resources\DefaultCheck.png" />
+		<None Remove="Resources\Images\Blue\top.png" />
+		<None Remove="Resources\Images\Button\blue.11.png" />
+		<None Remove="Resources\Images\Button\blue.12.png" />
+		<None Remove="Resources\Images\Button\blue.21.png" />
+		<None Remove="Resources\Images\Button\blue.22.png" />
+		<None Remove="Resources\Images\Button\blue.31.png" />
+		<None Remove="Resources\Images\Button\blue.32.png" />
+		<None Remove="Resources\Images\Button\blue.41.png" />
+		<None Remove="Resources\Images\Button\blue.42.png" />
+		<None Remove="Resources\Images\Button\violet.11.png" />
+		<None Remove="Resources\Images\Button\violet.12.png" />
+		<None Remove="Resources\Images\Button\violet.21.png" />
+		<None Remove="Resources\Images\Button\violet.22.png" />
+		<None Remove="Resources\Images\Button\violet.31.png" />
+		<None Remove="Resources\Images\Button\violet.32.png" />
+		<None Remove="Resources\Images\Button\violet.41.png" />
+		<None Remove="Resources\Images\Button\violet.42.png" />
+		<None Remove="Resources\Images\Diagram\1.png" />
+		<None Remove="Resources\Images\Diagram\2.png" />
+		<None Remove="Resources\Images\Diagram\3.png" />
+		<None Remove="Resources\Images\dispatch.png" />
+		<None Remove="Resources\Images\Loading\00000.png" />
+		<None Remove="Resources\Images\Loading\00001.png" />
+		<None Remove="Resources\Images\Loading\00002.png" />
+		<None Remove="Resources\Images\Loading\00003.png" />
+		<None Remove="Resources\Images\Loading\00004.png" />
+		<None Remove="Resources\Images\Loading\00005.png" />
+		<None Remove="Resources\Images\Loading\00006.png" />
+		<None Remove="Resources\Images\Loading\00007.png" />
+		<None Remove="Resources\Images\Loading\00008.png" />
+		<None Remove="Resources\Images\Loading\00009.png" />
+		<None Remove="Resources\Images\Loading\00010.png" />
+		<None Remove="Resources\Images\Loading\00011.png" />
+		<None Remove="Resources\Images\Loading\00012.png" />
+		<None Remove="Resources\Images\Loading\00013.png" />
+		<None Remove="Resources\Images\Loading\00014.png" />
+		<None Remove="Resources\Images\Loading\00015.png" />
+		<None Remove="Resources\Images\Loading\00016.png" />
+		<None Remove="Resources\Images\Loading\00017.png" />
+		<None Remove="Resources\Images\Loading\00018.png" />
+		<None Remove="Resources\Images\Loading\00019.png" />
+		<None Remove="Resources\Images\Loading\00020.png" />
+		<None Remove="Resources\Images\Loading\00021.png" />
+		<None Remove="Resources\Images\Loading\00022.png" />
+		<None Remove="Resources\Images\Loading\00023.png" />
+		<None Remove="Resources\Images\Loading\00024.png" />
+		<None Remove="Resources\Images\Loading\00025.png" />
+		<None Remove="Resources\Images\Loading\00026.png" />
+		<None Remove="Resources\Images\Loading\00027.png" />
+		<None Remove="Resources\Images\Loading\00028.png" />
+		<None Remove="Resources\Images\Loading\00029.png" />
+		<None Remove="Resources\Images\Loading\00030.png" />
+		<None Remove="Resources\Images\Loading\00031.png" />
+		<None Remove="Resources\Images\Loading\00032.png" />
+		<None Remove="Resources\Images\Loading\00033.png" />
+		<None Remove="Resources\Images\Loading\00034.png" />
+		<None Remove="Resources\Images\Loading\00035.png" />
+		<None Remove="Resources\Images\Loading\00036.png" />
+		<None Remove="Resources\Images\Loading\00037.png" />
+		<None Remove="Resources\Images\Loading\00038.png" />
+		<None Remove="Resources\Images\Loading\00039.png" />
+		<None Remove="Resources\Images\Loading\00040.png" />
+		<None Remove="Resources\Images\Loading\00041.png" />
+		<None Remove="Resources\Images\Loading\00042.png" />
+		<None Remove="Resources\Images\Loading\00043.png" />
+		<None Remove="Resources\Images\Loading\00044.png" />
+		<None Remove="Resources\Images\Loading\00045.png" />
+		<None Remove="Resources\Images\Loading\00046.png" />
+		<None Remove="Resources\Images\Loading\00047.png" />
+		<None Remove="Resources\Images\Loading\00048.png" />
+		<None Remove="Resources\Images\Loading\00049.png" />
+		<None Remove="Resources\Images\Loading\00050.png" />
+		<None Remove="Resources\Images\Loading\00051.png" />
+		<None Remove="Resources\Images\Loading\00052.png" />
+		<None Remove="Resources\Images\Loading\00053.png" />
+		<None Remove="Resources\Images\Loading\00054.png" />
+		<None Remove="Resources\Images\Loading\00055.png" />
+		<None Remove="Resources\Images\Loading\00056.png" />
+		<None Remove="Resources\Images\Loading\00057.png" />
+		<None Remove="Resources\Images\Loading\00058.png" />
+		<None Remove="Resources\Images\Loading\00059.png" />
+		<None Remove="Resources\Images\Loading\00060.png" />
+		<None Remove="Resources\Images\Loading\00061.png" />
+		<None Remove="Resources\Images\Loading\00062.png" />
+		<None Remove="Resources\Images\Loading\00063.png" />
+		<None Remove="Resources\Images\Loading\00064.png" />
+		<None Remove="Resources\Images\Loading\00065.png" />
+		<None Remove="Resources\Images\Loading\00066.png" />
+		<None Remove="Resources\Images\Loading\00067.png" />
+		<None Remove="Resources\Images\Loading\00068.png" />
+		<None Remove="Resources\Images\Loading\00069.png" />
+		<None Remove="Resources\Images\Loading\00070.png" />
+		<None Remove="Resources\Images\Loading\00071.png" />
+		<None Remove="Resources\Images\Loading\00072.png" />
+		<None Remove="Resources\Images\Loading\00073.png" />
+		<None Remove="Resources\Images\Loading\00074.png" />
+		<None Remove="Resources\Images\Loading\00075.png" />
+		<None Remove="Resources\Images\Loading\00076.png" />
+		<None Remove="Resources\Images\Loading\00077.png" />
+		<None Remove="Resources\Images\Loading\00078.png" />
+		<None Remove="Resources\Images\Loading\00079.png" />
+		<None Remove="Resources\Images\Loading\00080.png" />
+		<None Remove="Resources\Images\Loading\00081.png" />
+		<None Remove="Resources\Images\Loading\00082.png" />
+		<None Remove="Resources\Images\Loading\00083.png" />
+		<None Remove="Resources\Images\Loading\00084.png" />
+		<None Remove="Resources\Images\Loading\00085.png" />
+		<None Remove="Resources\Images\Loading\00086.png" />
+		<None Remove="Resources\Images\Loading\00087.png" />
+		<None Remove="Resources\Images\Loading\00088.png" />
+		<None Remove="Resources\Images\Loading\00089.png" />
+		<None Remove="Resources\Images\Loading\00090.png" />
+		<None Remove="Resources\Images\Loading\00091.png" />
+		<None Remove="Resources\Images\Loading\00092.png" />
+		<None Remove="Resources\Images\Loading\00093.png" />
+		<None Remove="Resources\Images\Loading\00094.png" />
+		<None Remove="Resources\Images\Loading\00095.png" />
+		<None Remove="Resources\Images\Loading\00096.png" />
+		<None Remove="Resources\Images\Loading\00097.png" />
+		<None Remove="Resources\Images\Loading\00098.png" />
+		<None Remove="Resources\Images\Loading\00099.png" />
+		<None Remove="Resources\Images\Loading\00100.png" />
+		<None Remove="Resources\Images\ls.png" />
+		<None Remove="Resources\Images\manage.png" />
+		<None Remove="Resources\Images\n.ico" />
+		<None Remove="Resources\Images\pd.png" />
+		<None Remove="Resources\Images\robot.png" />
+		<None Remove="Resources\Images\robot1.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00002.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00003.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00004.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00005.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00006.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00007.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00008.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00009.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00010.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00011.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00012.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00013.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00014.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00015.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00016.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00017.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00018.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00019.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00020.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00021.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00022.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00023.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00024.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00025.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00026.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00027.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00028.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00029.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00030.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00031.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00032.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00033.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00034.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00035.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00036.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00037.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00038.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00039.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00040.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00041.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00042.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00043.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00044.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00045.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00046.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00047.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00048.png" />
+		<None Remove="Resources\Images\RobotEx\机器人报错浮窗_00049.png" />
+		<None Remove="Resources\Images\RobotIconLeft.png" />
+		<None Remove="Resources\Images\RobotIconRight.png" />
+		<None Remove="Resources\Images\RobotIconTop.png" />
+		<None Remove="Resources\Images\Robot\00000.png" />
+		<None Remove="Resources\Images\Robot\00001.png" />
+		<None Remove="Resources\Images\Robot\00002.png" />
+		<None Remove="Resources\Images\Robot\00003.png" />
+		<None Remove="Resources\Images\Robot\00004.png" />
+		<None Remove="Resources\Images\Robot\00005.png" />
+		<None Remove="Resources\Images\Robot\00006.png" />
+		<None Remove="Resources\Images\Robot\00007.png" />
+		<None Remove="Resources\Images\Robot\00008.png" />
+		<None Remove="Resources\Images\Robot\00009.png" />
+		<None Remove="Resources\Images\Robot\00010.png" />
+		<None Remove="Resources\Images\Robot\00011.png" />
+		<None Remove="Resources\Images\Robot\00012.png" />
+		<None Remove="Resources\Images\Robot\00013.png" />
+		<None Remove="Resources\Images\Robot\00014.png" />
+		<None Remove="Resources\Images\Robot\00015.png" />
+		<None Remove="Resources\Images\Robot\00016.png" />
+		<None Remove="Resources\Images\Robot\00017.png" />
+		<None Remove="Resources\Images\Robot\00018.png" />
+		<None Remove="Resources\Images\Robot\00019.png" />
+		<None Remove="Resources\Images\Robot\00020.png" />
+		<None Remove="Resources\Images\Robot\00021.png" />
+		<None Remove="Resources\Images\Robot\00022.png" />
+		<None Remove="Resources\Images\Robot\00023.png" />
+		<None Remove="Resources\Images\Robot\00024.png" />
+		<None Remove="Resources\Images\Robot\00025.png" />
+		<None Remove="Resources\Images\Violet\top.png" />
+		<None Remove="Resources\Images\yc.png" />
+		<None Remove="Resources\Images\yxz.png" />
+		<None Remove="Resources\Images\zc.png" />
+		<None Remove="Resources\Log.png" />
+		<None Remove="Resources\NotChecked.png" />
+		<None Remove="Resources\viewIcons\关于我们_公司.png" />
+		<None Remove="Resources\viewIcons\关于我们_地址.png" />
+		<None Remove="Resources\viewIcons\关于我们_电话.png" />
+		<None Remove="Resources\viewIcons\关于我们_网址.png" />
+		<None Remove="Resources\viewIcons\版本管理_icon.png" />
+		<None Remove="Resources\viewIcons\调度管理_icon.png" />
+		<None Remove="Resources\viewIcons\调度管理_历史运行的.png" />
+		<None Remove="Resources\viewIcons\调度管理_我的脚本.png" />
+		<None Remove="Resources\viewIcons\调度管理_我的计划.png" />
+		<None Remove="Resources\viewIcons\调度管理_我的计划_menu.png" />
+		<None Remove="Resources\viewIcons\调度管理_排队中的.png" />
+		<None Remove="Resources\viewIcons\调度管理_版本管理_version.png" />
+		<None Remove="Resources\viewIcons\调度管理_版本管理_刷新.png" />
+		<None Remove="Resources\viewIcons\调度管理_菜单.png" />
+		<None Remove="Resources\viewIcons\调度管理_运行中的.png" />
+		<None Remove="Resources\下一步.png" />
+		<None Remove="Resources\二维码.jpg" />
+		<None Remove="Resources\保存元素%402x.png" />
+		<None Remove="Resources\保存元素%403x.png" />
+		<None Remove="Resources\保存元素.png" />
+		<None Remove="Resources\停止.png" />
+		<None Remove="Resources\复选选中.png" />
+		<None Remove="Resources\复选默认.png" />
+		<None Remove="Resources\捕获目标元素%402x.png" />
+		<None Remove="Resources\捕获目标元素%403x.png" />
+		<None Remove="Resources\捕获目标元素.png" />
+		<None Remove="Resources\捕获相似元素%402x.png" />
+		<None Remove="Resources\捕获相似元素%403x.png" />
+		<None Remove="Resources\捕获相似元素.png" />
+		<None Remove="Resources\暂停.png" />
+		<None Remove="Resources\终止.png" />
+		<None Remove="Resources\继续.png" />
+		<None Remove="Resources\继续1.png" />
+		<None Remove="Resources\高亮验证%402x.png" />
+		<None Remove="Resources\高亮验证%403x.png" />
+		<None Remove="Resources\高亮验证.png" />
+		<None Remove="Resources\高亮验证黄%402x.png" />
+		<None Remove="Resources\高亮验证黄.png" />
+		<None Remove="SQLite\SQLite.db" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Remove="ChromiumWebBrowserFlowWpf.xaml" />
+		<Page Remove="ChromiumWebBrowser\ChromiumWebBrowserFlowWpf.xaml" />
+		<Page Remove="ProjectWindow.xaml" />
+		<Page Remove="StepProjectWindow.xaml" />
+		<Page Remove="Styles\ListBox.xaml" />
+		<Page Remove="Styles\WhiteTitleBarTheme.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="SQLite\SQLite.db">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Checked.png" />
+		<Resource Include="Resources\DefaultCheck.png" />
+		<Resource Include="Resources\Images\Button\blue.11.png" />
+		<Resource Include="Resources\Images\Button\blue.12.png" />
+		<Resource Include="Resources\Images\Button\blue.21.png" />
+		<Resource Include="Resources\Images\Button\blue.22.png" />
+		<Resource Include="Resources\Images\Button\blue.31.png" />
+		<Resource Include="Resources\Images\Button\blue.32.png" />
+		<Resource Include="Resources\Images\Button\blue.41.png" />
+		<Resource Include="Resources\Images\Button\blue.42.png" />
+		<Resource Include="Resources\Images\Button\violet.11.png" />
+		<Resource Include="Resources\Images\Button\violet.12.png" />
+		<Resource Include="Resources\Images\Button\violet.21.png" />
+		<Resource Include="Resources\Images\Button\violet.22.png" />
+		<Resource Include="Resources\Images\Button\violet.31.png" />
+		<Resource Include="Resources\Images\Button\violet.32.png" />
+		<Resource Include="Resources\Images\Button\violet.41.png" />
+		<Resource Include="Resources\Images\Button\violet.42.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CefSharp.WinForms" Version="107.1.40" />
+		<PackageReference Include="ControlzEx" Version="4.4.0" />
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="GraphX" Version="3.0.0" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+		<PackageReference Include="Interop.UIAutomationClient" Version="10.19041.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+		<PackageReference Include="MongoDB.Bson" Version="2.17.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+		<PackageReference Include="Quartz" Version="3.5.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+		<PackageReference Include="System.Management" Version="6.0.0" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+		<PackageReference Include="YAXLib" Version="2.14.60" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
+		<ProjectReference Include="..\EL.Robot.Core\EL.Robot.Core.csproj" />
+		<ProjectReference Include="..\EL.Robot.Win\EL.Robot.Win.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="EL.Automation">
+			<HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Automation.dll</HintPath>
+		</Reference>
+		<Reference Include="EL.Basic.Component">
+			<HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Component.dll</HintPath>
+		</Reference>
+		<Reference Include="EL.Basic.Core">
+			<HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="EL.Basic.FormComponent">
+			<HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.FormComponent.dll</HintPath>
+		</Reference>
+		<Reference Include="EL.InstallationService">
+		  <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.InstallationService.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.Data.Sqlite">
+			<HintPath>..\..\WpfInspect\bin\Debug\net6.0-windows\Microsoft.Data.Sqlite.dll</HintPath>
+		</Reference>
+		<Reference Include="MongoDB.Bson">
+			<HintPath>..\..\WpfInspect\bin\Debug\net6.0-windows\MongoDB.Bson.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Forms" />
+		<Reference Include="WpfInspect">
+			<HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\WpfInspect.exe</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Images\Blue\top.png" />
+		<Resource Include="Resources\Images\Diagram\1.png" />
+		<Resource Include="Resources\Images\Diagram\2.png" />
+		<Resource Include="Resources\Images\Diagram\3.png" />
+		<Resource Include="Resources\Images\dispatch.png" />
+		<Resource Include="Resources\Images\Loading\00000.png" />
+		<Resource Include="Resources\Images\Loading\00001.png" />
+		<Resource Include="Resources\Images\Loading\00002.png" />
+		<Resource Include="Resources\Images\Loading\00003.png" />
+		<Resource Include="Resources\Images\Loading\00004.png" />
+		<Resource Include="Resources\Images\Loading\00005.png" />
+		<Resource Include="Resources\Images\Loading\00006.png" />
+		<Resource Include="Resources\Images\Loading\00007.png" />
+		<Resource Include="Resources\Images\Loading\00008.png" />
+		<Resource Include="Resources\Images\Loading\00009.png" />
+		<Resource Include="Resources\Images\Loading\00010.png" />
+		<Resource Include="Resources\Images\Loading\00011.png" />
+		<Resource Include="Resources\Images\Loading\00012.png" />
+		<Resource Include="Resources\Images\Loading\00013.png" />
+		<Resource Include="Resources\Images\Loading\00014.png" />
+		<Resource Include="Resources\Images\Loading\00015.png" />
+		<Resource Include="Resources\Images\Loading\00016.png" />
+		<Resource Include="Resources\Images\Loading\00017.png" />
+		<Resource Include="Resources\Images\Loading\00018.png" />
+		<Resource Include="Resources\Images\Loading\00019.png" />
+		<Resource Include="Resources\Images\Loading\00020.png" />
+		<Resource Include="Resources\Images\Loading\00021.png" />
+		<Resource Include="Resources\Images\Loading\00022.png" />
+		<Resource Include="Resources\Images\Loading\00023.png" />
+		<Resource Include="Resources\Images\Loading\00024.png" />
+		<Resource Include="Resources\Images\Loading\00025.png" />
+		<Resource Include="Resources\Images\Loading\00026.png" />
+		<Resource Include="Resources\Images\Loading\00027.png" />
+		<Resource Include="Resources\Images\Loading\00028.png" />
+		<Resource Include="Resources\Images\Loading\00029.png" />
+		<Resource Include="Resources\Images\Loading\00030.png" />
+		<Resource Include="Resources\Images\Loading\00031.png" />
+		<Resource Include="Resources\Images\Loading\00032.png" />
+		<Resource Include="Resources\Images\Loading\00033.png" />
+		<Resource Include="Resources\Images\Loading\00034.png" />
+		<Resource Include="Resources\Images\Loading\00035.png" />
+		<Resource Include="Resources\Images\Loading\00036.png" />
+		<Resource Include="Resources\Images\Loading\00037.png" />
+		<Resource Include="Resources\Images\Loading\00038.png" />
+		<Resource Include="Resources\Images\Loading\00039.png" />
+		<Resource Include="Resources\Images\Loading\00040.png" />
+		<Resource Include="Resources\Images\Loading\00041.png" />
+		<Resource Include="Resources\Images\Loading\00042.png" />
+		<Resource Include="Resources\Images\Loading\00043.png" />
+		<Resource Include="Resources\Images\Loading\00044.png" />
+		<Resource Include="Resources\Images\Loading\00045.png" />
+		<Resource Include="Resources\Images\Loading\00046.png" />
+		<Resource Include="Resources\Images\Loading\00047.png" />
+		<Resource Include="Resources\Images\Loading\00048.png" />
+		<Resource Include="Resources\Images\Loading\00049.png" />
+		<Resource Include="Resources\Images\Loading\00050.png" />
+		<Resource Include="Resources\Images\Loading\00051.png" />
+		<Resource Include="Resources\Images\Loading\00052.png" />
+		<Resource Include="Resources\Images\Loading\00053.png" />
+		<Resource Include="Resources\Images\Loading\00054.png" />
+		<Resource Include="Resources\Images\Loading\00055.png" />
+		<Resource Include="Resources\Images\Loading\00056.png" />
+		<Resource Include="Resources\Images\Loading\00057.png" />
+		<Resource Include="Resources\Images\Loading\00058.png" />
+		<Resource Include="Resources\Images\Loading\00059.png" />
+		<Resource Include="Resources\Images\Loading\00060.png" />
+		<Resource Include="Resources\Images\Loading\00061.png" />
+		<Resource Include="Resources\Images\Loading\00062.png" />
+		<Resource Include="Resources\Images\Loading\00063.png" />
+		<Resource Include="Resources\Images\Loading\00064.png" />
+		<Resource Include="Resources\Images\Loading\00065.png" />
+		<Resource Include="Resources\Images\Loading\00066.png" />
+		<Resource Include="Resources\Images\Loading\00067.png" />
+		<Resource Include="Resources\Images\Loading\00068.png" />
+		<Resource Include="Resources\Images\Loading\00069.png" />
+		<Resource Include="Resources\Images\Loading\00070.png" />
+		<Resource Include="Resources\Images\Loading\00071.png" />
+		<Resource Include="Resources\Images\Loading\00072.png" />
+		<Resource Include="Resources\Images\Loading\00073.png" />
+		<Resource Include="Resources\Images\Loading\00074.png" />
+		<Resource Include="Resources\Images\Loading\00075.png" />
+		<Resource Include="Resources\Images\Loading\00076.png" />
+		<Resource Include="Resources\Images\Loading\00077.png" />
+		<Resource Include="Resources\Images\Loading\00078.png" />
+		<Resource Include="Resources\Images\Loading\00079.png" />
+		<Resource Include="Resources\Images\Loading\00080.png" />
+		<Resource Include="Resources\Images\Loading\00081.png" />
+		<Resource Include="Resources\Images\Loading\00082.png" />
+		<Resource Include="Resources\Images\Loading\00083.png" />
+		<Resource Include="Resources\Images\Loading\00084.png" />
+		<Resource Include="Resources\Images\Loading\00085.png" />
+		<Resource Include="Resources\Images\Loading\00086.png" />
+		<Resource Include="Resources\Images\Loading\00087.png" />
+		<Resource Include="Resources\Images\Loading\00088.png" />
+		<Resource Include="Resources\Images\Loading\00089.png" />
+		<Resource Include="Resources\Images\Loading\00090.png" />
+		<Resource Include="Resources\Images\Loading\00091.png" />
+		<Resource Include="Resources\Images\Loading\00092.png" />
+		<Resource Include="Resources\Images\Loading\00093.png" />
+		<Resource Include="Resources\Images\Loading\00094.png" />
+		<Resource Include="Resources\Images\Loading\00095.png" />
+		<Resource Include="Resources\Images\Loading\00096.png" />
+		<Resource Include="Resources\Images\Loading\00097.png" />
+		<Resource Include="Resources\Images\Loading\00098.png" />
+		<Resource Include="Resources\Images\Loading\00099.png" />
+		<Resource Include="Resources\Images\Loading\00100.png" />
+		<Resource Include="Resources\Images\ls.png" />
+		<Resource Include="Resources\Images\manage.png" />
+		<Resource Include="Resources\Images\n.ico" />
+		<Resource Include="Resources\Images\pd.png" />
+		<Resource Include="Resources\Images\robot.png" />
+		<Resource Include="Resources\Images\robot1.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00002.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00003.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00004.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00005.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00006.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00007.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00008.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00009.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00010.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00011.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00012.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00013.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00014.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00015.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00016.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00017.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00018.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00019.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00020.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00021.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00022.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00023.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00024.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00025.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00026.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00027.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00028.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00029.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00030.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00031.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00032.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00033.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00034.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00035.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00036.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00037.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00038.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00039.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00040.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00041.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00042.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00043.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00044.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00045.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00046.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00047.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00048.png" />
+		<Resource Include="Resources\Images\RobotEx\机器人报错浮窗_00049.png" />
+		<Resource Include="Resources\Images\RobotIconLeft.png" />
+		<Resource Include="Resources\Images\RobotIconRight.png" />
+		<Resource Include="Resources\Images\RobotIconTop.png" />
+		<Resource Include="Resources\Images\Robot\00000.png" />
+		<Resource Include="Resources\Images\Robot\00001.png" />
+		<Resource Include="Resources\Images\Robot\00002.png" />
+		<Resource Include="Resources\Images\Robot\00003.png" />
+		<Resource Include="Resources\Images\Robot\00004.png" />
+		<Resource Include="Resources\Images\Robot\00005.png" />
+		<Resource Include="Resources\Images\Robot\00006.png" />
+		<Resource Include="Resources\Images\Robot\00007.png" />
+		<Resource Include="Resources\Images\Robot\00008.png" />
+		<Resource Include="Resources\Images\Robot\00009.png" />
+		<Resource Include="Resources\Images\Robot\00010.png" />
+		<Resource Include="Resources\Images\Robot\00011.png" />
+		<Resource Include="Resources\Images\Robot\00012.png" />
+		<Resource Include="Resources\Images\Robot\00013.png" />
+		<Resource Include="Resources\Images\Robot\00014.png" />
+		<Resource Include="Resources\Images\Robot\00015.png" />
+		<Resource Include="Resources\Images\Robot\00016.png" />
+		<Resource Include="Resources\Images\Robot\00017.png" />
+		<Resource Include="Resources\Images\Robot\00018.png" />
+		<Resource Include="Resources\Images\Robot\00019.png" />
+		<Resource Include="Resources\Images\Robot\00020.png" />
+		<Resource Include="Resources\Images\Robot\00021.png" />
+		<Resource Include="Resources\Images\Robot\00022.png" />
+		<Resource Include="Resources\Images\Robot\00023.png" />
+		<Resource Include="Resources\Images\Robot\00024.png" />
+		<Resource Include="Resources\Images\Robot\00025.png" />
+		<Resource Include="Resources\Images\Violet\top.png" />
+		<Resource Include="Resources\Images\yc.png" />
+		<Resource Include="Resources\Images\yxz.png" />
+		<Resource Include="Resources\Images\zc.png" />
+		<Resource Include="Resources\Log.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\NotChecked.png" />
+		<Resource Include="Resources\viewIcons\关于我们_公司.png" />
+		<Resource Include="Resources\viewIcons\关于我们_地址.png" />
+		<Resource Include="Resources\viewIcons\版本管理_icon.png" />
+		<Resource Include="Resources\viewIcons\关于我们_电话.png" />
+		<Resource Include="Resources\viewIcons\关于我们_网址.png" />
+		<Resource Include="Resources\viewIcons\调度管理_icon.png" />
+		<Resource Include="Resources\viewIcons\调度管理_历史运行的.png" />
+		<Resource Include="Resources\viewIcons\调度管理_我的脚本.png" />
+		<Resource Include="Resources\viewIcons\调度管理_我的计划.png" />
+		<Resource Include="Resources\viewIcons\调度管理_我的计划_menu.png" />
+		<Resource Include="Resources\viewIcons\调度管理_排队中的.png" />
+		<Resource Include="Resources\viewIcons\调度管理_版本管理_version.png" />
+		<Resource Include="Resources\viewIcons\调度管理_版本管理_刷新.png" />
+		<Resource Include="Resources\viewIcons\调度管理_菜单.png" />
+		<Resource Include="Resources\viewIcons\调度管理_运行中的.png" />
+		<Resource Include="Resources\下一步.png" />
+		<Resource Include="Resources\二维码.jpg" />
+		<Resource Include="Resources\保存元素.png" />
+		<Resource Include="Resources\保存元素@2x.png" />
+		<Resource Include="Resources\保存元素@3x.png" />
+		<Resource Include="Resources\停止.png" />
+		<Resource Include="Resources\复选选中.png" />
+		<Resource Include="Resources\复选默认.png" />
+		<Resource Include="Resources\捕获目标元素.png" />
+		<Resource Include="Resources\捕获目标元素@2x.png" />
+		<Resource Include="Resources\捕获目标元素@3x.png" />
+		<Resource Include="Resources\捕获相似元素.png" />
+		<Resource Include="Resources\捕获相似元素@2x.png" />
+		<Resource Include="Resources\捕获相似元素@3x.png" />
+		<Resource Include="Resources\暂停.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\终止.png" />
+		<Resource Include="Resources\继续.png" />
+		<Resource Include="Resources\继续1.png" />
+		<Resource Include="Resources\高亮验证.png" />
+		<Resource Include="Resources\高亮验证@2x.png" />
+		<Resource Include="Resources\高亮验证@3x.png" />
+		<Resource Include="Resources\高亮验证黄.png" />
+		<Resource Include="Resources\高亮验证黄@2x.png" />
+		<Resource Include="Styles\ListBox.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Resource>
+		<Resource Include="Styles\WhiteTitleBarTheme.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="App.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\AutomationConfig.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\loginmanage.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\VersionInfo.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="e_sqlite3.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ffmpeg.exe">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="script.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="dist\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="ChromiumWebBrowser\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="DispatchWindows\UserPlan.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Update="DispatchWindows\UserPlan.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="SchedulerWindow.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="LogManageWindow.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+		<Page Update="VersionWindow.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="AboutWindow.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+	</ItemGroup>
+
+</Project>

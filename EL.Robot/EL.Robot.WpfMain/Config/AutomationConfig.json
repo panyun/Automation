@@ -1,0 +1,10 @@
+﻿{
+  "FunctionKey": "Alt", //Control,Alt,Shift
+  "IsKeyboardHook": "False",
+  "IsMouseHook": "False",
+  "ComplateHotKey": "Q",
+  "ExitHotKey": "Escape",
+  "ModeHotKey": "W",
+  "OcrImgUri": "http://192.168.0.120:10200/ocr_img",
+  "IsLog": "True"
+}

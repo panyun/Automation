@@ -1,0 +1,143 @@
+﻿<UserControl
+    x:Class="Robot.Controls.Dispatch.LineUp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Robot.Controls.Dispatch"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="BtnNoneStyle" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" />
+                            <Trigger Property="IsPressed" Value="True" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="#F9F9F9" IsHitTestVisible="False" />
+        <Grid x:Name="g">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Margin="12"
+                Background="#FFFFFF"
+                CornerRadius="10">
+                <StackPanel
+                    Margin="20,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Foreground="Black">
+                        排队中的
+                    </TextBlock>
+                    <TextBlock
+                        Name="lbl_QueueCount"
+                        FontSize="12"
+                        Foreground="#666666" />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Margin="12"
+                Background="#FFFFFF"
+                CornerRadius="10">
+                <Grid Grid.Row="1">
+                    <ItemsControl Name="itemCtl_QueueData">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Width="665"
+                                    Height="64"
+                                    Margin="8"
+                                    Padding="8"
+                                    BorderBrush="#E7E7E7"
+                                    BorderThickness="1"
+                                    CornerRadius="14">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="120" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource Path.Button}">
+                                            <Border
+                                                Width="60"
+                                                Height="30"
+                                                BorderBrush="Gray"
+                                                BorderThickness="1">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding FlowTypeStr}" />
+                                            </Border>
+                                        </Button>
+
+                                        <Grid Grid.Column="1" Margin="0,10,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Grid.Row="1" Text="{Binding Dscribe}" />
+                                        </Grid>
+
+                                        <Button
+                                            Grid.Column="2"
+                                            Width="40"
+                                            Height="30"
+                                            Click="Button_Click"
+                                            Style="{StaticResource BtnNoneStyle}"
+                                            Tag="{Binding Id}">
+                                            <Button.Content>
+                                                <Image
+                                                    Width="20"
+                                                    Height="20"
+                                                    Source="/Resources/viewIcons/调度管理_菜单.png" />
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Popup
+                        x:Name="popmenu"
+                        IsOpen="{Binding IsMouseOver, Mode=OneWay}"
+                        Placement="Right"
+                        StaysOpen="False"
+                        VerticalOffset="10">
+                        <StackPanel>
+                            <Button
+                                Padding="3"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Click="Button_Click_1"
+                                Content="移除" />
+                        </StackPanel>
+                    </Popup>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

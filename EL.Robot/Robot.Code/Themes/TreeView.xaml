@@ -1,0 +1,127 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+    <Style TargetType="{x:Type TreeView}" x:Key="Default.TreeView">
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TreeView">
+                    <Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="White">
+                        <ScrollViewer Focusable="False"
+                                      CanContentScroll="False" 
+                                      Padding="4">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="18" Height="15" Background="Transparent" Cursor="Hand">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="00:00:.2" To="90" Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"                                             Storyboard.TargetName="Expanded"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="00:00:.2" To="0"  Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"                                             Storyboard.TargetName="Expanded"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Path x:Name="Expanded"
+                              Stretch="Fill" Height="13" Width="8"  RenderTransformOrigin=".5,.5" ToolTip="展开/收起">
+                            <Path.Data>
+                                M750.976 532.288c7.68-19.456 3.84-42.688-11.456-58.496l0 0 0 0L358.4 79.808c-20.416-21.12-53.44-21.12-73.856 0-20.416 21.12-20.416 55.232 0 76.352L628.672 512l-344.192 355.84c-20.416 21.12-20.416 55.296 0 76.352 20.416 21.056 53.44 21.056 73.856 0l381.056-393.984C744.576 544.896 748.416 538.816 750.976 532.288z
+                            </Path.Data>
+                            <Path.Fill>
+                                <SolidColorBrush Color="#333333" />
+                            </Path.Fill>
+                            <Path.RenderTransform>
+                                <RotateTransform/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="TreeViewItemFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle Margin="0,0,0,0"
+                     StrokeThickness="5"
+                     Stroke="Black"
+                     StrokeDashArray="1 2"
+                     Opacity="0" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type TreeViewItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                    <Grid  Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="22"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.ColumnSpan="2" Margin="-1600,0,0,0"  x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"  SnapsToDevicePixels="true"/>
+                        <ToggleButton  x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                        <ContentPresenter Grid.Column="1" x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <ItemsPresenter  x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="false">
+                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+        <Setter Property="IsSelected" Value="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+        <Style.Resources>
+            <!--SelectedItem with focus-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightSkyBlue" Opacity=".5"/>
+            <!--SelectedItem without focus-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightSkyBlue" Opacity=".5"/>
+        </Style.Resources>
+
+    </Style>
+
+
+</ResourceDictionary>

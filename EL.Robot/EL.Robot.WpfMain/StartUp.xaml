@@ -1,0 +1,24 @@
+﻿<Window x:Class="Robot.StartUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Robot" xmlns:viewmodel="clr-namespace:Robot.ViewModel" xmlns:converters="clr-namespace:Robot.Converters"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        Title="StartUp" Height="650" Width="1200">
+    <Window.DataContext>
+        <viewmodel:StartUpViewModel End="PlayEnd" Sleep="10"/>
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+    </Window.Resources>
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="{Binding Image,Converter={StaticResource UriToImageSourceConverter}}"/>
+        </Grid.Background>
+    </Grid>
+</Window>

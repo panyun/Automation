@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>net48;</TargetFrameworks>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <EnableComHosting>true</EnableComHosting>
+	  <EnableRegFreeCom>true</EnableRegFreeCom>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <LangVersion>10.0</LangVersion>
+	  <BaseOutputPath>..\..\EL.Bin\EL.Robot.Component</BaseOutputPath>
+	  <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Component\ProgramComponent\**" />
+    <EmbeddedResource Remove="Component\ProgramComponent\**" />
+    <None Remove="Component\ProgramComponent\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="System\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="MongoDB.Bson" Version="2.17.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NPOI" Version="2.6.0" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EL.Automation">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="EL.Basic.Component">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="EL.Basic.Core">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EL.InstallationService">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.InstallationService.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WpfInspect">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\WpfInspect.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EL.Robot.CDll.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EL.Robot.CDll.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

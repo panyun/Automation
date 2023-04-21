@@ -1,0 +1,57 @@
+﻿<Window x:Class="EL.Robot.WpfMain.StepFloatRightWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EL.Robot.WpfMain"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Background="Transparent"
+        AllowsTransparency="True" Topmost="True"
+        Title="Robot" Height="220" Width="40">
+    <Border Width="36" Grid.Row="1" Background="White" Margin="0" CornerRadius="20,0,0,20">
+        <Border.Effect>
+            <DropShadowEffect  BlurRadius="10" Color="Gray" Direction="0" Opacity="0.5" RenderingBias="Performance" ShadowDepth="0" >
+                <Storyboard.TargetProperty>
+                    BlurRadius
+                </Storyboard.TargetProperty>
+            </DropShadowEffect>
+        </Border.Effect>
+        <StackPanel>
+            <Button Style="{StaticResource Path.Button}" Name="button11" Width="25" Height="25" Margin="0 14 0 0" Tag="打开日志" MouseEnter="Button_MouseEnter" Click="button11_Click"  MouseLeave="button_MouseLeave">
+                <Grid>
+                    <Image Stretch="UniformToFill" Source="\Resources\Log.png"/>
+                    <Canvas Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Border Height="1" Background="#22000000" VerticalAlignment="Bottom" Margin="0 14 0 0"/>
+            <Button Style="{StaticResource Path.Button}" Name="button" Width="25" Height="25" Margin="0 14 0 0" Tag="运行至断点" MouseEnter="Button_MouseEnter" Click="button_Click" MouseLeave="button_MouseLeave">
+                <Grid>
+                    <Image Stretch="UniformToFill" Name="Recogimg1"
+                           Source="\Resources\继续1.png"/>
+                    <Canvas Name="MainCanvas" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Border Height="1" Background="#22000000" VerticalAlignment="Bottom" Margin="0 14 0 0"/>
+            <Button Style="{StaticResource Path.Button}" Width="25" Height="25" Margin="0 14 0 0" Click="Button_Click_1"  Tag="单步按步骤向下执行" MouseEnter="Button_MouseEnter" MouseLeave="button_MouseLeave">
+                <Grid>
+                    <Image Stretch="UniformToFill" Source="\Resources\下一步.png"/>
+                    <Canvas Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Border Height="1" Background="#22000000" VerticalAlignment="Bottom" Margin="0 14 0 0"/>
+            <Button Style="{StaticResource Path.Button}" Width="25" Height="25" Margin="0 14 0 0" Click="Button_Click_2"  Tag="终止调试" MouseEnter="Button_MouseEnter" MouseLeave="button_MouseLeave">
+                <Grid>
+                    <Image Stretch="UniformToFill" Source="\Resources\终止.png"/>
+                    <Canvas Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Button>
+            <Popup IsOpen="False" x:Name="popup" AllowsTransparency="True">
+                <Border Background="#000000" Width="auto" Height="32" CornerRadius="5 5 5 5">
+                    <Label Background="Transparent" Name="lable" VerticalContentAlignment="Center" Foreground="#FFFFFF" HorizontalContentAlignment="Center"/>
+                </Border>
+            </Popup>
+        </StackPanel>
+    </Border>
+</Window>

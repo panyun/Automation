@@ -1,0 +1,430 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="Button" x:Key="Circle.Button">
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border ToolTip="{TemplateBinding ToolTip}" Width="16" Height="16" CornerRadius="8" Cursor="Hand"
+                            Background="{TemplateBinding Background}" Opacity="{TemplateBinding Opacity}">
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Circle1.Button">
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border ToolTip="{TemplateBinding ToolTip}" Width="16" Height="16" CornerRadius="8" Cursor="Hand"
+                            Background="{TemplateBinding Background}" Opacity="{TemplateBinding Opacity}">
+                        <ContentPresenter Content="{TemplateBinding Content}" Visibility="Collapsed" Name="content"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="content" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="Button" x:Key="Path.Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter Content="{TemplateBinding Content}" Name="content"/>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Big.Button">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Foreground" Value="#6794DB"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border   Width="{TemplateBinding Width}" 
+                              Height="{TemplateBinding Height}" 
+                              CornerRadius="8"
+                              Opacity="{TemplateBinding Opacity}" 
+                              BorderThickness="2"
+                              Background="White"  Cursor="Hand"
+                              BorderBrush="{TemplateBinding Foreground}" Name="border1">
+                        <ContentControl Content="{TemplateBinding Content}"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter  Property="Foreground" Value="#6794DB" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Foreground" Value="#F2F2F4" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style TargetType="Button" x:Key="Big1.Button">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Foreground" Value="#6794DB"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border   Width="{TemplateBinding Width}" 
+                              Height="{TemplateBinding Height}" 
+                              CornerRadius="16"  
+                              Opacity="{TemplateBinding Opacity}" 
+                              BorderThickness="1"
+                              Background="#01FFFFFF"  Cursor="Hand"
+                              BorderBrush="{TemplateBinding Foreground}" Name="border1">
+                        <ContentControl Content="{TemplateBinding Content}"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter  Property="Foreground" Value="Transparent" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Foreground" Value="#88FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style TargetType="Button" x:Key="Link.Button">
+        <Setter Property="Foreground" Value="#3F92FA"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock Cursor="Hand" Margin="{TemplateBinding Margin}" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}"/>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="Button" x:Key="Blue.Button">
+        <Setter Property="Background" Value="#4192F5"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Cursor="Hand" ToolTip="{TemplateBinding ToolTip}" Background="{TemplateBinding Background}" CornerRadius="5" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <TextBlock VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   Text="{TemplateBinding Content}" 
+                                   Foreground="{TemplateBinding Foreground}" 
+                                   FontSize="{TemplateBinding FontSize}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From=".8" To="1"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="Search.Button">
+        <Setter Property="Background" Value="#4192F5"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Cursor="Hand" ToolTip="{TemplateBinding ToolTip}" Background="{TemplateBinding Background}" CornerRadius="0,6,6,0" Width="30" Height="{TemplateBinding Height}">
+                        <Path Stretch="Fill" Fill="White" Width="16" Height="16">
+                            <Path.Data>
+                                M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z
+                            </Path.Data>
+                        </Path>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="0.8" To="1"  Duration="0:0:3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".8"  Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Menu.ListViewItem" TargetType="{x:Type ListViewItem}"  >
+        <Setter Property="Foreground" Value="#333333" />
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem" >
+
+                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".8" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#4291FE" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CheckRadioFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Circle.Checkbox" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="StoryboardIsChecked">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CheckFlag">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="19"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="StoryboardIsCheckedOff">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CheckFlag">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="19"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <BulletDecorator Background="Transparent" SnapsToDevicePixels="true">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="ForegroundPanel" BorderThickness="1" Width="40" Height="20" CornerRadius="10">
+                                <Canvas>
+                                    <Border Background="White" x:Name="CheckFlag" CornerRadius="10" VerticalAlignment="Center" BorderThickness="1" Width="19" Height="18" RenderTransformOrigin="0.5,0.5">
+                                        <Border.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Border.RenderTransform>
+                                        <Border.Effect>
+                                            <DropShadowEffect ShadowDepth="1" Direction="180" />
+                                        </Border.Effect>
+                                    </Border>
+                                </Canvas>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource CheckRadioFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,0,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ForegroundPanel" Property="Background" Value="#4091F9" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="BeginStoryboardCheckedTrue" Storyboard="{StaticResource StoryboardIsChecked}" />
+                                <RemoveStoryboard BeginStoryboardName="BeginStoryboardCheckedFalse" />
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="ForegroundPanel" Property="Background" Value="Gray" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="BeginStoryboardCheckedFalse" Storyboard="{StaticResource StoryboardIsCheckedOff}" />
+                                <RemoveStoryboard BeginStoryboardName="BeginStoryboardCheckedTrue" />
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+ 
+
+
+    <Style x:Key="Circle.RadioButton" TargetType="{x:Type RadioButton}"  >
+        <Setter Property="Foreground" Value="#333333" />
+        <Setter Property="Background" Value="#4291FE"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton" >
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#01000000" BorderThickness="1" BorderBrush="{TemplateBinding Background}" Width="18" Height="18" CornerRadius="9">
+                            <Border Background="{TemplateBinding Background}" Width="10" Height="10" CornerRadius="5" Name="b1" Visibility="Collapsed">
+
+                            </Border>
+                        </Border>
+                        <TextBlock Name="t1" Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Content}" Margin="8,2,0,0" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="b1" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="t1" Property="Foreground" Value="#999999" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Gray" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

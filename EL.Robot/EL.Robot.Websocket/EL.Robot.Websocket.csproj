@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net6.0;net4.8</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  	<LangVersion>10.0</LangVersion>
+    <BaseOutputPath>..\..\EL.Bin\EL.Robot.Websocket</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EL.Basic.Component">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="EL.Basic.Core">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
