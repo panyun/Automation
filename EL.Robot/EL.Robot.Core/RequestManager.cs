@@ -25,9 +25,7 @@ namespace EL.Robot.Core
 		{
 			PipeClient = new NamedPipeClientStream("localhost", "inspectPipe", PipeDirection.InOut, PipeOptions.Asynchronous, TokenImpersonationLevel.None);
 		}
-		private static Dictionary<long, Flow> _dicFlow = new Dictionary<long, Flow>();
-		private static Flow _flow = new Flow();
-		public static Flow CurrentFlow { get { return _flow; } }
+
 		public static void CreateBoot()
 		{
 			Boot.CreateBoot();
@@ -46,39 +44,12 @@ namespace EL.Robot.Core
 			var inspect = Boot.AddComponent<InspectComponent>();
 			var parser = Boot.AddComponent<ParserComponent>();
 			var robot = Boot.AddComponent<RobotComponent>();
+			robot.AddComponent<DesignComponent>();
 			NodeComponentRoot.AddComponent<CatchElementComponent>();
 			//加载程序集
 			GetComponentInfo(Boot.App.Scene, "Boot->Scene");
 		}
-		public static ComponentResponse AddFlow(CommponetRequest requst)
-		{
-			var tempFlow = requst.Data as Flow;
-			_dicFlow.TryGetValue(tempFlow.Id, out Flow flow);
-			if (flow == null) _dicFlow[(requst.Data as Flow).Id] = tempFlow;
-			_flow = tempFlow;
-			return new ComponentResponse();
-		}
-		public static ComponentResponse SelectVariable(this SelectVariableRequest requst)
-		{
-			var keys = new List<string>();
-			if (CurrentFlow.ParamsManager != null)
-				foreach (var item in CurrentFlow.ParamsManager)
-				{
-					if (requst.Types.Contains(item.Value.GetType()))
-					{
-						keys.Add(item.Key);
-					}
-				}
-			return new ComponentResponse() { Data = keys };
-		}
-		public static ComponentResponse RevmoFlow(CommponetRequest requst)
-		{
-			var tempFlow = requst.Data as Flow;
-			_dicFlow.TryGetValue(tempFlow.Id, out Flow flow);
-			if (flow != default) _dicFlow.Remove(tempFlow.Id);
-			return new ComponentResponse();
-		}
-		public static void GetComponentInfo(Entity entity, string path)
+		private static void GetComponentInfo(Entity entity, string path)
 		{
 			Log.Trace($"加载Componet对象-----配置{path}");
 			foreach (var item in entity.Components)
@@ -90,33 +61,22 @@ namespace EL.Robot.Core
 		}
 		public static async ELTask<ComponentResponse> StartAsync(CommponetRequest request)
 		{
+			  var designComponent=  Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			if (request.ComponentName != null && request.ComponentName == nameof(CatchElementComponent))
 				return await NodeComponentRoot.GetComponent<CatchElementComponent>().Main(request);
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ExecFlow).ToLower())
 				return await ExecFlow(request);
-			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(RequestManager.AddFlow).ToLower())
-				return AddFlow(request);
+			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(DesignComponentSystem.CreateRobot).ToLower())
+				return designComponent.CreateRobot(request);
 			if (request is SelectVariableRequest selectVariableRequest)
-				return selectVariableRequest.SelectVariable();
+				return designComponent.SelectVariable(selectVariableRequest);
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ComponentSystem).ToLower())
 				return ComponentSystem.Main(request);
-			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ExecNodes).ToLower())
-				return await ExecNodes(request);
+			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(DesignComponentSystem.PreviewNodes).ToLower())
+				return await designComponent.PreviewNodes(request);
 			return await request.Main();
 		}
-		public static async ELTask<ComponentResponse> ExecNodes(this CommponetRequest request)
-		{
-			await ELTask.CompletedTask;
-			CommponetRequest commponetRequest = new CommponetRequest()
-			{
-				Data = new Flow()
-				{
-					Id = IdGenerater.Instance.GenerateId(),
-					Steps = request.Data
-				}
-			};
-			return await ExecFlow(commponetRequest);
-		}
+
 		public static async ELTask<ComponentResponse> ExecFlow(this CommponetRequest request)
 		{
 			var flow = (request.Data as Flow);
@@ -130,16 +90,16 @@ namespace EL.Robot.Core
 		}
 		public static async ELTask<ComponentResponse> Main(this CommponetRequest request)
 		{
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			try
 			{
 				if (request.FlowId != default)
 				{
-					_dicFlow.TryGetValue(request.FlowId, out var flow);
-					_flow = flow;
+					designComponent.DesignFlowDic.TryGetValue(request.FlowId, out var flow);
 				}
-				var content = NodeContent.Create(CurrentFlow, request.Data);
+				var content = NodeContent.Create(designComponent.CurrentDesignFlow, request.Data);
 				var flowComponent = NodeComponentRoot.GetParent<FlowComponent>();
-				flowComponent.CurrentFlow = CurrentFlow;
+				flowComponent.CurrentFlow = designComponent.CurrentDesignFlow;
 				var component = NodeComponentRoot.FindComponent((string)request.Data.ComponentName);
 				var rtn = await component.Main(content);
 				return new ComponentResponse()
@@ -178,12 +138,13 @@ namespace EL.Robot.Core
 		}
 		public static ComponentResponse GetExpression(this CommponetRequest request)
 		{
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			var componentName = request.Data.Paramters["ComponentName"];
 			RequestManager.NodeComponentRoot.ChildComponent.TryGetValue(componentName, out Entity entity);
 			return new ComponentResponse()
 			{
 				Data =
-				(entity as BaseComponent).GetExpression(request, RequestManager.CurrentFlow.ParamsManager)
+				(entity as BaseComponent).GetExpression(request, designComponent.CurrentDesignFlow.ParamsManager)
 			};
 		}
 

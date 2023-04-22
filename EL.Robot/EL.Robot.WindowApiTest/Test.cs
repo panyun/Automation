@@ -71,7 +71,7 @@ namespace EL.Robot.WindowApiTest
 			//add
 			CommponetRequest commponetRequest = new()
 			{
-				ComponentName = nameof(RequestManager.AddFlow),
+				ComponentName = nameof(DesignComponentSystem.CreateRobot),
 				Data = flow
 			};
 			var json = BsonHelper.ToJson(commponetRequest);
@@ -93,7 +93,7 @@ namespace EL.Robot.WindowApiTest
 		{
 			var commponetRequest = new CommponetRequest()
 			{
-				ComponentName = nameof(RequestManager.ExecNodes),
+				ComponentName = nameof(DesignComponentSystem.PreviewNodes),
 				Data = new List<Node>()
 				{
 					new Node()

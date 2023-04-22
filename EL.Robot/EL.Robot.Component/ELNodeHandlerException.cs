@@ -19,4 +19,16 @@ namespace EL.Robot.Component
             this.ErrorCode = errorCode;
         }
     }
+	public class DesignException : Exception
+	{
+		public int ErrorCode { get; set; } = default;
+		public DesignException(string message, int errorCode = 600) : base(message)
+		{
+			this.ErrorCode = errorCode;
+		}
+		public DesignException(string message, Exception exception, int errorCode = 600) : base(message, exception)
+		{
+			this.ErrorCode = errorCode;
+		}
+	}
 }

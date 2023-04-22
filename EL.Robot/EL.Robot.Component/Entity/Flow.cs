@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using SixLabors.ImageSharp;
 using System.Runtime.Serialization;
 
 namespace EL.Robot.Component
@@ -11,10 +12,12 @@ namespace EL.Robot.Component
 	}
 	public class Flow
 	{
+		public Image HeadImage { get; set; }
 		/// <summary>
 		/// 流程id
 		/// </summary>
 		public long Id { get; set; }
+		public long CreateDate { get; set; }
 		/// <summary>
 		/// 流程名称
 		/// </summary>
@@ -74,7 +77,7 @@ namespace EL.Robot.Component
 		/// <summary>
 		/// 
 		/// </summary>
-		public string InitType { get; set; }
+		public Type Type { get; set; }
 
 		public string Context { get; set; }
 		/// <summary>

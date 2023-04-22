@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Utils;
 using Automation.Inspect;
+using static Google.Protobuf.Reflection.GeneratedCodeInfo.Types;
+using SixLabors.Fonts.Tables.AdvancedTypographic;
 
 namespace EL.Robot.WindowApiTest
 {
@@ -19,9 +21,19 @@ namespace EL.Robot.WindowApiTest
 		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 		public Config CurrentConfig;
 		public Dictionary<string, Parameter> ParamDic = new Dictionary<string, Parameter>();
+		public DesignComponent designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 		public IndexForm()
 		{
 			InitializeComponent();
+			designComponent.RefreshLogMsgAction = (x) =>
+			{
+				this.Invoke(() =>
+				{
+					txt_msg.Text += x.ShowMsg + "\r\n";
+					this.Activate();
+				});
+			};
+			lbl_name.Text = "";
 			DispatcherHelper.BaseForm = this;
 			//pl_components.AutoScroll = true;
 			this.StartPosition = FormStartPosition.CenterScreen;
@@ -124,11 +136,9 @@ namespace EL.Robot.WindowApiTest
 										}
 									}
 								};
+								ClearCurrentComponent();
 								CurrentConfig = tag;
-								ParamDic.Clear();
-								txt_exp.Text = "";
 								CreateParamDic(tag.Parameters);
-								pl_cmd.Controls.Clear();
 								CreateExp(config);
 							};
 							index++;
@@ -187,17 +197,17 @@ namespace EL.Robot.WindowApiTest
 		{
 			var p = ParamDic.Values.Where(x => x.IsFinish);
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append($"{CurrentConfig.DisplayName}的指令集：");
+			stringBuilder.Append($"[{CurrentConfig.DisplayName}]指令:.");
 			if (p.Any())
 				foreach (var item in p)
 				{
 					if (item.Value is ElementPath path)
 					{
-						stringBuilder.Append($"{item.DisplayName}:[{path.Path}] ,");
+						stringBuilder.Append($"{item.DisplayName}:[{path.Path}].");
 						continue;
 					}
 
-					stringBuilder.Append($"{item.DisplayName}:[{item.Value}] ,");
+					stringBuilder.Append($"{item.DisplayName}:[{item.Value}].");
 				}
 			return stringBuilder.ToString();
 		}
@@ -435,20 +445,96 @@ namespace EL.Robot.WindowApiTest
 
 		private async void lbl_exec_Click(object sender, EventArgs e)
 		{
-			var commponetRequest = new CommponetRequest()
+			var txt = txt_exp.Text;
+			if (txt.Length == 0)
 			{
-				ComponentName = nameof(RequestManager.ExecNodes),
-				Data = new List<Node>()
-				{
-					new Node()
-					{
-						ComponentName = CurrentConfig.ComponentName,
-						 Id = IdGenerater.Instance.GenerateId(),
-						  Parameters = ParamDic.Values.Where(x=>x.IsFinish).ToList()
-					}
-				}
+				WriteLog("你没有生成指令，我不能为你服务！");
+				return;
+			}
+			var node = GetCurrentNode();
+			var logs = await designComponent.PreviewNodes(new List<Node>() { node });
+			WriteLog(logs, "恭喜哟，你预览的节点成功执行！");
+
+		}
+
+		public Node GetCurrentNode()
+		{
+			return new Node()
+			{
+				ComponentName = CurrentConfig.ComponentName,
+				Id = IdGenerater.Instance.GenerateId(),
+				Parameters = ParamDic.Values.Where(x => x.IsFinish).ToList()
 			};
-			var result = await RequestManager.StartAsync(commponetRequest);
+		}
+
+		private void btn_add_Click(object sender, EventArgs e)
+		{
+			var result = new AddRobotForm().ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				var name = designComponent.CurrentDesignFlow.Name;
+				lbl_name.Text = name;
+			}
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			var txt = txt_exp.Text;
+			if (txt.Length == 0)
+			{
+				WriteLog("你没有生成指令，我不能为你追加到我的指令集！");
+				return;
+			}
+			try
+			{
+				designComponent.CreateNode(new Node()
+				{
+					ComponentName = CurrentConfig.ComponentName,
+					Id = IdGenerater.Instance.GenerateId(),
+					Name = CurrentConfig.DisplayName,
+					Parameters = ParamDic.Values.Where(x => x.IsFinish).ToList()
+				});
+			}
+			catch (Exception ex)
+			{
+				designComponent.WriteFlowLog(ex.Message);
+			}
+			WriteLog($"已将[{CurrentConfig.DisplayName}]命令追加到流程了");
+			ClearCurrentComponent();
+		}
+
+		private async void btn_run_Click(object sender, EventArgs e)
+		{
+			var logs = await designComponent.RunRobot();
+			WriteLog(logs, "恭喜哟，你成功运行了执行！");
+		}
+		private void WriteLog(string msg)
+		{
+			designComponent.WriteLog(msg);
+		}
+		private void WriteLog(List<ExecLog> logs, string msg)
+		{
+			if (logs is null) return;
+			var errorLogs = logs.Where(x => x.IsException).ToList();
+
+			if (!errorLogs.Any())
+			{
+				designComponent.WriteFlowLog(msg);
+				return;
+			}
+			designComponent.WriteFlowLog("你的流程执行失败，以下是失败消息！");
+			foreach (var item in errorLogs)
+			{
+				designComponent.WriteFlowLog(item.Msg);
+				return;
+			}
+		}
+		public void ClearCurrentComponent()
+		{
+			CurrentConfig = null;
+			ParamDic.Clear();
+			txt_exp.Text = "";
+			pl_cmd.Controls.Clear();
 		}
 	}
 }

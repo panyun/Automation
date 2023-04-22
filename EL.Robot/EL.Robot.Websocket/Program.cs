@@ -1,17 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EL;
 using EL.Async;
-using EL.Basic.Network;
-using EL.Robot;
-using EL.Robot.Core;
-using EL.Robot.Core.Request;
-using EL.Robot.Core.Websocket;
-using Protos;
-using System;
-using System.Buffers;
-using System.Net.WebSockets;
-using System.Text;
-using Utils;
 
 public partial class Program
 {
