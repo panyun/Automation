@@ -6,6 +6,8 @@ using Automation;
 using Automation.Inspect;
 using Automation.Parser;
 using EL.Overlay;
+using System.Diagnostics;
+using EL.Robot.Component.DTO;
 
 namespace EL.Robot.Core
 {
@@ -24,7 +26,7 @@ namespace EL.Robot.Core
 			PipeClient = new NamedPipeClientStream("localhost", "inspectPipe", PipeDirection.InOut, PipeOptions.Asynchronous, TokenImpersonationLevel.None);
 		}
 		private static Dictionary<long, Flow> _dicFlow = new Dictionary<long, Flow>();
-		private static Flow _flow;
+		private static Flow _flow = new Flow();
 		public static Flow CurrentFlow { get { return _flow; } }
 		public static void CreateBoot()
 		{
@@ -56,6 +58,19 @@ namespace EL.Robot.Core
 			_flow = tempFlow;
 			return new ComponentResponse();
 		}
+		public static ComponentResponse SelectVariable(this SelectVariableRequest requst)
+		{
+			var keys = new List<string>();
+			if (CurrentFlow.ParamsManager != null)
+				foreach (var item in CurrentFlow.ParamsManager)
+				{
+					if (requst.Types.Contains(item.Value.GetType()))
+					{
+						keys.Add(item.Key);
+					}
+				}
+			return new ComponentResponse() { Data = keys };
+		}
 		public static ComponentResponse RevmoFlow(CommponetRequest requst)
 		{
 			var tempFlow = requst.Data as Flow;
@@ -80,10 +95,9 @@ namespace EL.Robot.Core
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ExecFlow).ToLower())
 				return await ExecFlow(request);
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(RequestManager.AddFlow).ToLower())
-			{
-				AddFlow(request);
-				return new ComponentResponse();
-			}
+				return AddFlow(request);
+			if (request is SelectVariableRequest selectVariableRequest)
+				return selectVariableRequest.SelectVariable();
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ComponentSystem).ToLower())
 				return ComponentSystem.Main(request);
 			if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ExecNodes).ToLower())
@@ -166,8 +180,14 @@ namespace EL.Robot.Core
 		{
 			var componentName = request.Data.Paramters["ComponentName"];
 			RequestManager.NodeComponentRoot.ChildComponent.TryGetValue(componentName, out Entity entity);
-			return new ComponentResponse() { Data = (entity as BaseComponent).GetExpression() };
+			return new ComponentResponse()
+			{
+				Data =
+				(entity as BaseComponent).GetExpression(request, RequestManager.CurrentFlow.ParamsManager)
+			};
 		}
+
+
 		public static ComponentResponse GetComponentsById(this CommponetRequest request)
 		{
 			var id = request.Data.Paramters["Id"];

@@ -119,11 +119,40 @@ namespace EL.Robot.Component
 		public string Key { get; set; }
 		[JsonProperty(PropertyName = "value")]
 		public object Value { get; set; }
-		public object DefaultValue { get; set; }
 		[JsonProperty(PropertyName = "title")]
 		public string DisplayName { get; set; }
+		/// <summary>
+		/// 唯一识别
+		/// </summary>
+		public long Id { get; set; }
 		public string Title { get; set; }
-		public List<string> Values { get; set; }
+		public List<ValueInfo> Values { get; set; }
+		public List<Parameter> Parameters { get; set; }
+		public bool IsInput { get; set; }
+
+		public List<Type> Type { get; set; }
+		public bool IsFinish { get; set; }
+	}
+	public class ValueInfo
+	{
+		
+		public string DisplayName { get; set; }
+		public object Value { get; set; }
+		public List<Type> Types { get; set; }
+		public ValueActionType AcationType { get; set; } = ValueActionType.Value;
+		public CommponetRequest Action { get; set; }
+	}
+	public enum ValueActionType
+	{
+		RequestValue,
+		RequestList,
+		Input,
+		Value
+	}
+	public class ParameterInfo
+	{
+		public string DefalutCommand { get; set; }
+		public Parameter Parameter { get; set; }
 	}
 	public class NodeState
 	{

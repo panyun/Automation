@@ -9,8 +9,17 @@ namespace EL.Robot.Component
 {
     public class DataBaseSelectComponet :BaseComponent
     {
-
-        [Obsolete]
+		public DataBaseSelectComponet()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "数据库查询";
+			return base.GetConfig();
+		}
+		[Obsolete]
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await ELTask.CompletedTask;

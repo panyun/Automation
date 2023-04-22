@@ -9,7 +9,17 @@ namespace EL.Robot.Component
 {
     public class DataBaseExecComponet : BaseComponent
     {
-        [Obsolete]
+		public DataBaseExecComponet()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "数据库执行";
+			return base.GetConfig();
+		}
+		[Obsolete]
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);

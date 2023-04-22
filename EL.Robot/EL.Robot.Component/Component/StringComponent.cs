@@ -2,8 +2,11 @@
 using Newtonsoft.Json;
 using NPOI.OpenXml4Net.OPC;
 using NPOI.OpenXmlFormats.Dml;
+using System.Drawing;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Windows.Markup;
 
 namespace EL.Robot.Component.Component
 {
@@ -19,29 +22,105 @@ namespace EL.Robot.Component.Component
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.Parameters = new List<Parameter>
+			Config.Parameters = new List<Parameter>()
 			{
 				new Parameter()
 				{
-					Key = "function",
-					DefaultValue = "insert",
-					DisplayName="插入",
+					Key = "insert",
+					DisplayName = "字符插入",
 					Value = "insert",
-					Title = "字符串处理类型",
-					Values = new List<string>()
-					  {
-						  "insert","replace","split","del","conversion","random","contains","join"
-					  }
+					Title = "字符插入",
+					Type = new List<Type>(){ typeof(string) },
+					IsInput = true,
+					Values = new List<ValueInfo> {
+					   new ValueInfo()
+					   {
+							DisplayName = "目标字符串",
+					   }
+					},
+					Parameters = new List<Parameter>()
+					{
+						new Parameter()
+						{
+							Key = "match",
+							DisplayName = "匹配插入",
+							Value = "match",
+							Type = new List<Type>(){ typeof(string) },
+								IsInput = true,
+							Title = "匹配插入",
+							Values = new List<ValueInfo> {
+					   new ValueInfo()
+					   {
+							DisplayName = "目标字符串",
+					   }
+					},
+							Parameters = new List<Parameter>()
+							{
+								new Parameter()
+						{
+							Key = "Loction",
+							DisplayName = "插入位置",
+								Type = new List<Type>(){ typeof(Point) },
+							Title = "插入位置",
+								IsInput = true,
+							Values = new List<ValueInfo> {
+					   new ValueInfo()
+					   {
+							DisplayName = "{x,y}",
+
+					   }
+					},
+						}
+							}
+						},
+
+					}
+				},
+				new Parameter()
+				{
+					Key = "replace",
+					DisplayName = "字符替换",
+					Value = "replace",
+					Title = "字符串替换",
+						IsInput = true,
+					Type = new List<Type>(){ typeof(string) },
+					Values =new List<ValueInfo>()
+					{
+						new ValueInfo()
+						{
+							 DisplayName= "目标字符串",
+						}
+					},
+					Parameters = new List<Parameter>()
+					{
+						new Parameter()
+						{
+							Key = "Loction",
+							DisplayName = "位置",
+							IsInput = true,
+							Value = "{x,y}",
+							Type = new List<Type>(){ typeof(Point) },
+							Title = "将字串替换到的位置",
+							Values = new List < ValueInfo > () { new ValueInfo() { DisplayName = "{x,y}" } },
+						}
+					}
 				}
-			};
-			Config.DisplayName = "字符函数";
+
+	};
+			Config.DisplayName = "字符串函数";
 			return base.GetConfig();
 		}
-		public override string GetExpression()
+		public string DefalutCommand(Parameter parameters)
 		{
-			return $@"字符串[{Config.Parameters.First().DisplayName}]";
-			//return base.GetExpression();
+			if (parameters.Parameters == null || parameters.Parameters.Count == 0)
+				return parameters.DisplayName;
+			string current = $@"{parameters.DisplayName}";
+			if (parameters.IsInput)
+				current += "[请输入变量]";
+			return $@"[{parameters.DisplayName}]-[{DefalutCommand(parameters.Parameters.First())}]";
 		}
+
+
 		public override async ELTask<INodeContent> Main(INodeContent self)
 		{
 			await base.Main(self);

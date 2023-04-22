@@ -71,7 +71,7 @@ namespace EL.Robot.Component
                             IResponse res = new ResponseBase();
                             try
                             {
-                                res = await RequestManager.StartAsync(request);
+                                res = await InspectRequestManager.StartAsync(request);
                                 if (res.Error != 0)
                                     throw new ELNodeHandlerException(res.Message);
                                 return res;

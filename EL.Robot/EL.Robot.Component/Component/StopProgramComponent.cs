@@ -10,8 +10,16 @@ namespace EL.Robot.Component
 
     public class StopProgramComponent : BaseComponent
     {
-
-        public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();
+        public StopProgramComponent() {
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "关闭程序";
+			return base.GetConfig();
+		}
+		public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);

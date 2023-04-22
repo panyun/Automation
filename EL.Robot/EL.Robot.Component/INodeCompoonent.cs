@@ -53,7 +53,7 @@ namespace EL.Robot.Component
 		public Dictionary<string, object> Parameter { get; set; }
 		public ELTask<INodeContent> Main(INodeContent self);
 		public Config GetConfig();
-		public string GetExpression();
+		public ParameterInfo GetExpression(CommponetRequest commponetRequest, Dictionary<string, object> paramsManager);
 	}
 	public class BaseComponent : Entity, INodeCompoonent
 	{
@@ -68,7 +68,7 @@ namespace EL.Robot.Component
 
 		public string DisplayName { get; set; }
 		public Dictionary<string, object> Parameter { get; set; } = new Dictionary<string, object>();
-		public virtual string GetExpression()
+		public virtual ParameterInfo GetExpression(CommponetRequest commponetRequest, Dictionary<string, object> paramsManager)
 		{
 			return default;
 		}
@@ -115,7 +115,7 @@ namespace EL.Robot.Component
 		/// <summary>
 		/// 组件参数
 		/// </summary>
-		public List<Parameter> Parameters { get; set; }
+		public List<Parameter> Parameters { get; set; } = new List<Parameter>();
 		/// <summary>
 		/// 输出参数名称
 		/// </summary>

@@ -7,7 +7,17 @@ namespace EL.Robot.Component
 {
     public class DataBaseComponet: BaseComponent
     {
-        public override async ELTask<INodeContent> Main(INodeContent self)
+		public DataBaseComponet()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "创建链接";
+			return base.GetConfig();
+		}
+		public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
             var ip = self.CurrentNode.GetParamterString("ip").ToLower();

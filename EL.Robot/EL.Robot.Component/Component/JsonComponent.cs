@@ -16,8 +16,17 @@ namespace EL.Robot.Component.Component
     /// </summary>
     public class JsonComponent : BaseComponent
     {
-
-        public override async ELTask<INodeContent> Main(INodeContent self)
+		public JsonComponent()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "Json";
+			return base.GetConfig();
+		}
+		public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
             var targetvalue = self.CurrentNode.GetParamterString("targetvalue");

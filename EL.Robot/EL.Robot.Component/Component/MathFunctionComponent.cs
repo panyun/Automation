@@ -34,15 +34,23 @@ namespace EL.Robot.Component.Component
     }
     public class MathFunctionComponent : BaseComponent
     {
-   
+		public MathFunctionComponent()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "数学";
+			return base.GetConfig();
+		}
+		/// <summary>
+		/// 求绝对值
+		/// </summary>
+		/// <param name="self"></param>
+		/// <returns></returns>
 
-        /// <summary>
-        /// 求绝对值
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-
-        public override async ELTask<INodeContent> Main(INodeContent self)
+		public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
             //var currentValues = Math.Abs(Convert.ToDouble(self.CurrentNode.Value));

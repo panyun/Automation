@@ -661,7 +661,7 @@
             Y坐标偏差值
             </summary>
         </member>
-        <member name="F:Automation.Parser.RequestType.CatchElementRequest">
+        <member name="F:Automation.Parser.RequestType.CatchUIRequest">
             <summary>
             抓取节点
             </summary>
@@ -982,34 +982,34 @@
             
             </summary>
         </member>
-        <member name="M:Automation.RequestManager.Start(System.String)">
+        <member name="M:Automation.InspectRequestManager.Start(System.String)">
             <summary>
             协议入口
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:Automation.RequestManager.StartAsync(System.String)">
+        <member name="M:Automation.InspectRequestManager.StartAsync(System.String)">
             <summary>
             协议异步回调
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Automation.RequestManager.GetRequest(System.String)">
+        <member name="M:Automation.InspectRequestManager.GetRequest(System.String)">
             <summary>
             
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Automation.RequestManager.StartToJsonAsync(System.String)">
+        <member name="M:Automation.InspectRequestManager.StartToJsonAsync(System.String)">
             <summary>
             
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Automation.RequestManager.StartAsync(EL.IRequest)">
+        <member name="M:Automation.InspectRequestManager.StartAsync(EL.IRequest)">
             <summary>
             SDK异步回调
             </summary>

@@ -9,7 +9,17 @@ namespace EL.Robot.Component.Component
     //HotKeyComponent
     public class HotKeyComponent : BaseComponent
     {
-        Dictionary<string, string> keyDic = new Dictionary<string, string>()
+		public HotKeyComponent()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "热键";
+			return base.GetConfig();
+		}
+		Dictionary<string, string> keyDic = new Dictionary<string, string>()
         {
             {"CONTROLLEFT",VirtualKeyShort.LCONTROL.ToString() },
             {"CONTROLRIGHT",VirtualKeyShort.RCONTROL.ToString() },

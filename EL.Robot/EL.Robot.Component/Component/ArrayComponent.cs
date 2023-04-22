@@ -1,27 +1,24 @@
-﻿using Automation.Inspect;
-using EL.Async;
+﻿using EL.Async;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace EL.Robot.Component.Component
 {
+
 	/// <summary>
 	/// json组件
 	/// </summary>
 	public class ArrayComponent : BaseComponent
 	{
-
 		public ArrayComponent()
 		{
-			Config.ComponentName = nameof(ArrayComponent);
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "数组";
+			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)
 		{

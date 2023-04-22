@@ -32,6 +32,7 @@
 			panel2 = new Panel();
 			button1 = new Button();
 			panel3 = new Panel();
+			pl_cmd = new Panel();
 			pl_key = new Panel();
 			pl_components = new Panel();
 			pl_Category = new Panel();
@@ -40,6 +41,7 @@
 			button3 = new Button();
 			textBox2 = new TextBox();
 			txt_exp = new TextBox();
+			lbl_exec = new Button();
 			panel3.SuspendLayout();
 			panel4.SuspendLayout();
 			SuspendLayout();
@@ -74,6 +76,8 @@
 			// panel3
 			// 
 			panel3.BackColor = Color.WhiteSmoke;
+			panel3.Controls.Add(lbl_exec);
+			panel3.Controls.Add(pl_cmd);
 			panel3.Controls.Add(pl_key);
 			panel3.Controls.Add(pl_components);
 			panel3.Controls.Add(pl_Category);
@@ -87,34 +91,42 @@
 			panel3.Size = new Size(628, 561);
 			panel3.TabIndex = 5;
 			// 
+			// pl_cmd
+			// 
+			pl_cmd.BackColor = Color.Gainsboro;
+			pl_cmd.Location = new Point(20, 371);
+			pl_cmd.Name = "pl_cmd";
+			pl_cmd.Size = new Size(596, 53);
+			pl_cmd.TabIndex = 15;
+			// 
 			// pl_key
 			// 
 			pl_key.BackColor = Color.Gainsboro;
-			pl_key.Location = new Point(23, 405);
+			pl_key.Location = new Point(23, 451);
 			pl_key.Name = "pl_key";
-			pl_key.Size = new Size(513, 38);
+			pl_key.Size = new Size(576, 38);
 			pl_key.TabIndex = 14;
 			// 
 			// pl_components
 			// 
 			pl_components.BorderStyle = BorderStyle.FixedSingle;
-			pl_components.Location = new Point(23, 289);
+			pl_components.Location = new Point(23, 259);
 			pl_components.Name = "pl_components";
-			pl_components.Size = new Size(512, 47);
+			pl_components.Size = new Size(576, 61);
 			pl_components.TabIndex = 12;
 			// 
 			// pl_Category
 			// 
 			pl_Category.BackColor = Color.Gainsboro;
-			pl_Category.Location = new Point(20, 341);
+			pl_Category.Location = new Point(20, 326);
 			pl_Category.Name = "pl_Category";
-			pl_Category.Size = new Size(596, 42);
+			pl_Category.Size = new Size(596, 39);
 			pl_Category.TabIndex = 11;
 			// 
 			// button2
 			// 
 			button2.BackColor = Color.FromArgb(233, 233, 233);
-			button2.Location = new Point(541, 511);
+			button2.Location = new Point(541, 524);
 			button2.Name = "button2";
 			button2.Size = new Size(75, 23);
 			button2.TabIndex = 10;
@@ -147,19 +159,31 @@
 			textBox2.Location = new Point(20, 51);
 			textBox2.Multiline = true;
 			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(596, 285);
+			textBox2.Size = new Size(596, 269);
 			textBox2.TabIndex = 8;
 			// 
 			// txt_exp
 			// 
 			txt_exp.BackColor = Color.WhiteSmoke;
 			txt_exp.BorderStyle = BorderStyle.FixedSingle;
-			txt_exp.Location = new Point(20, 389);
+			txt_exp.Enabled = false;
+			txt_exp.Location = new Point(20, 430);
 			txt_exp.Multiline = true;
 			txt_exp.Name = "txt_exp";
-			txt_exp.Size = new Size(596, 116);
+			txt_exp.Size = new Size(596, 85);
 			txt_exp.TabIndex = 7;
 			txt_exp.TextChanged += txt_exp_TextChanged;
+			// 
+			// lbl_exec
+			// 
+			lbl_exec.BackColor = Color.FromArgb(233, 233, 233);
+			lbl_exec.Location = new Point(451, 524);
+			lbl_exec.Name = "lbl_exec";
+			lbl_exec.Size = new Size(75, 23);
+			lbl_exec.TabIndex = 16;
+			lbl_exec.Text = "预览";
+			lbl_exec.UseVisualStyleBackColor = false;
+			lbl_exec.Click += lbl_exec_Click;
 			// 
 			// IndexForm
 			// 
@@ -196,5 +220,7 @@
 		private Panel pl_components;
 		private ComboBox lbl_key;
 		private Panel pl_key;
+		private Panel pl_cmd;
+		private Button lbl_exec;
 	}
 }

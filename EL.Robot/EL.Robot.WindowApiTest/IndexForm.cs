@@ -5,6 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 using static EL.Robot.Core.ComponentSystem;
 using System.Runtime.InteropServices;
 using System.Text;
+using Utils;
+using Automation.Inspect;
 
 namespace EL.Robot.WindowApiTest
 {
@@ -15,19 +17,22 @@ namespace EL.Robot.WindowApiTest
 
 		[DllImport("user32 ")]
 		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-
+		public Config CurrentConfig;
+		public Dictionary<string, Parameter> ParamDic = new Dictionary<string, Parameter>();
 		public IndexForm()
 		{
 			InitializeComponent();
 			DispatcherHelper.BaseForm = this;
+			//pl_components.AutoScroll = true;
 			this.StartPosition = FormStartPosition.CenterScreen;
+
 			pl_components.Visible = false;
 			pl_key.Visible = false;
 			txt_exp.LostFocus += (x, y) =>
 			{
 				pl_key.Visible = false;
 			};
-			pl_components.Height = pl_Category.Height;
+			//pl_components.Height = pl_Category.Height;
 			pl_components.Leave += (x, y) =>
 			{
 				pl_components.Visible = false;
@@ -50,15 +55,17 @@ namespace EL.Robot.WindowApiTest
 					var btn = new Button()
 					{
 						Text = Helper.GetValue<string>(category, "CategoryName"),
-						Width = 85,
+						Width = 80,
 						Height = 22,
 						Top = 5,
+						//Font = new Font("隶书", 8),
 						TextAlign = ContentAlignment.MiddleCenter,
 						Tag = Helper.GetValue<int>(category, "CategoryId"),
 						Left = left,
 					};
 					btn.Click += async (x, y) =>
 					{
+						pl_components.Controls.Clear();
 						var tag = (x as Button).Tag;
 						CommponetRequest commponetRequest = new CommponetRequest()
 						{
@@ -76,23 +83,32 @@ namespace EL.Robot.WindowApiTest
 						if (componentConfigs.Data is null) return;
 						pl_components.Visible = true;
 						pl_components.Focus();
-						int left = 30;
+						int left = 10;
+						int index = 0;
+						int top = 5;
 						foreach (var item in componentConfigs.Data)
 						{
+							if (index % 7 == 0)
+							{
+								left = 10;
+								top = top + 25 * (int)Math.Floor(index / 7f);
+							}
+
 							var config = item as Config;
 							var btn = new Button()
 							{
 								Text = config.DisplayName,
-								Width = 85,
+								Width = 80,
 								Height = 22,
-								Top = 5,
+								//Font = new Font("隶书", 8),
+								Top = top,
 								TextAlign = ContentAlignment.MiddleCenter,
 								Tag = config,
 								Left = left,
 							};
 
 							pl_components.Controls.Add(btn);
-							left += 60 + 30;
+							left += 80;
 							btn.Click += async (x, y) =>
 							{
 								var tag = (x as Button).Tag as Config;
@@ -108,10 +124,14 @@ namespace EL.Robot.WindowApiTest
 										}
 									}
 								};
-
-								var exp = await RequestManager.StartAsync(commponetRequest);
-								txt_exp.Text = exp.Data;
+								CurrentConfig = tag;
+								ParamDic.Clear();
+								txt_exp.Text = "";
+								CreateParamDic(tag.Parameters);
+								pl_cmd.Controls.Clear();
+								CreateExp(config);
 							};
+							index++;
 						}
 					};
 					pl_Category.Controls.Add(btn);
@@ -140,18 +160,260 @@ namespace EL.Robot.WindowApiTest
 			};
 
 		}
+		public void CreateParamDic(List<Parameter> parameters)
+		{
+			if (parameters is null) return;
+			foreach (var item in parameters)
+				ParamDic.Add(item.Key, item);
+			foreach (var item in parameters)
+				CreateParamDic(item.Parameters);
+			return;
+		}
+		public void CreateExp(Config config)
+		{
+			var lbl = new Label()
+			{
+				Text = config.DisplayName + "指令：",
+				Height = 20,
+				BackColor = Color.FromArgb(0, Color.Red),
+				ForeColor = Color.Red,
+				Left = 5,
+			};
+			pl_cmd.Controls.Add(lbl);
+			pl_cmd.Controls.Add(CreateCmd(config.Parameters, pl_cmd.Location.X));
+			pl_cmd.AutoScroll = true;
+		}
+		public string GenerateCmd()
+		{
+			var p = ParamDic.Values.Where(x => x.IsFinish);
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.Append($"{CurrentConfig.DisplayName}的指令集：");
+			if (p.Any())
+				foreach (var item in p)
+				{
+					if (item.Value is ElementPath path)
+					{
+						stringBuilder.Append($"{item.DisplayName}:[{path.Path}] ,");
+						continue;
+					}
+
+					stringBuilder.Append($"{item.DisplayName}:[{item.Value}] ,");
+				}
+			return stringBuilder.ToString();
+		}
+		public Control CreateCmd(List<Parameter> parameters, int left)
+		{
+			if (parameters == null || parameters.Count == 0)
+				return null;
+
+			if (parameters.Count == 1)
+			{
+				var pl = CreateControl(parameters.First(), left);
+				pl_cmd.Controls.Add(pl);
+				return pl;
+			}
+			return CreateControl(parameters, left);
+		}
+		public Panel CreateControl(List<Parameter> parameters, int left)
+		{
+			Panel panel = new Panel();
+			panel.Left = left;
+			panel.Width = 80;
+			panel.Height = 22;
+			panel.Top = 20;
+			ComboBox comboBox = new()
+			{
+				DisplayMember = nameof(Parameter.DisplayName),
+				Left = 0,
+				Width = 80
+			};
+			comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+			panel.Controls.Add(comboBox);
+			comboBox.Width = panel.Width;
+
+			foreach (var item in parameters)
+			{
+				comboBox.Items.Add(item);
+
+			}
+			comboBox.SelectedValueChanged += (x, y) =>
+			{
+				var param = comboBox.SelectedItem as Parameter;
+				foreach (var item in comboBox.Items)
+					(item as Parameter).IsFinish = false;
+				if (param.IsInput)
+				{
+					panel.Width = 160;
+					var cb = new ComboBox
+					{
+						Name = param.Key,
+						Left = 80,
+						Width = 80
+					};
+					cb.DropDownStyle = ComboBoxStyle.DropDownList;
+					cb.DisplayMember = nameof(ValueInfo.DisplayName);
+					foreach (var item in param.Values)
+					{
+						cb.Items.Add(item);
+					}
+					panel.Controls.Add(cb);
+					cb.SelectedValueChanged += async (x, y) =>
+					{
+						var temp = cb.PointToScreen(cb.Location);
+						var p = new Point(temp.X - cb.Width, temp.Y + cb.Height);
+						var valueInfo = cb.SelectedItem as ValueInfo;
+						if (valueInfo.AcationType == ValueActionType.RequestList)
+						{
+							var response = await RequestManager.StartAsync(valueInfo.Action);
+							var result = new PopuForm(valueInfo.AcationType, p, response.Data).ShowDialog();
+							if (result == DialogResult.OK)
+								param.Value = result;
+						}
+						if (valueInfo.AcationType == ValueActionType.RequestValue)
+						{
+							var response = await RequestManager.StartAsync(valueInfo.Action);
+							param.Value = response.Data;
+						}
+						if (valueInfo.AcationType == ValueActionType.Input)
+						{
+							var result = new PopuForm(valueInfo.AcationType, p).ShowDialog();
+							if (result == DialogResult.OK)
+								param.Value = result;
+						}
+						if (valueInfo.AcationType != ValueActionType.Value)
+						{
+							param.Value = valueInfo.Value;
+						}
+					};
+					ParamDic[param.Key] = param;
+					txt_exp.Text = GenerateCmd();
+				}
+				List<Control> cons = new();
+				var keys1 = parameters.Select(x => x.Key);
+				var keys2 = parameters.SelectMany(x => x.Parameters).Select(x => x.Key);
+				var keys = keys1.Concat(keys2);
+				foreach (Control item in pl_cmd.Controls)
+				{
+
+					if (keys.Contains(item.Name))
+						cons.Add(item);
+				}
+				cons.ForEach(x => pl_cmd.Controls.Remove(x));
+				pl_cmd.Controls.Add(CreateCmd(param.Parameters, panel.Right));
+
+			};
+			comboBox.SelectedIndex = 0;
+			return panel;
+		}
+
+		public Panel CreateControl(Parameter param, int left)
+		{
+			Panel panel = new();
+			panel.Name = param.Key;
+			panel.Left = left;
+			panel.Top = 20;
+			panel.Height = 22;
+			Label link = new LinkLabel();
+			var notExist = param.Parameters == null || param.Parameters.Count == 0;
+			if (notExist)
+				link = new Label();
+			link.TextAlign = ContentAlignment.MiddleRight;
+			link.Tag = param;
+			link.Text = param.DisplayName + ":";
+			link.Width = 80;
+			panel.Controls.Add(link);
+			panel.Width = 80;
+			if (param.IsInput)
+			{
+				panel.Width += 90;
+				var cb = new ComboBox
+				{
+					Left = 80,
+					Width = 80
+				};
+				cb.DropDownStyle = ComboBoxStyle.DropDownList;
+				cb.DisplayMember = nameof(ValueInfo.DisplayName);
+				foreach (var item in param.Values)
+				{
+					cb.Items.Add(item);
+				}
+				cb.SelectedValueChanged += async (x, y) =>
+				{
+					var temp = cb.PointToScreen(cb.Location);
+					var p = new Point(temp.X - cb.Width, temp.Y + cb.Height);
+					var valueInfo = cb.SelectedItem as ValueInfo;
+					if (valueInfo.AcationType == ValueActionType.RequestList)
+					{
+						var response = await RequestManager.StartAsync(valueInfo.Action);
+						var result = new PopuForm(valueInfo.AcationType, p, response.Data).ShowDialog();
+						if (result == DialogResult.OK)
+							param.Value = result;
+
+					}
+					if (valueInfo.AcationType == ValueActionType.RequestValue)
+					{
+						var response = await RequestManager.StartAsync(valueInfo.Action);
+						param.Value = response.Data;
+					}
+					if (valueInfo.AcationType == ValueActionType.Input)
+					{
+						var popu = new PopuForm(valueInfo.AcationType, p);
+						var result = popu.ShowDialog();
+						if (result == DialogResult.OK)
+							param.Value = popu.Value;
+					}
+					if (valueInfo.AcationType == ValueActionType.Value)
+					{
+						param.Value = valueInfo.Value;
+					}
+					param.IsFinish = true;
+					ParamDic[param.Key] = param;
+					this.Invoke(() => { txt_exp.Text = GenerateCmd(); });
+				};
+				//cb.Click += (x, y) =>
+				//{
+				//	pl_key.Controls.Clear();
+				//	foreach (var val in param.Values)
+				//	{
+				//		var lin = new LinkLabel()
+				//		{
+				//			Tag = param,
+				//			Text = param.DisplayName,
+				//			Width = 80
+				//		};
+				//		pl_key.Controls.Add(lin);
+				//		lin.Click += (x, y) =>
+				//		{
+				//			cb.Tag = val;
+				//		};
+				//	}
+				//};
+				panel.Controls.Add(cb);
+			}
+			if (!notExist)
+			{
+				link.Click += (x, y) =>
+				{
+					pl_cmd.Controls.Add(CreateCmd(param.Parameters, panel.Right));
+				};
+			}
+			return panel;
+		}
+
+
+
 
 		private void txt_exp_TextChanged(object sender, EventArgs e)
 		{
-			var p = GetCursorPos();
-			pl_key.Visible = true;
-			var y = (int)((p.X * 20) + txt_exp.Top- (p.X*1.5f));
-			if (y > txt_exp.Top + txt_exp.Height)
-			{
-				y = txt_exp.Top + txt_exp.Height;
-			}
-			//查询字典
-			pl_key.Location = new Point(pl_key.Location.X, y);
+			//var p = GetCursorPos();
+			//pl_key.Visible = true;
+			//var y = (int)((p.X * 20) + txt_exp.Top - (p.X * 1.5f));
+			//if (y > txt_exp.Top + txt_exp.Height)
+			//{
+			//	y = txt_exp.Top + txt_exp.Height;
+			//}
+			////查询字典
+			//pl_key.Location = new Point(pl_key.Location.X, y);
 		}
 		//获取位置的函数
 		private Point GetCursorPos()
@@ -171,5 +433,22 @@ namespace EL.Robot.WindowApiTest
 			return ret;
 		}
 
+		private async void lbl_exec_Click(object sender, EventArgs e)
+		{
+			var commponetRequest = new CommponetRequest()
+			{
+				ComponentName = nameof(RequestManager.ExecNodes),
+				Data = new List<Node>()
+				{
+					new Node()
+					{
+						ComponentName = CurrentConfig.ComponentName,
+						 Id = IdGenerater.Instance.GenerateId(),
+						  Parameters = ParamDic.Values.Where(x=>x.IsFinish).ToList()
+					}
+				}
+			};
+			var result = await RequestManager.StartAsync(commponetRequest);
+		}
 	}
 }

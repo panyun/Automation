@@ -10,8 +10,17 @@ namespace EL.Robot.Component
 
     public class StartOrCmdProgramComponent : BaseComponent
     {
-
-        public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();
+		public StartOrCmdProgramComponent()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "开始程序";
+			return base.GetConfig();
+		}
+		public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);

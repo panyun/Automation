@@ -10,8 +10,17 @@ namespace EL.Robot.Component.Component
 {
     public class FlowBlockComponent: BaseComponent
     {
-
-        public override async ELTask<INodeContent> Main(INodeContent self)
+		public FlowBlockComponent()
+		{
+			Config.Category = Category.基础函数;
+		}
+		public override Config GetConfig()
+		{
+			if (Config.IsInit) return Config;
+			Config.DisplayName = "流程块";
+			return base.GetConfig();
+		}
+		public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
             self.Value = true;
