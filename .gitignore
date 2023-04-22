@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /EL.Robot/EL.Robot.Execute/ffmpeg.exe
 /EL.Robot/EL.Robot.WpfMain/ffmpeg.exe
 /EL.Robot/EL.Robot.Execute/ffmpeg.exe
+/EL.Bin/1.EL.CommonComponent.DLL/.playwright
