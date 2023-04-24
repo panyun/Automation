@@ -6,18 +6,18 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
     public class FlowBlockComponent: BaseComponent
     {
 		public FlowBlockComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "流程块";
+			Config.ButtonDisplayName = "流程块";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)

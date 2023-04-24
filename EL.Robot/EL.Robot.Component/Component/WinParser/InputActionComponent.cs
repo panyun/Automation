@@ -5,6 +5,7 @@ using EL.Robot.Component.DTO;
 
 namespace EL.Robot.Component
 {
+	
 	/// <summary>
 	/// 节点高亮
 	/// </summary>
@@ -103,7 +104,7 @@ namespace EL.Robot.Component
 					}
 				},
 			};
-			Config.DisplayName = "元素输入";
+			Config.ButtonDisplayName = "元素输入";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)

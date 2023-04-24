@@ -99,7 +99,7 @@ namespace EL.Robot.Component
 					}
 				},
 			};
-			Config.DisplayName = "元素点击";
+			Config.ButtonDisplayName = "元素点击";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)

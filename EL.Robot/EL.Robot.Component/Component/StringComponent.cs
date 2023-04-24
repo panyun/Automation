@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Markup;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
 	/// <summary>
 	/// 字符串处理
@@ -17,7 +17,7 @@ namespace EL.Robot.Component.Component
 	{
 		public StringComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
@@ -105,9 +105,8 @@ namespace EL.Robot.Component.Component
 						}
 					}
 				}
-
 	};
-			Config.DisplayName = "字符串函数";
+			Config.ButtonDisplayName = "字符串函数";
 			return base.GetConfig();
 		}
 		public string DefalutCommand(Parameter parameters)

@@ -12,12 +12,12 @@ namespace EL.Robot.Component
     {
 		public RegexComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "正则";
+			Config.ButtonDisplayName = "正则";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)
