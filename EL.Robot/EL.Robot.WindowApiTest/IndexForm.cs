@@ -22,8 +22,10 @@ namespace EL.Robot.WindowApiTest
 		public Config CurrentConfig;
 		public Dictionary<string, Parameter> ParamDic = new Dictionary<string, Parameter>();
 		public DesignComponent designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+		public static IndexForm Ins;
 		public IndexForm()
 		{
+			Ins = this;
 			InitializeComponent();
 			designComponent.RefreshLogMsgAction = (x) =>
 			{
@@ -49,6 +51,8 @@ namespace EL.Robot.WindowApiTest
 			{
 				pl_components.Visible = false;
 			};
+			var list = designComponent.LoadRobots();
+			RefreshRobots();
 			this.Load += async (x, y) =>
 			{
 				CommponetRequest commponetRequest = new CommponetRequest()
@@ -170,6 +174,24 @@ namespace EL.Robot.WindowApiTest
 			};
 
 		}
+		public void RefreshRobots()
+		{
+			flp_robotList.Controls.Clear();
+			if (!designComponent.Features.Any()) return;
+			var list = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
+			foreach (var item in list)
+			{
+				var robot = new RobotListView(item.Id, item.Name, item.HeadImg);
+				robot.Dock = DockStyle.Top;
+				flp_robotList.Controls.Add(robot);
+			}
+			var msgs = designComponent.GetDesignMsg();
+			txt_msg.Text = "";
+			foreach (var item in msgs)
+			{
+				txt_msg.Text += item.ShowMsg + "\r\n";
+			}
+		}
 		public void CreateParamDic(List<Parameter> parameters)
 		{
 			if (parameters is null) return;
@@ -197,17 +219,11 @@ namespace EL.Robot.WindowApiTest
 		{
 			var p = ParamDic.Values.Where(x => x.IsFinish);
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append($"[{CurrentConfig.DisplayName}]指令:.");
+			stringBuilder.Append($"[{CurrentConfig.DisplayName}指令]:.");
 			if (p.Any())
 				foreach (var item in p)
 				{
-					if (item.Value is ElementPath path)
-					{
-						stringBuilder.Append($"{item.DisplayName}:[{path.Path}].");
-						continue;
-					}
-
-					stringBuilder.Append($"{item.DisplayName}:[{item.Value}].");
+					stringBuilder.Append(item.DisplayExp);
 				}
 			return stringBuilder.ToString();
 		}
@@ -283,6 +299,7 @@ namespace EL.Robot.WindowApiTest
 						{
 							var response = await RequestManager.StartAsync(valueInfo.Action);
 							param.Value = response.Data;
+							param.DisplayVlaue = response.DisplayInfo;
 						}
 						if (valueInfo.AcationType == ValueActionType.Input)
 						{
@@ -364,6 +381,7 @@ namespace EL.Robot.WindowApiTest
 					{
 						var response = await RequestManager.StartAsync(valueInfo.Action);
 						param.Value = response.Data;
+						param.DisplayVlaue = response.DisplayInfo;
 					}
 					if (valueInfo.AcationType == ValueActionType.Input)
 					{
@@ -474,7 +492,10 @@ namespace EL.Robot.WindowApiTest
 			{
 				var name = designComponent.CurrentDesignFlow.Name;
 				lbl_name.Text = name;
+				WriteLog($"你已经创建了一个[{name}]");
+				RefreshRobots();
 			}
+
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -535,6 +556,13 @@ namespace EL.Robot.WindowApiTest
 			ParamDic.Clear();
 			txt_exp.Text = "";
 			pl_cmd.Controls.Clear();
+		}
+
+		private async void button3_Click(object sender, EventArgs e)
+		{
+			await designComponent.SaveRobot();
+			this.Close();
+			Application.Exit();
 		}
 	}
 }

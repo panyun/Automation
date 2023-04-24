@@ -1,4 +1,5 @@
-﻿using EL.Robot.Component;
+﻿using EL.Async;
+using EL.Robot.Component;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
@@ -81,6 +82,10 @@ namespace EL.Robot.Core
 	}
 	public class DesignMsg
 	{
+		public DesignMsg()
+		{
+
+		}
 		public DesignMsg(Node node, string msg, long takeTime = default) : this(node?.Id ?? default, node?.Name ?? default, msg, "组件", default, takeTime)
 		{
 
@@ -93,16 +98,19 @@ namespace EL.Robot.Core
 		{
 
 		}
-		public DesignMsg(string msg, bool isException = false)
+		public DesignMsg(long Id, string msg, bool isException = false)
 		{
+			this.Id = Id;
 			IsException = isException;
 			Msg = msg;
+			CreateTime = TimeHelper.ServerNow();
 			Time = DateTime.Now.ToString("HH:mm:ss");
 			ShowMsg = $" [{DateTime.Now:HH:mm:ss}]  信息：【 ---  {Msg} ---】";
 		}
 		private DesignMsg(long id, string name, string msg, string type, Exception ex = default, long takeTime = default)
 		{
 			Name = name;
+			CreateTime = TimeHelper.ServerNow();
 			Id = id;
 			Time = DateTime.Now.ToString("yy-MM-dd HH:mm:ss fff");
 			Type = type;
@@ -141,6 +149,7 @@ namespace EL.Robot.Core
 		/// 
 		/// </summary>
 		public string Time { get; set; }
+		public long CreateTime { get; set; }
 		public long TakeTime { get; set; }
 		public string Msg { get; set; }
 		public string ShowMsg { get; set; }

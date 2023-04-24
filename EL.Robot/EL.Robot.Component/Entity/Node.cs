@@ -48,31 +48,8 @@ namespace EL.Robot.Component
 		/// </summary>
 		public List<Parameter> Parameters
 		{
-			get
-			{
-				return parameters;
-			}
-			set
-			{
-				parameters = value;
-				DictionaryParam = new Dictionary<string, object>();
-				if (parameters == null)
-					return;
-				foreach (var x in parameters)
-				{
-					if (x == null) continue;
-					if (x.Key == null) continue;
-					var key = x.Key.Trim().ToLower();
-					if (DictionaryParam.ContainsKey(key.ToLower()))
-						DictionaryParam[key] = x.Value;
-					else
-						DictionaryParam.Add(key, x.Value);
-				}
-
-			}
-
-
-		}
+			get; set;
+		} = new List<Parameter>();
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "steps")]
 		/// <summary>
@@ -93,9 +70,7 @@ namespace EL.Robot.Component
 		/// 字典
 		/// </summary>
 		public Dictionary<string, object> DictionaryParam { get; set; }
-		[IgnoreDataMember]
-		[BsonIgnore]
-		[JsonIgnore]
+
 		/// <summary>
 		/// 节点图像
 		/// </summary>
@@ -119,6 +94,17 @@ namespace EL.Robot.Component
 		public string Key { get; set; }
 		[JsonProperty(PropertyName = "value")]
 		public object Value { get; set; }
+
+		public string DisplayVlaue { get; set; }
+		public string DisplayExp
+		{
+			get
+			{
+				var val = DisplayVlaue ?? Value.ToString();
+				var str = $"{DisplayName}:[{val}].";
+				return str;
+			}
+		}
 		[JsonProperty(PropertyName = "title")]
 		public string DisplayName { get; set; }
 		/// <summary>
@@ -135,7 +121,7 @@ namespace EL.Robot.Component
 	}
 	public class ValueInfo
 	{
-		
+
 		public string DisplayName { get; set; }
 		public object Value { get; set; }
 		public List<Type> Types { get; set; }

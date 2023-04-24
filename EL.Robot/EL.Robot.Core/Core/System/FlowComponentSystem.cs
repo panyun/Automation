@@ -134,7 +134,7 @@ namespace EL.Robot.Core
 			}
 			self.WriteNodeLog(startNode, "变量初始化结束", takeTimeComponent.Stop());
 		}
-
+		
 		public static object GetVariablesValue(Variable variable)
 		{
 			if (variable == null) return default;

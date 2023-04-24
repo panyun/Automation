@@ -3,7 +3,10 @@ using Automation.Inspect;
 using Automation.Parser;
 using EL.Async;
 using EL.Robot.Component.DTO;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System.Diagnostics;
+using System.Drawing;
+using WpfInspect.Models;
 
 namespace EL.Robot.Component
 {
@@ -103,7 +106,11 @@ namespace EL.Robot.Component
 		{
 			await base.Main(self);
 			DisplayName = self.CurrentNode.Name;
-			var element = self.CurrentNode.GetParamterValue("ElementPath");
+			var elementStr = self.CurrentNode.GetParamterString("ElementPath");
+			object element = elementStr;
+			if (elementStr is string)
+				element = JsonHelper.FromJson<ElementPath>(elementStr);
+			Light(element, 10000);
 			var actiontypeStr = self.CurrentNode.GetParamterValue("actiontype") + "";
 			var clicktypeStr = self.CurrentNode.GetParamterValue("clicktype") + "";
 			Enum.TryParse(actiontypeStr, true, out ActionType actionType);
@@ -129,6 +136,12 @@ namespace EL.Robot.Component
 			{
 				MouseActionSystem.UIAMain(request, new List<ElementUIA>() { ele });
 			}
+			else if (element is string && !string.IsNullOrEmpty(element.ToString()))
+			{
+				var elementPath = JsonHelper.FromJson<ElementPath>(element.ToString());
+				request.ElementPath = elementPath;
+				var res = (ElementActionResponse)await UtilsComponent.Exec(request);
+			}
 			else
 			{
 				throw new ELNodeHandlerException("引用参数的类型不匹配！");
@@ -136,6 +149,22 @@ namespace EL.Robot.Component
 
 			self.Value = true;
 			return self;
+		}
+		public static async void Light(object element, int timeOut)
+		{
+			if (element is ElementPath elementPath)
+			{
+				ElementActionRequest requestlight = new();
+				requestlight.LightProperty = new LightProperty()
+				{
+					ColorName = nameof(Color.Red),
+					Count = 1,
+					Time = 100
+				};
+				requestlight.TimeOut = timeOut;
+				requestlight.ElementPath = elementPath;
+				await UtilsComponent.Exec(requestlight);
+			}
 		}
 	}
 }

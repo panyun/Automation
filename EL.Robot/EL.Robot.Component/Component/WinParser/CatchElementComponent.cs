@@ -13,20 +13,21 @@ using System.Threading.Tasks;
 
 namespace EL.Robot.Component
 {
-    public class CatchElementComponent : Entity
-    {
-        public async ELTask<ComponentResponse> Main(CommponetRequest request)
-        {
-            CatchUIRequest catchElementRequest = new();
-            var respose = (CatchUIResponse)await UtilsComponent.Exec(catchElementRequest);
-            var result = new ComponentResponse
-            {
-                Error = respose.Error,
-                Message = respose.Message,
-                StackTrace = respose.StackTrace,
-                Data = respose.ElementPath
-            };
-            return result;
-        }
-    }
+	public class CatchElementComponent : Entity
+	{
+		public async ELTask<ComponentResponse> Main(CommponetRequest request)
+		{
+			CatchUIRequest catchElementRequest = new();
+			var respose = (CatchUIResponse)await UtilsComponent.Exec(catchElementRequest);
+			var result = new ComponentResponse
+			{
+				Error = respose.Error,
+				Message = respose.Message,
+				StackTrace = respose.StackTrace,
+				Data = JsonHelper.ToJson(respose.ElementPath),
+				DisplayInfo = respose.ElementPath.Path
+			};
+			return result;
+		}
+	}
 }

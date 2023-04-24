@@ -1,6 +1,7 @@
 ﻿using EL.Async;
 using EL.Robot.Component;
 using EL.Robot.Component.DTO;
+using EL.Robot.Core.SqliteEntity;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Security.Permissions;
 
@@ -18,26 +19,82 @@ namespace EL.Robot.Core
 			};
 			inFlow.Steps.Add(startNode);
 			inFlow.CreateDate = TimeHelper.ServerNow();
+			inFlow.ViewSort = TimeHelper.ServerNow();
 			self.DesignFlowDic.Add(inFlow.Id, inFlow);
 			self.CurrentDesignFlow = inFlow;
+			self.Features.Add(new Features()
+			{
+				Id = inFlow.Id,
+				Name = inFlow.Name,
+				ViewSort = inFlow.ViewSort,
+				CreateDate = inFlow.CreateDate,
+				HeadImg = inFlow.HeadImg
+			});
 			return inFlow;
 		}
 		public static ComponentResponse CreateRobot(this DesignComponent self, CommponetRequest requst)
 		{
 			var tempFlow = requst.Data as Flow;
-
 			var flow = self.CreateRobot(tempFlow);
 			return new ComponentResponse() { Data = flow };
 		}
-		public static List<Flow> LoadRobots(this DesignComponent self)
+		public static async ELTask<int> SaveRobot(this DesignComponent self)
 		{
-			return self.DesignFlowDic.Values.ToList();
+			if (!self.DesignFlowDic.Any()) return default;
+			int row = 0;
+			foreach (var flow in self.DesignFlowDic.Values)
+			{
+				string flowData = JsonHelper.ToJson(flow);
+				var features = new Features()
+				{
+					Id = flow.Id,
+					Name = flow.Name,
+					HeadImg = flow.HeadImg,
+					CreateDate = flow.CreateDate,
+					ViewSort = flow.ViewSort,
+				};
+				string featuresData = JsonHelper.ToJson(features);
+				var logs = self.LogMsgs.Where(x => x.Id == flow.Id).ToList();
+				string log = JsonHelper.ToJson(logs);
+				row += await RobotDataManagerService.SaveFlow(flow.Id, flowData, featuresData, log);
+			}
+			return row;
+		}
+		public static List<Features> LoadRobots(this DesignComponent self)
+		{
+			self.FlowDatas = RobotDataManagerService.LoadFlows();
+			List<Features> features = new();
+			if (self.FlowDatas is null) return features;
+			self.FlowDatas.ForEach(x =>
+			{
+				var feature = JsonHelper.FromJson<Features>(x.Features);
+				features.Add(feature);
+			});
+			self.Features = features;
+			return features;
 		}
 		public static Flow StartDesign(this DesignComponent self, long Id)
 		{
 			self.DesignFlowDic.TryGetValue(Id, out Flow flow);
+			if (flow == null)
+			{
+				var flowData = self.FlowDatas.FirstOrDefault(x => x.Id == Id);
+				flow = JsonHelper.FromJson<Flow>(flowData.Content);
+				self.DesignFlowDic.Add(flow.Id, flow);
+				var logs = JsonHelper.FromJson<List<DesignMsg>>(flowData.DesignMsg);
+				if (logs is not null)
+					self.LogMsgs.AddRange(logs);
+			}
 			self.CurrentDesignFlow = flow;
+			self.CurrentDesignFlow.ViewSort = TimeHelper.ServerNow();
+			var fea = self.Features.FirstOrDefault(x => x.Id == Id);
+			fea.ViewSort = self.CurrentDesignFlow.ViewSort;
+
 			return flow;
+		}
+		public static List<DesignMsg> GetMsg(this DesignComponent self)
+		{
+			return self.LogMsgs.Where(x => self.CurrentDesignFlow.Id == x.Id).ToList();
 		}
 		public static ComponentResponse StartDesign(this DesignComponent self, CommponetRequest requst)
 		{
@@ -102,8 +159,10 @@ namespace EL.Robot.Core
 		}
 		public static void WriteLog(this DesignComponent self, string msg, bool isException = false)
 		{
+			long id = default;
+			if (self.CurrentDesignFlow != null) id = self.CurrentDesignFlow.Id;
 			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
-			var entity = new DesignMsg(msg, isException);
+			var entity = new DesignMsg(id, msg, isException);
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}

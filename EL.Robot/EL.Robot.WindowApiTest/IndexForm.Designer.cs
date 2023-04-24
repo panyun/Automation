@@ -28,10 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			panel1 = new Panel();
 			button6 = new Button();
 			button5 = new Button();
 			panel2 = new Panel();
+			flp_robotList = new FlowLayoutPanel();
 			btn_add = new Button();
 			textBox1 = new TextBox();
 			button1 = new Button();
@@ -49,6 +51,7 @@
 			button3 = new Button();
 			txt_msg = new TextBox();
 			txt_exp = new TextBox();
+			notifyIcon1 = new NotifyIcon(components);
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
 			panel3.SuspendLayout();
@@ -87,6 +90,7 @@
 			// panel2
 			// 
 			panel2.BackColor = Color.FromArgb(236, 233, 231);
+			panel2.Controls.Add(flp_robotList);
 			panel2.Controls.Add(btn_add);
 			panel2.Controls.Add(textBox1);
 			panel2.Dock = DockStyle.Left;
@@ -94,6 +98,14 @@
 			panel2.Name = "panel2";
 			panel2.Size = new Size(200, 561);
 			panel2.TabIndex = 2;
+			// 
+			// flp_robotList
+			// 
+			flp_robotList.Dock = DockStyle.Bottom;
+			flp_robotList.Location = new Point(0, 41);
+			flp_robotList.Name = "flp_robotList";
+			flp_robotList.Size = new Size(200, 520);
+			flp_robotList.TabIndex = 2;
 			// 
 			// btn_add
 			// 
@@ -243,6 +255,7 @@
 			button3.TabIndex = 0;
 			button3.Text = "关闭";
 			button3.UseVisualStyleBackColor = true;
+			button3.Click += button3_Click;
 			// 
 			// txt_msg
 			// 
@@ -265,6 +278,11 @@
 			txt_exp.Size = new Size(596, 85);
 			txt_exp.TabIndex = 7;
 			txt_exp.TextChanged += txt_exp_TextChanged;
+			// 
+			// notifyIcon1
+			// 
+			notifyIcon1.Text = "notifyIcon1";
+			notifyIcon1.Visible = true;
 			// 
 			// IndexForm
 			// 
@@ -314,5 +332,7 @@
 		private Button button6;
 		private Button button5;
 		private Label lbl_name;
+		private NotifyIcon notifyIcon1;
+		private FlowLayoutPanel flp_robotList;
 	}
 }

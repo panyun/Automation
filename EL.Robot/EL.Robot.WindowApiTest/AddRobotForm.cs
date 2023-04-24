@@ -21,7 +21,7 @@ namespace EL.Robot.WindowApiTest
 		{
 			Flow flow = new Flow();
 			flow.Name = textBox1.Text.Trim();
-			flow.HeadImage = null;
+			flow.HeadImg = null;
 			var design = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			design.CreateRobot(flow);
 			this.DialogResult = DialogResult.OK;

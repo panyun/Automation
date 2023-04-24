@@ -11,5 +11,7 @@ namespace EL.Robot.Core.SqliteEntity
         public long Id { get; set; }
         public string Content { get; set; }
         public string Features { get; set; }
-    }
+        public string DesignMsg { get; set; }
+
+	}
 }

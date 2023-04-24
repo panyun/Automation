@@ -48,11 +48,29 @@ namespace EL.Robot.Core
 
 			await self.Exec(flowComponent.CurrentFlow.Steps);
 		}
+		public static void InitNodeDictionaryParam(this NodeComponent self, Node node)
+		{
+
+			node.DictionaryParam = new Dictionary<string, object>();
+			if (node.Parameters == null)
+				return;
+			foreach (var x in node.Parameters)
+			{
+				if (x == null) continue;
+				if (x.Key == null) continue;
+				var key = x.Key.Trim().ToLower();
+				if (node.DictionaryParam.ContainsKey(key.ToLower()))
+					node.DictionaryParam[key] = x.Value;
+				else
+					node.DictionaryParam.Add(key, x.Value);
+			}
+		}
 		public static async Async.ELTask Exec(this NodeComponent self, List<Node> nodes)
 		{
 			if (nodes == null || nodes.Count == 0) return;
 			foreach (var node in nodes)
 			{
+				self.InitNodeDictionaryParam(node);
 				self.StartNodeAction?.Invoke(node);
 				BaseProperty tryInfo = node.GetBaseProperty();
 				var robot = Boot.GetComponent<RobotComponent>();

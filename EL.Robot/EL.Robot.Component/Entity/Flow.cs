@@ -12,12 +12,13 @@ namespace EL.Robot.Component
 	}
 	public class Flow
 	{
-		public Image HeadImage { get; set; }
+		public string HeadImg { get; set; }
 		/// <summary>
 		/// 流程id
 		/// </summary>
 		public long Id { get; set; }
 		public long CreateDate { get; set; }
+		public long ViewSort { get; set; }
 		/// <summary>
 		/// 流程名称
 		/// </summary>
