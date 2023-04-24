@@ -11,12 +11,12 @@ namespace EL.Robot.Component
     {
 		public DataBaseSelectComponet()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "数据库查询";
+			Config.ButtonDisplayName = "数据库查询";
 			return base.GetConfig();
 		}
 		[Obsolete]

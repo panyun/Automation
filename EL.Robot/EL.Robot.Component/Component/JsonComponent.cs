@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
     /// <summary>
     /// json组件
@@ -18,12 +18,12 @@ namespace EL.Robot.Component.Component
     {
 		public JsonComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "Json";
+			Config.ButtonDisplayName = "Json";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)

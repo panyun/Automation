@@ -340,7 +340,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
 		<ProjectReference Include="..\EL.Robot.Core\EL.Robot.Core.csproj" />
 		<ProjectReference Include="..\EL.Robot.Win\EL.Robot.Win.csproj" />
 	</ItemGroup>

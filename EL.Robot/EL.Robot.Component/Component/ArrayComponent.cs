@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Xml.Linq;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
 
 	/// <summary>
@@ -12,12 +12,12 @@ namespace EL.Robot.Component.Component
 	{
 		public ArrayComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "数组";
+			Config.ButtonDisplayName = "数组";
 			return base.GetConfig();
 		}
 		public override async ELTask<INodeContent> Main(INodeContent self)

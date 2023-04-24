@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
     <ProjectReference Include="..\EL.Robot.Core\EL.Robot.Core.csproj" />
   </ItemGroup>
 
