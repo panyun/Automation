@@ -108,6 +108,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj">
+      <Project>{ea0d14e9-3163-4bed-9d55-fe0020c50365}</Project>
+      <Name>EL.Robot.Component</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EL.Robot.Core\EL.Robot.Core.csproj">
       <Project>{079cb569-656f-4430-9d78-f46da3a5e5ac}</Project>
       <Name>EL.Robot.Core</Name>
