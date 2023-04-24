@@ -6,28 +6,45 @@ namespace EL.Robot.Component
 {
     public class IFComponent : BaseComponent
     {
-
+        public string Expression { get; set; }
+        public IFComponent()
+        {
+            Config.Category = Category.流程控制;
+        }
+        public override Config GetConfig()
+        {
+            if (Config.IsInit) return Config;
+            Config.ButtonDisplayName = "条件分支";
+            Config.Parameters = new List<Parameter>()
+            {
+                new Parameter()
+                {
+                    Key = nameof(Expression),
+                    DisplayName = "条件表达式",
+                    Value = "",
+                    Title = "判断分支为真则执行",
+                    Type = new List<Type>(){ typeof(string) },
+                    IsInput = true,
+                    Values = new List <ValueInfo>() {
+                        VariableSystem.InputVariable,
+                        VariableSystem.SelectVariable
+                    },
+                },
+            };
+            return base.GetConfig();
+        }
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
-            await base.Main(self);
-            if (self.CurrentNode.Steps != null) self.CurrentNode.Steps.Clear();
-            if (self.CurrentNode.Steps == null) self.CurrentNode.Steps = new List<Node>();
-            var type = self.CurrentNode.GetParamterInt("ifType");
-            var exrp = self.CurrentNode.GetParamterValueExrp("ifexpression") + "";
-
-            bool isIf = false;
+            var exrp = self.CurrentNode.GetParamterValueExrp(nameof(Expression)) + "";
             try
             {
-                isIf = Evaluation(exrp);
+                self.Value = Evaluation(exrp);
             }
             catch (Exception)
             {
                 throw new ELNodeHandlerException($"表达式不正确！{exrp}");
             }
-            int index = isIf ? 0 : 1;
-            if (self.CurrentNode.Switch.Count > index + 1)
-                self.CurrentNode.Steps = self.CurrentNode.Switch[index].ToList();
-            self.Value = true;
+            self.Out = self.Value;
             return self;
         }
 

@@ -12,12 +12,12 @@ namespace EL.Robot.Component
     {
 		public StartOrCmdProgramComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "开始程序";
+			Config.ButtonDisplayName = "开始程序";
 			return base.GetConfig();
 		}
 		public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();

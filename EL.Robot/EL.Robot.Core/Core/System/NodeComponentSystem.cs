@@ -105,8 +105,8 @@ namespace EL.Robot.Core
 						content = await component.Main(self.CreateNodeContent(node));
 						msg = node.Flow.SetFlowParam(node.OutParameterName, (object)content.Out);
 						msg = node.Flow.SetFlowParam("current", (object)content.Out);
-
-						flowComponent.WriteNodeLog(node, msg);
+						VariableSystem.UpNode = node;
+                        flowComponent.WriteNodeLog(node, msg);
 						flowComponent.WriteNodeLog(node, $"执行完成", takeTimeComponent.Stop());
 						self.EndNodeAction?.Invoke(new NodeState { Node = node, IsSucess = true, Msg = "" });
 						time = tryInfo.RearTimeDelay <= 0 ? 1 : tryInfo.RearTimeDelay;

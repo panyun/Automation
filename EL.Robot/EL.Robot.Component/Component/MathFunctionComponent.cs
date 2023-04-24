@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
     public static class CDll
     {
@@ -36,12 +36,12 @@ namespace EL.Robot.Component.Component
     {
 		public MathFunctionComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "数学";
+			Config.ButtonDisplayName = "数学";
 			return base.GetConfig();
 		}
 		/// <summary>

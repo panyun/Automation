@@ -4,19 +4,19 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using EL.WindowsAPI;
 
-namespace EL.Robot.Component.Component
+namespace EL.Robot.Component
 {
     //HotKeyComponent
     public class HotKeyComponent : BaseComponent
     {
 		public HotKeyComponent()
 		{
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "热键";
+			Config.ButtonDisplayName = "热键";
 			return base.GetConfig();
 		}
 		Dictionary<string, string> keyDic = new Dictionary<string, string>()

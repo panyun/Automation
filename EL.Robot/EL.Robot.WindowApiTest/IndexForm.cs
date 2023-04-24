@@ -109,7 +109,7 @@ namespace EL.Robot.WindowApiTest
 							var config = item as Config;
 							var btn = new Button()
 							{
-								Text = config.DisplayName,
+								Text = config.ButtonDisplayName,
 								Width = 80,
 								Height = 22,
 								//Font = new Font("隶书", 8),
@@ -183,7 +183,7 @@ namespace EL.Robot.WindowApiTest
 		{
 			var lbl = new Label()
 			{
-				Text = config.DisplayName + "指令：",
+				Text = config.ButtonDisplayName + "指令：",
 				Height = 20,
 				BackColor = Color.FromArgb(0, Color.Red),
 				ForeColor = Color.Red,
@@ -197,7 +197,7 @@ namespace EL.Robot.WindowApiTest
 		{
 			var p = ParamDic.Values.Where(x => x.IsFinish);
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append($"[{CurrentConfig.DisplayName}]指令:.");
+			stringBuilder.Append($"[{CurrentConfig.ButtonDisplayName}]指令:.");
 			if (p.Any())
 				foreach (var item in p)
 				{
@@ -491,7 +491,7 @@ namespace EL.Robot.WindowApiTest
 				{
 					ComponentName = CurrentConfig.ComponentName,
 					Id = IdGenerater.Instance.GenerateId(),
-					Name = CurrentConfig.DisplayName,
+					Name = CurrentConfig.ButtonDisplayName,
 					Parameters = ParamDic.Values.Where(x => x.IsFinish).ToList()
 				});
 			}
@@ -499,7 +499,7 @@ namespace EL.Robot.WindowApiTest
 			{
 				designComponent.WriteFlowLog(ex.Message);
 			}
-			WriteLog($"已将[{CurrentConfig.DisplayName}]命令追加到流程了");
+			WriteLog($"已将[{CurrentConfig.ButtonDisplayName}]命令追加到流程了");
 			ClearCurrentComponent();
 		}
 

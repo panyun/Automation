@@ -11,12 +11,12 @@ namespace EL.Robot.Component
     public class StopProgramComponent : BaseComponent
     {
         public StopProgramComponent() {
-			Config.Category = Category.基础函数;
+			//Config.Category = Category.基础组件;
 		}
 		public override Config GetConfig()
 		{
 			if (Config.IsInit) return Config;
-			Config.DisplayName = "关闭程序";
+			Config.ButtonDisplayName = "关闭程序";
 			return base.GetConfig();
 		}
 		public ELTask<bool> WaitEvaluation = ELTask<bool>.Create();
