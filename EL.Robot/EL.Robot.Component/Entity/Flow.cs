@@ -32,10 +32,7 @@ namespace EL.Robot.Component
 		/// 流程节点信息
 		/// </summary>
 		public List<Node> Steps { get; set; }
-		/// <summary>
-		/// 全局变量
-		/// </summary>
-		public List<Variable> Variables { get; set; }
+
 		/// <summary>
 		/// 是否调试
 		/// </summary>
@@ -43,13 +40,14 @@ namespace EL.Robot.Component
 		public bool IsPip { get; set; }
 		public List<Flow> ChildrenFlows { get; set; }
 		#region 流程处理
-		[IgnoreDataMember]
-		[BsonIgnore]
-		[JsonIgnore]
 		/// <summary>
 		/// 参数管理器
 		/// </summary>
-		public Dictionary<string, object> ParamsManager { get; set; } = new Dictionary<string, object>();
+		public Dictionary<string, ValueInfo> ParamsManager
+		{
+			get;
+			set;
+		} = new Dictionary<string, ValueInfo>();
 
 		#endregion
 
@@ -74,7 +72,7 @@ namespace EL.Robot.Component
 		/// from:'manually' 
 		/// </summary>
 		public string ComponentId { get; set; }
-		public string Value { get; set; }
+		public ValueInfo Value { get; set; }
 		/// <summary>
 		/// 
 		/// </summary>

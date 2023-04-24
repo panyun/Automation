@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Automation.Inspect;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
@@ -69,7 +70,7 @@ namespace EL.Robot.Component
 		/// <summary>
 		/// 字典
 		/// </summary>
-		public Dictionary<string, object> DictionaryParam { get; set; }
+		public Dictionary<string, ValueInfo> DictionaryParam { get; set; }
 
 		/// <summary>
 		/// 节点图像
@@ -93,20 +94,41 @@ namespace EL.Robot.Component
 		[JsonProperty(PropertyName = "key")]
 		public string Key { get; set; }
 		[JsonProperty(PropertyName = "value")]
-		public object Value { get; set; }
+		public ValueInfo Value { get; set; }
 
 		public string DisplayVlaue { get; set; }
 		public string DisplayExp
 		{
 			get
 			{
-				var val = DisplayVlaue ?? Value.ToString();
-				var str = $"{DisplayName}:[{val}].";
-				return str;
+				if (Value == null)
+					return $"{CmdDisplayName}({""}).";
+				string val;
+				if (Value.ActionType == ValueActionType.RequestList)
+				{
+					val = DisplayVlaue ?? Value.Value + "";
+					return $"{CmdDisplayName}(%{val}%).";
+				}
+				val = DisplayVlaue ?? Value.Value + "";
+				return $"{CmdDisplayName}({val}).";
 			}
 		}
 		[JsonProperty(PropertyName = "title")]
 		public string DisplayName { get; set; }
+		public string _cmdDisplayName = "";
+		public string CmdDisplayName
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(_cmdDisplayName))
+					return DisplayName;
+				return _cmdDisplayName;
+			}
+			set
+			{
+				_cmdDisplayName = value;
+			}
+		}
 		/// <summary>
 		/// 唯一识别
 		/// </summary>
@@ -121,11 +143,30 @@ namespace EL.Robot.Component
 	}
 	public class ValueInfo
 	{
+		public ValueInfo(string displayName, object value, List<Type> types, ValueActionType acationType = ValueActionType.Value, CommponetRequest action = null)
+		{
+			DisplayName = displayName;
+			Value = value;
+			Types = types;
+			ActionType = acationType;
+			Action = action;
+		}
+		public ValueInfo(string displayName, object value) : this(displayName, value, default)
+		{
 
+		}
+		public ValueInfo(object value) : this("", value)
+		{
+
+		}
+		public ValueInfo()
+		{
+
+		}
 		public string DisplayName { get; set; }
 		public object Value { get; set; }
 		public List<Type> Types { get; set; }
-		public ValueActionType AcationType { get; set; } = ValueActionType.Value;
+		public ValueActionType ActionType { get; set; } = ValueActionType.Value;
 		public CommponetRequest Action { get; set; }
 	}
 	public enum ValueActionType
@@ -149,8 +190,8 @@ namespace EL.Robot.Component
 
 	public class BaseProperty
 	{
-		private Dictionary<string, object> dic;
-		public BaseProperty(Dictionary<string, object> paramObjs)
+		private Dictionary<string, ValueInfo> dic;
+		public BaseProperty(Dictionary<string, ValueInfo> paramObjs)
 		{
 			dic = paramObjs;
 		}
@@ -163,10 +204,10 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(PreTimeDelay).ToLower(), out object obj);
+				dic.TryGetValue(nameof(PreTimeDelay).ToLower(), out ValueInfo obj);
 				if (obj == null)
 					return default;
-				int.TryParse(obj.ToString(), out int result);
+				int.TryParse(obj.Value.ToString(), out int result);
 				return result;
 			}
 		}
@@ -179,10 +220,10 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(RearTimeDelay).ToLower(), out object obj);
+				dic.TryGetValue(nameof(RearTimeDelay).ToLower(), out ValueInfo obj);
 				if (obj == null)
 					return default;
-				int.TryParse(obj.ToString(), out int result);
+				int.TryParse(obj.Value.ToString(), out int result);
 				return result;
 			}
 		}
@@ -195,10 +236,10 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(Timeout).ToLower(), out object obj);
+				dic.TryGetValue(nameof(Timeout).ToLower(), out ValueInfo obj);
 				if (obj == null)
 					return default;
-				int.TryParse(obj.ToString(), out int result);
+				int.TryParse(obj.Value.ToString(), out int result);
 				return result;
 			}
 		}
@@ -211,10 +252,10 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return 1;
-				dic.TryGetValue(nameof(Exceptionhandling).ToLower(), out object obj);
+				dic.TryGetValue(nameof(Exceptionhandling).ToLower(), out ValueInfo obj);
 				if (obj == null)
 					return 1;
-				int.TryParse(obj.ToString(), out int result);
+				int.TryParse(obj.Value.ToString(), out int result);
 				return result;
 			}
 		}
@@ -227,9 +268,9 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(CustomExceptionInfo).ToLower(), out object obj);
+				dic.TryGetValue(nameof(CustomExceptionInfo).ToLower(), out ValueInfo obj);
 
-				return obj == null ? default : obj.ToString();
+				return obj == null ? default : obj.Value.ToString();
 			}
 		}
 		/// <summary>
@@ -241,10 +282,10 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(RetryCount).ToLower(), out object obj);
+				dic.TryGetValue(nameof(RetryCount).ToLower(), out ValueInfo obj);
 				if (obj == null)
 					return default;
-				int.TryParse(obj.ToString(), out int result);
+				int.TryParse(obj.Value.ToString(), out int result);
 				return result;
 			}
 		}
@@ -257,8 +298,8 @@ namespace EL.Robot.Component
 			{
 				if (dic == null)
 					return default;
-				dic.TryGetValue(nameof(RetryInterval).ToLower(), out object obj);
-				return obj == null ? default : obj.ToString();
+				dic.TryGetValue(nameof(RetryInterval).ToLower(), out ValueInfo obj);
+				return obj == null ? default : obj.Value.ToString();
 			}
 		}
 	}

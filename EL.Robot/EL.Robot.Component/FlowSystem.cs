@@ -9,7 +9,7 @@ namespace EL.Robot.Component
 {
 	public static class FlowSystem
 	{
-		public static object GetFlowParamterValue(this Flow self, string key)
+		public static ValueInfo GetFlowParamterValue(this Flow self, string key)
 		{
 			if (self == null) throw new ArgumentNullException(nameof(self));
 			key = key.ToLower().Trim();
@@ -21,20 +21,20 @@ namespace EL.Robot.Component
 					var isValue = self.ParamsManager.TryGetValue(key.TrimStart('@'), out value);
 					if (isValue) return value;
 				}
-				if (value != null && value is Variable variable)
-					return variable.Value;
+				if (value != null && value is ValueInfo variable)
+					return variable;
 				if (value != null)
 					return value;
 			}
 			return default;
 		}
-		public static string SetFlowParamBy(this Flow self, string key, object value)
+		public static string SetFlowParamBy(this Flow self, string key, ValueInfo value)
 		{
 			if (string.IsNullOrWhiteSpace(key)) return default;
 			key = key.ToLower().Trim().TrimStart('@');
 			if (string.IsNullOrWhiteSpace(key)) return default;
 			string msg = $"         [变量赋值 {key}={JsonHelper.ToJson(value)}]";
-			self.ParamsManager ??= new Dictionary<string, object>();
+			self.ParamsManager ??= new Dictionary<string, ValueInfo>();
 			if (self.ParamsManager.ContainsKey(key))
 				self.ParamsManager[key] = value;
 			else

@@ -39,20 +39,21 @@ namespace EL.Robot.WindowApiTest
 			DispatcherHelper.BaseForm = this;
 			//pl_components.AutoScroll = true;
 			this.StartPosition = FormStartPosition.CenterScreen;
-
+			txt_exp.Font = new Font("黑体", 10);
+			txt_exp.ForeColor = Color.Black;
 			pl_components.Visible = false;
-			pl_key.Visible = false;
-			txt_exp.LostFocus += (x, y) =>
-			{
-				pl_key.Visible = false;
-			};
+			//pl_key.Visible = false;
+			//txt_exp.LostFocus += (x, y) =>
+			//{
+			//	pl_key.Visible = false;
+			//};
 			//pl_components.Height = pl_Category.Height;
 			pl_components.Leave += (x, y) =>
 			{
 				pl_components.Visible = false;
 			};
 			var list = designComponent.LoadRobots();
-			RefreshRobots();
+			RefreshRobots(true);
 			this.Load += async (x, y) =>
 			{
 				CommponetRequest commponetRequest = new CommponetRequest()
@@ -113,7 +114,7 @@ namespace EL.Robot.WindowApiTest
 							var config = item as Config;
 							var btn = new Button()
 							{
-								Text = config.DisplayName,
+								Text = config.ButtonDisplayName,
 								Width = 80,
 								Height = 22,
 								//Font = new Font("隶书", 8),
@@ -144,6 +145,7 @@ namespace EL.Robot.WindowApiTest
 								CurrentConfig = tag;
 								CreateParamDic(tag.Parameters);
 								CreateExp(config);
+								GenerateCmd();
 							};
 							index++;
 						}
@@ -174,8 +176,11 @@ namespace EL.Robot.WindowApiTest
 			};
 
 		}
-		public void RefreshRobots()
+		public void RefreshRobots(bool visible = false)
 		{
+			panel5.Visible = visible;
+			if (designComponent.CurrentDesignFlow != null)
+				lbl_name.Text = designComponent.CurrentDesignFlow.Name;
 			flp_robotList.Controls.Clear();
 			if (!designComponent.Features.Any()) return;
 			var list = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
@@ -203,29 +208,41 @@ namespace EL.Robot.WindowApiTest
 		}
 		public void CreateExp(Config config)
 		{
-			var lbl = new Label()
-			{
-				Text = config.DisplayName + "指令：",
-				Height = 20,
-				BackColor = Color.FromArgb(0, Color.Red),
-				ForeColor = Color.Red,
-				Left = 5,
-			};
-			pl_cmd.Controls.Add(lbl);
+			//var lbl = new Label()
+			//{
+			//	Text = config.CmdDisplayName + "指令：",
+			//	Height = 20,
+			//	BackColor = Color.FromArgb(0, Color.Red),
+			//	ForeColor = Color.Red,
+			//	Left = 5,
+			//};
+			//pl_cmd.Controls.Add(lbl);
 			pl_cmd.Controls.Add(CreateCmd(config.Parameters, pl_cmd.Location.X));
 			pl_cmd.AutoScroll = true;
 		}
-		public string GenerateCmd()
+		public void GenerateCmd()
 		{
-			var p = ParamDic.Values.Where(x => x.IsFinish);
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append($"[{CurrentConfig.DisplayName}指令]:.");
-			if (p.Any())
-				foreach (var item in p)
-				{
-					stringBuilder.Append(item.DisplayExp);
-				}
-			return stringBuilder.ToString();
+			txt_exp.Text = "";
+			AppendTextColorful(txt_exp,
+				$"【{CurrentConfig.CmdDisplayName}的指令】", Color.MediumBlue, new Font("黑体", 11), false);
+			var color = Color.BlueViolet;
+			AppendTextColorful(txt_exp, " ->", color, new Font("黑体", 11), false);
+			if (ParamDic.Values.Any())
+				foreach (var item in ParamDic.Values)
+					AppendTextColorful(txt_exp, item.DisplayExp, color, new Font("黑体", 11), false);
+		}
+		public void AppendTextColorful(RichTextBox rtBox, string addtext, Color color, Font font, bool IsaddNewLine)
+		{
+			if (IsaddNewLine)
+			{
+				addtext += Environment.NewLine;
+			}
+			rtBox.SelectionStart = rtBox.TextLength;
+			rtBox.SelectionLength = 0;
+			rtBox.SelectionFont = font;
+			rtBox.SelectionColor = color;
+			rtBox.AppendText(addtext);
+			rtBox.SelectionColor = rtBox.ForeColor;
 		}
 		public Control CreateCmd(List<Parameter> parameters, int left)
 		{
@@ -246,7 +263,7 @@ namespace EL.Robot.WindowApiTest
 			panel.Left = left;
 			panel.Width = 80;
 			panel.Height = 22;
-			panel.Top = 20;
+			panel.Top = 10;
 			ComboBox comboBox = new()
 			{
 				DisplayMember = nameof(Parameter.DisplayName),
@@ -288,32 +305,34 @@ namespace EL.Robot.WindowApiTest
 						var temp = cb.PointToScreen(cb.Location);
 						var p = new Point(temp.X - cb.Width, temp.Y + cb.Height);
 						var valueInfo = cb.SelectedItem as ValueInfo;
-						if (valueInfo.AcationType == ValueActionType.RequestList)
+						if (valueInfo.ActionType == ValueActionType.RequestList)
 						{
 							var response = await RequestManager.StartAsync(valueInfo.Action);
-							var result = new PopuForm(valueInfo.AcationType, p, response.Data).ShowDialog();
+							var win = new PopuForm(valueInfo, p, response.Data);
+							var result = win.ShowDialog();
 							if (result == DialogResult.OK)
-								param.Value = result;
+								param.Value = win.Value;
 						}
-						if (valueInfo.AcationType == ValueActionType.RequestValue)
+						if (valueInfo.ActionType == ValueActionType.RequestValue)
 						{
 							var response = await RequestManager.StartAsync(valueInfo.Action);
-							param.Value = response.Data;
+							param.Value = new ValueInfo(response.Data);
 							param.DisplayVlaue = response.DisplayInfo;
 						}
-						if (valueInfo.AcationType == ValueActionType.Input)
+						if (valueInfo.ActionType == ValueActionType.Input)
 						{
-							var result = new PopuForm(valueInfo.AcationType, p).ShowDialog();
+							var win = new PopuForm(valueInfo, p);
+							var result = win.ShowDialog();
 							if (result == DialogResult.OK)
-								param.Value = result;
+								param.Value = win.Value;
 						}
-						if (valueInfo.AcationType != ValueActionType.Value)
+						if (valueInfo.ActionType != ValueActionType.Value)
 						{
-							param.Value = valueInfo.Value;
+							param.Value = valueInfo;
 						}
 					};
 					ParamDic[param.Key] = param;
-					txt_exp.Text = GenerateCmd();
+					GenerateCmd();
 				}
 				List<Control> cons = new();
 				var keys1 = parameters.Select(x => x.Key);
@@ -338,7 +357,7 @@ namespace EL.Robot.WindowApiTest
 			Panel panel = new();
 			panel.Name = param.Key;
 			panel.Left = left;
-			panel.Top = 20;
+			panel.Top = 10;
 			panel.Height = 22;
 			Label link = new LinkLabel();
 			var notExist = param.Parameters == null || param.Parameters.Count == 0;
@@ -369,34 +388,37 @@ namespace EL.Robot.WindowApiTest
 					var temp = cb.PointToScreen(cb.Location);
 					var p = new Point(temp.X - cb.Width, temp.Y + cb.Height);
 					var valueInfo = cb.SelectedItem as ValueInfo;
-					if (valueInfo.AcationType == ValueActionType.RequestList)
+					if (valueInfo.ActionType == ValueActionType.RequestList)
 					{
 						var response = await RequestManager.StartAsync(valueInfo.Action);
-						var result = new PopuForm(valueInfo.AcationType, p, response.Data).ShowDialog();
-						if (result == DialogResult.OK)
-							param.Value = result;
-
+						if (response.Data is List<string> listStr)
+						{
+							var popu = new PopuForm(valueInfo, p, listStr);
+							var result = popu.ShowDialog();
+							if (result == DialogResult.OK)
+								param.Value = popu.Value;
+						}
 					}
-					if (valueInfo.AcationType == ValueActionType.RequestValue)
+					if (valueInfo.ActionType == ValueActionType.RequestValue)
 					{
 						var response = await RequestManager.StartAsync(valueInfo.Action);
-						param.Value = response.Data;
+						param.Value = new ValueInfo(response.Data);
 						param.DisplayVlaue = response.DisplayInfo;
 					}
-					if (valueInfo.AcationType == ValueActionType.Input)
+					if (valueInfo.ActionType == ValueActionType.Input)
 					{
-						var popu = new PopuForm(valueInfo.AcationType, p);
+						var popu = new PopuForm(valueInfo, p);
 						var result = popu.ShowDialog();
 						if (result == DialogResult.OK)
 							param.Value = popu.Value;
 					}
-					if (valueInfo.AcationType == ValueActionType.Value)
+					if (valueInfo.ActionType == ValueActionType.Value)
 					{
-						param.Value = valueInfo.Value;
+						param.Value = valueInfo;
 					}
 					param.IsFinish = true;
 					ParamDic[param.Key] = param;
-					this.Invoke(() => { txt_exp.Text = GenerateCmd(); });
+					this.Invoke(() => { GenerateCmd(); });
 				};
 				//cb.Click += (x, y) =>
 				//{
@@ -481,7 +503,7 @@ namespace EL.Robot.WindowApiTest
 			{
 				ComponentName = CurrentConfig.ComponentName,
 				Id = IdGenerater.Instance.GenerateId(),
-				Parameters = ParamDic.Values.Where(x => x.IsFinish).ToList()
+				Parameters = ParamDic.Values.ToList(),
 			};
 		}
 
@@ -493,7 +515,7 @@ namespace EL.Robot.WindowApiTest
 				var name = designComponent.CurrentDesignFlow.Name;
 				lbl_name.Text = name;
 				WriteLog($"你已经创建了一个[{name}]");
-				RefreshRobots();
+				RefreshRobots(false);
 			}
 
 		}
@@ -512,7 +534,7 @@ namespace EL.Robot.WindowApiTest
 				{
 					ComponentName = CurrentConfig.ComponentName,
 					Id = IdGenerater.Instance.GenerateId(),
-					Name = CurrentConfig.DisplayName,
+					Name = CurrentConfig.ButtonDisplayName,
 					Parameters = ParamDic.Values.Where(x => x.IsFinish).ToList()
 				});
 			}
@@ -520,7 +542,7 @@ namespace EL.Robot.WindowApiTest
 			{
 				designComponent.WriteFlowLog(ex.Message);
 			}
-			WriteLog($"已将[{CurrentConfig.DisplayName}]命令追加到流程了");
+			WriteLog($"已将[{txt}]命令追加到流程了");
 			ClearCurrentComponent();
 		}
 

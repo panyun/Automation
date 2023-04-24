@@ -84,14 +84,16 @@ namespace EL.Robot.Core
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}
-		public static string SetFlowParam(this Flow self, string key, object value)
+		public static string SetFlowParam(this Flow self, string key, ValueInfo value)
 		{
 			if (string.IsNullOrWhiteSpace(key)) return default;
-			key = key.ToLower().Trim().TrimStart('@');
+			key = key.ToLower().Trim();
 			if (string.IsNullOrWhiteSpace(key)) return default;
 			var flowComponent = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>();
-			string msg = $"         [变量赋值 {key}={JsonHelper.ToJson(value)}]";
-			if (self.ParamsManager == null) self.ParamsManager = new Dictionary<string, object>();
+			string msg = $"         [变量赋值 {key}=null]";
+			if (value != null)
+				msg = $"         [变量赋值 {key}={JsonHelper.ToJson(value.Value)}]";
+			if (self.ParamsManager == null) self.ParamsManager = new Dictionary<string, ValueInfo>();
 			if (self.ParamsManager.ContainsKey(key))
 				self.ParamsManager[key] = value;
 			else
@@ -102,18 +104,9 @@ namespace EL.Robot.Core
 		public static void InitParam(this FlowComponent self, Node startNode)
 		{
 			var flow = self.CurrentFlow;
-			flow.ParamsManager = new Dictionary<string, object>();
+			flow.ParamsManager = new Dictionary<string, ValueInfo>();
 			var takeTimeComponent = TakeTimeComponent.StartNew();
 			self.WriteNodeLog(startNode, "变量初始化开始");
-			if (flow.Variables != null && flow.Variables.Count > 0)
-			{
-				foreach (var variable in flow.Variables)
-				{
-					var val = GetVariablesValue(variable);
-					var msg = flow.SetFlowParam(variable.Name, val);
-					self.WriteNodeLog(startNode, msg);
-				}
-			}
 			if (flow.InParams != null && flow.InParams.Count > 0)
 			{
 				//添加输入变量
@@ -134,70 +127,10 @@ namespace EL.Robot.Core
 			}
 			self.WriteNodeLog(startNode, "变量初始化结束", takeTimeComponent.Stop());
 		}
-		
-		public static object GetVariablesValue(Variable variable)
+
+		public static ValueInfo GetVariablesValue(Variable variable)
 		{
-			if (variable == null) return default;
-			var type = variable.Type;
-			if (type == default) return default;
-			object value = default;
-			bool isSucess = true;
-			if (type == typeof(string))
-			{
-				value = variable.Value + "";
-				isSucess = true;
-			}
-			else if (type == typeof(int) || type == typeof(double) || type == typeof(float))
-			{
-				isSucess = double.TryParse(variable.Value, out var val);
-				value = val;
-			}
-			else if (type == typeof(bool))
-			{
-				isSucess = bool.TryParse(variable.Value, out var val);
-				value = val;
-
-			}
-			else if (type == typeof(object))
-			{
-				try
-				{
-					value = JsonConvert.DeserializeObject<Dictionary<string, object>>(variable.Value);
-				}
-				catch (Exception)
-				{
-
-					isSucess = false;
-				}
-
-
-			}
-			else if (type == typeof(Array))
-			{
-				try
-				{
-					value = JsonConvert.DeserializeObject<List<object>>(variable.Value);
-				}
-				catch (Exception)
-				{
-					isSucess = false;
-				}
-			}
-			else if (type == typeof(Table))
-			{
-				//[{"c1":"r1","c2":"r1"},{"c1":"r2","c2":"r2"}]
-
-			}
-			else if (type == typeof(DateTime))
-			{
-				isSucess = DateTime.TryParse(variable.Value, out var val);
-				value = val;
-			}
-			if (!isSucess)
-			{
-				throw new ELNodeHandlerException($"初始化函数转化失败,初始类型{type}，初始值{variable.Value}");
-			}
-			return value;
+			return variable.Value;
 		}
 		public static object GetFlowDicValue(this Flow self, string key)
 		{

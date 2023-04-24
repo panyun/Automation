@@ -28,7 +28,6 @@ namespace EL.Robot.Component
 				{
 					Key = "insert",
 					DisplayName = "字符插入",
-					Value = "insert",
 					Title = "字符插入",
 					Type = new List<Type>(){ typeof(string) },
 					IsInput = true,
@@ -44,7 +43,6 @@ namespace EL.Robot.Component
 						{
 							Key = "match",
 							DisplayName = "匹配插入",
-							Value = "match",
 							Type = new List<Type>(){ typeof(string) },
 								IsInput = true,
 							Title = "匹配插入",
@@ -80,7 +78,6 @@ namespace EL.Robot.Component
 				{
 					Key = "replace",
 					DisplayName = "字符替换",
-					Value = "replace",
 					Title = "字符串替换",
 						IsInput = true,
 					Type = new List<Type>(){ typeof(string) },
@@ -98,7 +95,6 @@ namespace EL.Robot.Component
 							Key = "Loction",
 							DisplayName = "位置",
 							IsInput = true,
-							Value = "{x,y}",
 							Type = new List<Type>(){ typeof(Point) },
 							Title = "将字串替换到的位置",
 							Values = new List < ValueInfo > () { new ValueInfo() { DisplayName = "{x,y}" } },

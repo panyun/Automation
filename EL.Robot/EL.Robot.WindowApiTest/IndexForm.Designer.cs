@@ -38,9 +38,10 @@
 			textBox1 = new TextBox();
 			button1 = new Button();
 			panel3 = new Panel();
+			panel5 = new Panel();
+			txt_exp = new RichTextBox();
 			lbl_exec = new Button();
 			pl_cmd = new Panel();
-			pl_key = new Panel();
 			pl_components = new Panel();
 			pl_Category = new Panel();
 			button2 = new Button();
@@ -50,7 +51,6 @@
 			btn_run = new Button();
 			button3 = new Button();
 			txt_msg = new TextBox();
-			txt_exp = new TextBox();
 			notifyIcon1 = new NotifyIcon(components);
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
@@ -136,20 +136,38 @@
 			// panel3
 			// 
 			panel3.BackColor = Color.WhiteSmoke;
+			panel3.Controls.Add(panel5);
+			panel3.Controls.Add(txt_exp);
 			panel3.Controls.Add(lbl_exec);
 			panel3.Controls.Add(pl_cmd);
-			panel3.Controls.Add(pl_key);
 			panel3.Controls.Add(pl_components);
 			panel3.Controls.Add(pl_Category);
 			panel3.Controls.Add(button2);
 			panel3.Controls.Add(panel4);
 			panel3.Controls.Add(txt_msg);
-			panel3.Controls.Add(txt_exp);
 			panel3.Dock = DockStyle.Fill;
 			panel3.Location = new Point(266, 0);
 			panel3.Name = "panel3";
 			panel3.Size = new Size(618, 561);
 			panel3.TabIndex = 5;
+			// 
+			// panel5
+			// 
+			panel5.BackColor = Color.WhiteSmoke;
+			panel5.Dock = DockStyle.Bottom;
+			panel5.Location = new Point(0, 44);
+			panel5.Name = "panel5";
+			panel5.Size = new Size(618, 517);
+			panel5.TabIndex = 18;
+			// 
+			// txt_exp
+			// 
+			txt_exp.Location = new Point(20, 416);
+			txt_exp.Name = "txt_exp";
+			txt_exp.ReadOnly = true;
+			txt_exp.Size = new Size(595, 102);
+			txt_exp.TabIndex = 17;
+			txt_exp.Text = "";
 			// 
 			// lbl_exec
 			// 
@@ -167,16 +185,8 @@
 			pl_cmd.BackColor = Color.Gainsboro;
 			pl_cmd.Location = new Point(20, 371);
 			pl_cmd.Name = "pl_cmd";
-			pl_cmd.Size = new Size(596, 53);
+			pl_cmd.Size = new Size(596, 39);
 			pl_cmd.TabIndex = 15;
-			// 
-			// pl_key
-			// 
-			pl_key.BackColor = Color.Gainsboro;
-			pl_key.Location = new Point(23, 451);
-			pl_key.Name = "pl_key";
-			pl_key.Size = new Size(576, 38);
-			pl_key.TabIndex = 14;
 			// 
 			// pl_components
 			// 
@@ -267,18 +277,6 @@
 			txt_msg.Size = new Size(596, 269);
 			txt_msg.TabIndex = 8;
 			// 
-			// txt_exp
-			// 
-			txt_exp.BackColor = Color.WhiteSmoke;
-			txt_exp.BorderStyle = BorderStyle.FixedSingle;
-			txt_exp.Enabled = false;
-			txt_exp.Location = new Point(20, 430);
-			txt_exp.Multiline = true;
-			txt_exp.Name = "txt_exp";
-			txt_exp.Size = new Size(596, 85);
-			txt_exp.TabIndex = 7;
-			txt_exp.TextChanged += txt_exp_TextChanged;
-			// 
 			// notifyIcon1
 			// 
 			notifyIcon1.Text = "notifyIcon1";
@@ -317,12 +315,10 @@
 		private Button button2;
 		private Panel panel4;
 		private TextBox txt_msg;
-		private TextBox txt_exp;
 		private Panel pl_Category;
 		private Button button3;
 		private Panel pl_components;
 		private ComboBox lbl_key;
-		private Panel pl_key;
 		private Panel pl_cmd;
 		private Button lbl_exec;
 		private Button btn_add;
@@ -334,5 +330,7 @@
 		private Label lbl_name;
 		private NotifyIcon notifyIcon1;
 		private FlowLayoutPanel flp_robotList;
+		private RichTextBox txt_exp;
+		private Panel panel5;
 	}
 }

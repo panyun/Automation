@@ -28,13 +28,24 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			panel1 = new Panel();
 			SuspendLayout();
+			// 
+			// panel1
+			// 
+			panel1.BorderStyle = BorderStyle.FixedSingle;
+			panel1.Dock = DockStyle.Fill;
+			panel1.Location = new Point(0, 0);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(400, 170);
+			panel1.TabIndex = 0;
 			// 
 			// PopuForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(400, 170);
+			Controls.Add(panel1);
 			FormBorderStyle = FormBorderStyle.None;
 			Name = "PopuForm";
 			Text = "Form1";
@@ -42,5 +53,7 @@
 		}
 
 		#endregion
+
+		private Panel panel1;
 	}
 }

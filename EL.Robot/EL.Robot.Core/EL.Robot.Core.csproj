@@ -27,6 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\EL.Robot.Component\EL.Robot.Component.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Reference Include="EL.Automation">
 	    <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Automation.dll</HintPath>
 	  </Reference>

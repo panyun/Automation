@@ -32,6 +32,7 @@ namespace EL.Robot.WindowApiTest
 			{
 				designComponent.StartDesign((long)this.Tag);
 				IndexForm.Ins.RefreshRobots();
+
 			};
 			pictureBox1.Click += (x, y) =>
 			{

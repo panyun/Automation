@@ -85,12 +85,31 @@ namespace EL.Robot.Core
 				if (logs is not null)
 					self.LogMsgs.AddRange(logs);
 			}
+
 			self.CurrentDesignFlow = flow;
 			self.CurrentDesignFlow.ViewSort = TimeHelper.ServerNow();
 			var fea = self.Features.FirstOrDefault(x => x.Id == Id);
 			fea.ViewSort = self.CurrentDesignFlow.ViewSort;
-
+			//self.LoadParams();
 			return flow;
+		}
+		private static void LoadParams(this DesignComponent self)
+		{
+			if (self.CurrentDesignFlow == null) return;
+			if (self.CurrentDesignFlow.Steps == null) return;
+			foreach (var node in self.CurrentDesignFlow.Steps)
+			{
+				var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
+				if (parameter == null)
+					continue;
+				self.CurrentDesignFlow.SetFlowParam(parameter.Value + "", null);
+				if (node.ComponentName.ToLower() == nameof(SetVariableComponent).ToLower())
+				{
+					var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
+					self.CurrentDesignFlow.SetFlowParam(parameter.Value + "", parameterValue.Value);
+				}
+			}
+
 		}
 		public static List<DesignMsg> GetMsg(this DesignComponent self)
 		{
@@ -109,10 +128,11 @@ namespace EL.Robot.Core
 		public static List<string> SelectVariable(this DesignComponent self, List<Type> types)
 		{
 			var keys = new List<string>();
+			if (self.CurrentDesignFlow == null) return new List<string>();
 			if (self.CurrentDesignFlow.ParamsManager != null)
 				foreach (var item in self.CurrentDesignFlow.ParamsManager)
 				{
-					if (types.Contains(item.Value.GetType()))
+					if (types.Contains(item.Value.Value.GetType()))
 					{
 						keys.Add(item.Key);
 					}
@@ -189,12 +209,6 @@ namespace EL.Robot.Core
 			if (flow != default) self.DesignFlowDic.Remove(tempFlow.Id);
 			return new ComponentResponse();
 		}
-		public static bool CreateVariable(this DesignComponent self, Variable variable)
-		{
-			self.CurrentDesignFlow.Variables.Add(variable);
-			self.CurrentDesignFlow.ParamsManager.Add(variable.Name, variable.Value);
-			return true;
-		}
 		public static bool CreateNode(this DesignComponent self, Node node)
 		{
 			if (self.CurrentDesignFlow == null)
@@ -203,6 +217,13 @@ namespace EL.Robot.Core
 				return false;
 			}
 			self.CurrentDesignFlow.Steps.Add(node);
+			var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
+			self.CurrentDesignFlow.SetFlowParam(parameter.Value.Value + "", null);
+			if (node.ComponentName.ToLower() == nameof(SetVariableComponent).ToLower())
+			{
+				var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
+				self.CurrentDesignFlow.SetFlowParam(parameter.Value.Value + "", parameterValue.Value);
+			}
 			return true;
 		}
 		//模拟执行组件

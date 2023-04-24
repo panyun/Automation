@@ -9,7 +9,7 @@ namespace EL.Robot.Core
 	{
 		public override void Awake(NodeComponent self)
 		{
-			var components = typeof(ElementActionComponent).Assembly.GetTypes().Where(t => t.BaseType == typeof(BaseComponent));
+			var components = typeof(MouseActionComponent).Assembly.GetTypes().Where(t => t.BaseType == typeof(BaseComponent));
 			var programComponents = typeof(LoopComponent).Assembly.GetTypes().Where(t => t.BaseType == typeof(BaseComponent));
 			foreach (var item in components)
 			{
@@ -50,8 +50,23 @@ namespace EL.Robot.Core
 		}
 		public static void InitNodeDictionaryParam(this NodeComponent self, Node node)
 		{
-
-			node.DictionaryParam = new Dictionary<string, object>();
+			if (node.Parameters is null) return;
+			var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
+			if (parameter != null && parameter.Value != null)
+			{
+				if (node.ComponentName.ToLower() == nameof(SetVariableComponent).ToLower())
+				{
+					var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
+					node.Flow.SetFlowParam(parameter.Value.Value + "", parameterValue.Value);
+				}
+				else
+				{
+					node.Flow.SetFlowParam(parameter.Value.Value + "", null);
+				}
+			}
+			if (parameter is not null && parameter.Key == nameof(Node.OutParameterName))
+				node.OutParameterName = (string)parameter.Value.Value;
+			node.DictionaryParam = new Dictionary<string, ValueInfo>();
 			if (node.Parameters == null)
 				return;
 			foreach (var x in node.Parameters)
@@ -70,12 +85,12 @@ namespace EL.Robot.Core
 			if (nodes == null || nodes.Count == 0) return;
 			foreach (var node in nodes)
 			{
-				self.InitNodeDictionaryParam(node);
 				self.StartNodeAction?.Invoke(node);
 				BaseProperty tryInfo = node.GetBaseProperty();
 				var robot = Boot.GetComponent<RobotComponent>();
 				var flowComponent = robot.GetComponent<FlowComponent>();
 				node.Flow = flowComponent.CurrentFlow;
+				self.InitNodeDictionaryParam(node);
 				if (node.Ignore)
 				{
 					flowComponent.WriteNodeLog(node, $"当前节点忽略");
@@ -121,9 +136,8 @@ namespace EL.Robot.Core
 						msg = self.GetNodeDicValue(node);
 						flowComponent.WriteNodeLog(node, msg);
 						content = await component.Main(self.CreateNodeContent(node));
-						msg = node.Flow.SetFlowParam(node.OutParameterName, (object)content.Out);
-						msg = node.Flow.SetFlowParam("current", (object)content.Out);
-
+						msg = node.Flow.SetFlowParam(node.OutParameterName, content.Out);
+						msg = node.Flow.SetFlowParam("current", content.Out);
 						flowComponent.WriteNodeLog(node, msg);
 						flowComponent.WriteNodeLog(node, $"执行完成", takeTimeComponent.Stop());
 						self.EndNodeAction?.Invoke(new NodeState { Node = node, IsSucess = true, Msg = "" });

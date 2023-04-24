@@ -15,6 +15,9 @@ namespace EL.Robot.Component
 	/// </summary>
 	public class MouseActionComponent : BaseComponent
 	{
+		public ElementPath ElementPath { get; set; }
+		public ActionType ActionType { get; set; }
+		public ClickType ClickType { get; set; }
 		public MouseActionComponent()
 		{
 			Config.Category = Category.UI自动化;
@@ -26,9 +29,8 @@ namespace EL.Robot.Component
 			{
 				new Parameter()
 				{
-					Key = "ElementPath",
+					Key =nameof(ElementPath),
 					DisplayName = "捕获目标",
-					Value = "ElementPath",
 					Title = "捕获目标",
 					Type = new List<Type>(){ typeof(string) },
 					IsInput = true,
@@ -37,7 +39,7 @@ namespace EL.Robot.Component
 						{
 							DisplayName = "捕获目标",
 							Value = "",
-							AcationType =  ValueActionType.RequestValue,
+							ActionType =  ValueActionType.RequestValue,
 							Action = new CommponetRequest()
 							{
 								ComponentName = nameof(CatchElementComponent)
@@ -48,46 +50,53 @@ namespace EL.Robot.Component
 					{
 						new Parameter()
 						{
-							Key = "actiontype",
+							Key = nameof(ActionType),
 							DisplayName = "点击方式",
-							Value = "Mouse",
-							Type = new List<Type>(){ typeof(string) },
+							Type = new List<Type>(){ typeof(ActionType) },
 							IsInput = true,
+							Value=new ValueInfo() {DisplayName = "模拟点击",
+								Value = ActionType.Mouse.ToString(),
+								ActionType = ValueActionType.Value,
+								},
 							Title = "actiontype",
 							Values = new List < ValueInfo > {
 								new ValueInfo() {DisplayName = "模拟点击",
 								Value = ActionType.Mouse.ToString(),
-								AcationType = ValueActionType.Value,
+								ActionType = ValueActionType.Value,
 								},
 								new ValueInfo() {DisplayName = "事件点击",
 								Value = ActionType.ElementEvent.ToString(),
-								AcationType = ValueActionType.Value,
+								ActionType = ValueActionType.Value,
 								},
 							},
 							 Parameters= new List<Parameter>()
 							 {
 								 new Parameter()
 								 {
-									Key = "clicktype",
+									Key = nameof(ClickType),
 									DisplayName = "点击类型",
-									Value = "clicktype",
 									Type = new List<Type>(){ typeof(string) },
+									Value = new ValueInfo{
+											 ActionType = ValueActionType.Value,
+											 DisplayName = "左键点击",
+											  Value=ClickType.LeftClick,
+										},
 									IsInput = true,
 									Title = "点击类型",
 									Values = new List<ValueInfo>
 									 {
 										new ValueInfo{
-											 AcationType = ValueActionType.Value,
+											 ActionType = ValueActionType.Value,
 											 DisplayName = "左键点击",
 											  Value=ClickType.LeftClick,
 										},
 										new ValueInfo{
-											 AcationType = ValueActionType.Value,
+											 ActionType = ValueActionType.Value,
 											  DisplayName = "右键点击",
 											  Value=ClickType.RightClick,
 										},
 										new ValueInfo{
-											 AcationType = ValueActionType.Value,
+											 ActionType = ValueActionType.Value,
 											  DisplayName = "双击",
 											  Value=ClickType.LeftDoubleClick,
 										}
@@ -105,52 +114,25 @@ namespace EL.Robot.Component
 		public override async ELTask<INodeContent> Main(INodeContent self)
 		{
 			await base.Main(self);
-			DisplayName = self.CurrentNode.Name;
-			var elementStr = self.CurrentNode.GetParamterString("ElementPath");
-			object element = elementStr;
-			if (elementStr is string)
-				element = JsonHelper.FromJson<ElementPath>(elementStr);
-			Light(element, 10000);
-			var actiontypeStr = self.CurrentNode.GetParamterValue("actiontype") + "";
-			var clicktypeStr = self.CurrentNode.GetParamterValue("clicktype") + "";
-			Enum.TryParse(actiontypeStr, true, out ActionType actionType);
-			Enum.TryParse(clicktypeStr, true, out ClickType clickType);
+			ElementPath = self.CurrentNode.GetParamterValue<ElementPath>(nameof(ElementPath));
+			Light(ElementPath, 10000);
+			ActionType = self.CurrentNode.GetParamterValue<ActionType>(nameof(ActionType));
+			ClickType = self.CurrentNode.GetParamterValue<ClickType>(nameof(ClickType));
 			MouseActionRequest request = new()
 			{
-				ActionType = actionType,
-				ClickType = clickType,
+				ActionType = ActionType,
+				ClickType = ClickType,
 				LocationType = LocationType.Center,
 				OffsetX = 0,
 				OffsetY = 0,
-				TimeOut = 10000
+				TimeOut = VariableSystem.TimeOut,
+				ElementPath = ElementPath,
 			};
-			if (element is ElementPath)
-			{
-				var elementPath = element as ElementPath;
-				if (elementPath == null)
-					throw new ELNodeHandlerException("elementPath is null!");
-				request.ElementPath = elementPath;
-				await UtilsComponent.Exec(request);
-			}
-			else if (element is ElementUIA ele)
-			{
-				MouseActionSystem.UIAMain(request, new List<ElementUIA>() { ele });
-			}
-			else if (element is string && !string.IsNullOrEmpty(element.ToString()))
-			{
-				var elementPath = JsonHelper.FromJson<ElementPath>(element.ToString());
-				request.ElementPath = elementPath;
-				var res = (ElementActionResponse)await UtilsComponent.Exec(request);
-			}
-			else
-			{
-				throw new ELNodeHandlerException("引用参数的类型不匹配！");
-			}
-
+			self.Out = new ValueInfo(await UtilsComponent.Exec(request));
 			self.Value = true;
 			return self;
 		}
-		public static async void Light(object element, int timeOut)
+		public static async void Light(ElementPath element, int timeOut)
 		{
 			if (element is ElementPath elementPath)
 			{

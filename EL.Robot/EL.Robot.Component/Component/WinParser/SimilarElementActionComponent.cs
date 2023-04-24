@@ -35,7 +35,7 @@ namespace EL.Robot.Component
                     ElementPath = JsonHelper.FromJson<ElementPath>(elementPathStr + "")
                 };
                 var response = (CosineSimilarElementActionResponse)await UtilsComponent.Exec(request);
-                self.Out = response.Elements;
+                self.Out = new ValueInfo() { Value = response.Elements };
                 self.Value = true;
                 return self;
             }
@@ -53,7 +53,7 @@ namespace EL.Robot.Component
                     ElementPath = JsonHelper.FromJson<ElementPath>(elementPathStr + "")
                 };
                 var response = (SimilarElementActionResponse)await UtilsComponent.Exec(request);
-                self.Out = response.Elements;
+                self.Out = new ValueInfo() { Value = response.Elements };
                 self.Value = true;
                 return self;
             }

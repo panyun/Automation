@@ -19,6 +19,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Component\ArrayComponent.cs" />
+    <Compile Remove="Component\DataBaseComponet.cs" />
+    <Compile Remove="Component\DataBaseExecComponet.cs" />
+    <Compile Remove="Component\DataBaseSelectComponet.cs" />
+    <Compile Remove="Component\DateComponent.cs" />
+    <Compile Remove="Component\Excel\AddSheetComponent.cs" />
+    <Compile Remove="Component\Excel\CloseExcelCompoennt.cs" />
+    <Compile Remove="Component\Excel\MaxRowColComponent.cs" />
+    <Compile Remove="Component\Excel\OpenExcelComponent.cs" />
+    <Compile Remove="Component\Excel\ReadCellComponent.cs" />
+    <Compile Remove="Component\Excel\SaveComponent.cs" />
+    <Compile Remove="Component\Excel\SetActiveSheet.cs" />
+    <Compile Remove="Component\Excel\WriteCellComponent.cs" />
+    <Compile Remove="Component\FlowBlockComponent.cs" />
+    <Compile Remove="Component\HotKeyComponent.cs" />
+    <Compile Remove="Component\JsonComponent.cs" />
+    <Compile Remove="Component\MathFunctionComponent.cs" />
+    <Compile Remove="Component\RegexComponent.cs" />
+    <Compile Remove="Component\StartProgramComponent.cs" />
+    <Compile Remove="Component\StopProgramComponent.cs" />
+    <Compile Remove="Component\StringComponent.cs" />
+    <Compile Remove="Component\WinParser\CosineSimilarElementActionComponent.cs" />
+    <Compile Remove="Component\WinParser\ElementActionComponent.cs" />
+    <Compile Remove="Component\WinParser\ElementPropertyActionComponent.cs" />
+    <Compile Remove="Component\WinParser\SimilarElementActionComponent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Component\Excel\" />
     <Folder Include="System\" />
   </ItemGroup>
 

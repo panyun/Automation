@@ -47,7 +47,7 @@ namespace EL.Robot.Component
         private async Task LoopSimilarElement(INodeContent self, dynamic robot)
         {
             //相似元素对象
-            var fordom = (List<ElementUIA>)self.CurrentNode.GetParamterValue("fordom");
+            var fordom = self.CurrentNode.GetParamterValue<List<ElementUIA>>("fordom");
             List<object> elements = new List<object>();
             var domop = self.CurrentNode.GetParamterInt("domop");
             switch (domop)
@@ -73,8 +73,8 @@ namespace EL.Robot.Component
             var nodeComponent = flowComponent.GetComponent("NodeComponent");
             for (int i = 1; i <= elements.Count; i++)
             {
-                ElementActionComponent.Main(fordom[i - 1]);
-                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, elements[i - 1]);
+                //ElementActionComponent.Main(fordom[i - 1]);
+                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(elements[i - 1]));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
                 await nodeComponent.Exec(self.CurrentNode.Steps);
@@ -105,7 +105,7 @@ namespace EL.Robot.Component
             flowComponent.WriteNodeLog(self.CurrentNode, $"条件循环开始");
             while (isIf)
             {
-                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, i);
+                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(i));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
                 await nodeComponent.Exec(self.CurrentNode.Steps);
@@ -127,7 +127,7 @@ namespace EL.Robot.Component
             flowComponent.WriteNodeLog(self.CurrentNode, $"次数循环开始");
             for (int i = 1; i <= forNum; i++)
             {
-                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, i);
+                var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(i));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
                 await nodeComponent.Exec(self.CurrentNode.Steps);
