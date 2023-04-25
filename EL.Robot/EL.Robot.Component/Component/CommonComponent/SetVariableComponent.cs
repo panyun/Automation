@@ -33,7 +33,7 @@ namespace EL.Robot.Component
 					CmdDisplayName="变量的名称",
 					Value = VariableSystem.OutParameterNameValue("var"),
 					Title = "请给变量取一个名字",
-					Type = new List<Type>(){ typeof(string) },
+					Types = new List<Type>(){ typeof(string) },
 					IsInput = true,
 					Values = VariableSystem.OutParameterNameValues("var"),
 					Parameters = new List<Parameter>()
@@ -44,7 +44,7 @@ namespace EL.Robot.Component
 							DisplayName = "赋值",
 							CmdDisplayName="初始值",
 							Value = VariableSystem.InputVariable("val"),
-							Type = new List<Type>(){ typeof(string),typeof(int) },
+							Types = new List<Type>(){ typeof(string),typeof(int) },
 							IsInput = true,
 							Title = "请给变量赋一个初始值",
 							Values = new List <ValueInfo>() {
@@ -52,11 +52,9 @@ namespace EL.Robot.Component
 								VariableSystem.SelectVariable()
 							},
 						},
-
 					}
 				},
 			};
-
 			return base.GetConfig();
 		}
 		public override ELTask<INodeContent> Main(INodeContent self)

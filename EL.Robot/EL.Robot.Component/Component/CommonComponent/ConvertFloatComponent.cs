@@ -22,7 +22,7 @@ namespace EL.Robot.Component
 					DisplayName = "保留长度",
 					Title = "转换的小数保留长度",
 					Value =VariableSystem.InputVariable("2"),
-					Type = new List<Type>(){ typeof(int) },
+					Types = new List<Type>(){ typeof(int) },
 					IsInput = true,
 					Values = VariableSystem.InputOrSelectOrUpValues(),
 					Parameters = new List<Parameter>()
@@ -33,7 +33,7 @@ namespace EL.Robot.Component
 							DisplayName = "保存到变量",
 							Value =VariableSystem.OutParameterNameValue("varFloat1"),
 							CmdDisplayName ="输出到变量",
-							Type = new List<Type>(){ typeof(string) },
+							Types = new List<Type>(){ typeof(string) },
 							IsInput = true,
 							Title = "请给变量命名",
 							Values = VariableSystem.OutParameterNameValues("varFloat1")

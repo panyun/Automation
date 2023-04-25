@@ -30,19 +30,19 @@ namespace EL.Robot.WindowApiTest
 			};
 			this.Click += (x, y) =>
 			{
-				designComponent.StartDesign((long)this.Tag);
-				IndexForm.Ins.RefreshRobots();
+			
+				IndexForm.Ins.RefreshRobots((long)Tag);
 
 			};
 			pictureBox1.Click += (x, y) =>
 			{
-				designComponent.StartDesign((long)this.Tag);
-				IndexForm.Ins.RefreshRobots();
+	 
+				IndexForm.Ins.RefreshRobots((long)Tag);
 			};
 			lbl_Name.Click += (x, y) =>
 			{
-				designComponent.StartDesign((long)this.Tag);
-				IndexForm.Ins.RefreshRobots();
+			 
+				IndexForm.Ins.RefreshRobots((long)Tag);
 			};
 
 			this.Tag = id;
