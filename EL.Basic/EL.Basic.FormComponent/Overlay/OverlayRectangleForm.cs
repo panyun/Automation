@@ -235,7 +235,7 @@ namespace EL.Overlay
 		public void LightHigh(Rectangle element, Color color)
 		   => LightHighMany(new List<dynamic> { element }, color);
 		public void LightHigh(dynamic element, Color color)
-		 => LightHighMany(new List<dynamic> { element }, color);
+		 => LightHighMany(new List<dynamic> { element }, coloreiu2);
 		public void LightHighMany(List<dynamic> BoundingRectangles, Color color)
 		{
 			this.Invoke(() =>

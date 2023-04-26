@@ -13,7 +13,8 @@ namespace EL.Robot.Core
         public Action<DesignMsg> RefreshLogMsgAction { get; set; }
         public Action ClearNodeCmdAction { get; set; }
         public Action<Node, string> RefreshNodeCmdAction { get; set; }
-        public List<FlowData> FlowDatas { get; set; } = new List<FlowData>();
+		public Action RefreshNodeCmdEndAction { get; set; }
+		public List<FlowData> FlowDatas { get; set; } = new List<FlowData>();
         public List<Features> Features { get; set; } = new List<Features>();
         public NodeComponent NodeComponentRoot
         {
