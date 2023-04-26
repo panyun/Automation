@@ -1,13 +1,4 @@
 ﻿using EL.Robot.Core;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace EL.Robot.WindowApiTest
 {
@@ -18,13 +9,16 @@ namespace EL.Robot.WindowApiTest
         public LogsForm()
         {
             InitializeComponent();
+            this.Activated += (x, y) =>
+            {
+                WindowsAPI.User32.SetForegroundWindow(IndexForm.Ins.Handle);
+            };
             LogsClearAction = () => { richTextBox1.Text = ""; };
             LogsAction = (x) =>
             {
                 this.Invoke(new Action(() =>
                 {
                     AppendTextColorful(richTextBox1, x.ShowMsg, Color.Black, new Font("黑体", 10), true);
-
                 }));
             };
         }
