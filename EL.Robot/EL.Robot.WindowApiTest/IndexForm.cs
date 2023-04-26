@@ -259,8 +259,9 @@ namespace EL.Robot.WindowApiTest
 			delete.Click += (x, y) =>
 			{
 				var node = GetSelectNode();
+				string str = node.DisplayExp;
 				designComponent.CurrentDesignFlow.Steps.Remove(node);
-				WriteLog($"已将[{node.DisplayExp}]命令从当前流程移除");
+				WriteLog($"已将[{str}]命令从当前流程移除");
 			};
 			ToolStripMenuItem insert = new ToolStripMenuItem();
 			insert.Text = "当前插入";
