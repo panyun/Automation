@@ -49,7 +49,7 @@ namespace EL.Robot.Component
 							Title = "请给变量赋一个初始值",
 							Values = new List <ValueInfo>() {
 								VariableSystem.InputVariable("val"),
-								VariableSystem.SelectVariable()
+								VariableSystem.SelectVariable(typeof(string))
 							},
 						},
 					}

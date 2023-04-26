@@ -23,7 +23,7 @@ namespace EL.Robot.WindowApiTest
             {
                 this.Invoke(new Action(() =>
                 {
-                    AppendTextColorful(richTextBox1, x.ShowMsg, Color.Black, new Font("黑体", 11), true);
+                    AppendTextColorful(richTextBox1, x.ShowMsg, Color.Black, new Font("黑体", 10), true);
 
                 }));
             };

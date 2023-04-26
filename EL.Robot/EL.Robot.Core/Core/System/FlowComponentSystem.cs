@@ -95,7 +95,10 @@ namespace EL.Robot.Core
 				msg = $"         [变量赋值 {key}={JsonHelper.ToJson(value.Value)}]";
 			if (self.ParamsManager == null) self.ParamsManager = new Dictionary<string, ValueInfo>();
 			if (self.ParamsManager.ContainsKey(key))
-				self.ParamsManager[key] = value;
+			{
+				if (value != null && value.Value != null)
+					self.ParamsManager[key] = value;
+			}
 			else
 				self.ParamsManager.Add(key, value);
 			flowComponent.RefreshVariablesAction?.Invoke(key);

@@ -243,7 +243,7 @@ namespace EL.Robot.Core
 		{
 			return NodeContent.Create(node.Flow, node);
 		}
-		public static INodeCompoonent FindComponent(this NodeComponent self, string name)
+		public static BaseComponent FindComponent(this NodeComponent self, string name)
 		{
 			var coms = self.Components;
 			if (string.IsNullOrEmpty(name)) throw new ELNodeHandlerException("组件名称为空！");
@@ -251,8 +251,8 @@ namespace EL.Robot.Core
 			foreach (var com in coms)
 			{
 				if (com.Key.Name.ToLower() == name.ToLower())
-					return com.Value as INodeCompoonent;
-				var nodeInfo = com.Value as INodeCompoonent;
+					return com.Value as BaseComponent;
+				var nodeInfo = com.Value as BaseComponent;
 				if (nodeInfo.Config.ComponentName.Trim().ToLower() == name)
 					return nodeInfo;
 			}
