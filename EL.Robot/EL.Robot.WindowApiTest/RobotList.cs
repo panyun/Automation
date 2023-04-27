@@ -30,9 +30,7 @@ namespace EL.Robot.WindowApiTest
 			};
 			this.Click += (x, y) =>
 			{
-			
 				IndexForm.Ins.RefreshRobots((long)Tag);
-
 			};
 			pictureBox1.Click += (x, y) =>
 			{

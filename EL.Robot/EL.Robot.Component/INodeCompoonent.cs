@@ -63,7 +63,8 @@ namespace EL.Robot.Component
 			{
 				ComponentName = this.GetType().Name
 			};
-		}
+          
+        }
 		public Config Config { get; set; }
 
 		public string DisplayName { get; set; }
@@ -125,6 +126,7 @@ namespace EL.Robot.Component
 		public string OutParameterName { get; set; }
 		public Category Category { get; set; }
 		public bool IsInit { get; set; } = false;
+		public bool IsView { get; set; } = true;
 	}
 }
 
@@ -162,7 +164,7 @@ public static class CategoryHelper
 }
 public enum Category
 {
-	流程控制,
+	流程控制=1,
 	UI自动化,
 	基础组件,
 	Excel
