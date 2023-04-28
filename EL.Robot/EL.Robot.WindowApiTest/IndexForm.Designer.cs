@@ -192,9 +192,9 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 44);
+            this.panel5.Location = new System.Drawing.Point(0, 393);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(618, 517);
+            this.panel5.Size = new System.Drawing.Size(618, 168);
             this.panel5.TabIndex = 18;
             // 
             // pl_components

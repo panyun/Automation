@@ -10,7 +10,6 @@ namespace EL.Robot.Component
         [JsonProperty(PropertyName = "id")]
         public long Id { get; set; }
         public bool IsFold { get; set; } = true;
-
         public Node LinkNode { get; set; }
         [IgnoreDataMember]
         [BsonIgnore]
