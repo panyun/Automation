@@ -28,12 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pl_Content = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
+            // 
+            // pl_Content
+            // 
+            this.pl_Content.AutoScroll = true;
+            this.pl_Content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pl_Content.Location = new System.Drawing.Point(0, 0);
+            this.pl_Content.Name = "pl_Content";
+            this.pl_Content.Size = new System.Drawing.Size(600, 400);
+            this.pl_Content.TabIndex = 0;
             // 
             // DesignViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pl_Content);
             this.Name = "DesignViewForm";
             this.Size = new System.Drawing.Size(600, 400);
             this.ResumeLayout(false);
@@ -41,5 +52,7 @@
         }
 
         #endregion
+
+        private FlowLayoutPanel pl_Content;
     }
 }

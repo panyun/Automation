@@ -28,67 +28,64 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			btn_catch = new Button();
-			button1 = new Button();
-			button2 = new Button();
-			button3 = new Button();
-			SuspendLayout();
-			// 
-			// btn_catch
-			// 
-			btn_catch.Location = new Point(39, 49);
-			btn_catch.Name = "btn_catch";
-			btn_catch.Size = new Size(75, 23);
-			btn_catch.TabIndex = 0;
-			btn_catch.Text = "捕获";
-			btn_catch.UseVisualStyleBackColor = true;
-			btn_catch.Click += btn_catch_Click;
-			// 
-			// button1
-			// 
-			button1.Location = new Point(154, 47);
-			button1.Margin = new Padding(2, 2, 2, 2);
-			button1.Name = "button1";
-			button1.Size = new Size(75, 25);
-			button1.TabIndex = 1;
-			button1.Text = "执行流程";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
-			// 
-			// button2
-			// 
-			button2.Location = new Point(280, 49);
-			button2.Margin = new Padding(2, 2, 2, 2);
-			button2.Name = "button2";
-			button2.Size = new Size(75, 25);
-			button2.TabIndex = 2;
-			button2.Text = "执行组件";
-			button2.UseVisualStyleBackColor = true;
-			button2.Click += button2_Click;
-			// 
-			// button3
-			// 
-			button3.Location = new Point(404, 48);
-			button3.Margin = new Padding(2, 2, 2, 2);
-			button3.Name = "button3";
-			button3.Size = new Size(75, 25);
-			button3.TabIndex = 3;
-			button3.Text = "模拟执行";
-			button3.UseVisualStyleBackColor = true;
-			button3.Click += button3_Click;
-			// 
-			// Test
-			// 
-			AutoScaleDimensions = new SizeF(7F, 17F);
-			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
-			Controls.Add(button3);
-			Controls.Add(button2);
-			Controls.Add(button1);
-			Controls.Add(btn_catch);
-			Name = "Test";
-			Text = "Test";
-			ResumeLayout(false);
+            this.btn_catch = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btn_catch
+            // 
+            this.btn_catch.Location = new System.Drawing.Point(39, 30);
+            this.btn_catch.Name = "btn_catch";
+            this.btn_catch.Size = new System.Drawing.Size(75, 23);
+            this.btn_catch.TabIndex = 0;
+            this.btn_catch.Text = "捕获";
+            this.btn_catch.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(154, 47);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 25);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "执行流程";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(280, 49);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 25);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "执行组件";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(404, 48);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 25);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "模拟执行";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // Test
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_catch);
+            this.Name = "Test";
+            this.Text = "Test";
+            this.ResumeLayout(false);
+
 		}
 
 		#endregion

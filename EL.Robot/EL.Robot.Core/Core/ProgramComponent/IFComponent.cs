@@ -11,10 +11,12 @@ namespace EL.Robot.Component
         public IFStartComponent()
         {
             Config.Category = Category.流程控制;
+            Config.IsBlock = true;
         }
         public override Config GetConfig()
         {
             if (Config.IsInit) return Config;
+
             Config.ButtonDisplayName = "IF条件";
             Config.CmdDisplayName = "IF条件开始";
             Config.Parameters = new List<Parameter>()
