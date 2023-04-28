@@ -12,6 +12,13 @@ namespace EL.Robot.Component
 	}
 	public class Flow
 	{
+		#region Design
+		[IgnoreDataMember]
+		[BsonIgnore]
+		[JsonIgnore]
+		public List<Node> DesignSteps { get; set; } = new List<Node>();
+
+		#endregion
 		public string HeadImg { get; set; }
 		/// <summary>
 		/// 流程id
@@ -31,7 +38,7 @@ namespace EL.Robot.Component
 		/// <summary>
 		/// 流程节点信息
 		/// </summary>
-		public List<Node> Steps { get; set; }
+		public List<Node> Steps { get; set; } = new List<Node> { };
 
 		/// <summary>
 		/// 是否调试
