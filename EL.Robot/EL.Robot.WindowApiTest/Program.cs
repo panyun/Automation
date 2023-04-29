@@ -1,5 +1,6 @@
 using EL.Robot.Component;
 using EL.Robot.Core;
+using EL.Robot.WindowApiTest.Code;
 
 namespace EL.Robot.WindowApiTest
 {
@@ -17,7 +18,10 @@ namespace EL.Robot.WindowApiTest
 			//StartComponent s = new StartComponent();
 			RequestManager.CreateBoot();
 			RequestManager.Init();
-			Application.Run(new IndexForm());
+			Boot.App.EventSystem.Add(typeof(DesignViewComponent).Assembly);
+			Boot.AddComponent<ViewLogComponent>();
+			var com = Boot.AddComponent<DesignViewComponent>();
+			Application.Run(com.IndexForm);
 		}
 	}
 }

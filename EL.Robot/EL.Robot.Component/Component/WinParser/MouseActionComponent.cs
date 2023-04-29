@@ -71,7 +71,7 @@ namespace EL.Robot.Component
                                     Value = new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                              DisplayName = "左键点击",
-                                              Value=ClickType.LeftClick,
+                                              Value=ClickType.LeftClick.ToString(),
                                         },
                                     IsInput = true,
                                     Title = "点击类型",
@@ -80,17 +80,17 @@ namespace EL.Robot.Component
                                         new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                              DisplayName = "左键点击",
-                                              Value=ClickType.LeftClick,
+                                              Value=ClickType.LeftClick.ToString(),
                                         },
                                         new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                               DisplayName = "右键点击",
-                                              Value=ClickType.RightClick,
+                                              Value=ClickType.RightClick.ToString(),
                                         },
                                         new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                               DisplayName = "双击",
-                                              Value=ClickType.LeftDoubleClick,
+                                              Value=ClickType.LeftDoubleClick.ToString(),
                                         }
                                      }
                                  }

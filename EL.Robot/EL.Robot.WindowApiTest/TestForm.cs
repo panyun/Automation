@@ -11,17 +11,14 @@ using System.Windows.Forms;
 
 namespace EL.Robot.WindowApiTest
 {
-    public partial class TestForm : Form
-    {
-        public TestForm(Flow flow)
-        {
-            InitializeComponent();
-            DesignViewForm designViewForm = new()
-            {
-                Dock = DockStyle.Fill
-            };
-            designViewForm.InitAction?.Invoke(flow);
-            this.Controls.Add(designViewForm);
-        }
-    }
+	public partial class TestForm : Form
+	{
+		public TestForm(Flow flow)
+		{
+			InitializeComponent();
+			var comp = Boot.GetComponent<DesignViewComponent>();
+			comp.Main(flow);
+			this.Controls.Add(comp.DesignViewForm);
+		}
+	}
 }
