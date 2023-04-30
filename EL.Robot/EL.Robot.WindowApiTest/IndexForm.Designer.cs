@@ -52,9 +52,10 @@
 			lbl_name = new Label();
 			button1 = new Button();
 			panel2 = new Panel();
-			flp_robotList = new FlowLayoutPanel();
+			panel1 = new Panel();
 			btn_add = new Button();
 			textBox1 = new TextBox();
+			flp_robotList = new FlowLayoutPanel();
 			panel6 = new Panel();
 			button9 = new Button();
 			button8 = new Button();
@@ -67,6 +68,7 @@
 			pl_Category.SuspendLayout();
 			panel4.SuspendLayout();
 			panel2.SuspendLayout();
+			panel1.SuspendLayout();
 			panel6.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -94,6 +96,7 @@
 			// 
 			// btn_close
 			// 
+			btn_close.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			btn_close.Location = new Point(1063, -3);
 			btn_close.Name = "btn_close";
 			btn_close.Size = new Size(42, 23);
@@ -107,10 +110,10 @@
 			pl_content.Controls.Add(button1);
 			pl_content.Controls.Add(panel2);
 			pl_content.Controls.Add(panel6);
-			pl_content.Dock = DockStyle.Top;
+			pl_content.Dock = DockStyle.Fill;
 			pl_content.Location = new Point(0, 26);
 			pl_content.Name = "pl_content";
-			pl_content.Size = new Size(1105, 621);
+			pl_content.Size = new Size(1105, 627);
 			pl_content.TabIndex = 3;
 			// 
 			// panel3
@@ -131,21 +134,22 @@
 			panel3.Dock = DockStyle.Fill;
 			panel3.Location = new Point(281, 0);
 			panel3.Name = "panel3";
-			panel3.Size = new Size(824, 621);
+			panel3.Size = new Size(824, 627);
 			panel3.TabIndex = 9;
 			// 
 			// panel5
 			// 
 			panel5.BackColor = Color.WhiteSmoke;
 			panel5.Dock = DockStyle.Bottom;
-			panel5.Location = new Point(0, 611);
+			panel5.Location = new Point(0, 617);
 			panel5.Name = "panel5";
 			panel5.Size = new Size(824, 10);
 			panel5.TabIndex = 18;
 			// 
 			// btn_save
 			// 
-			btn_save.Location = new Point(182, 586);
+			btn_save.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btn_save.Location = new Point(182, 592);
 			btn_save.Name = "btn_save";
 			btn_save.Size = new Size(75, 23);
 			btn_save.TabIndex = 4;
@@ -154,15 +158,17 @@
 			// 
 			// pl_components
 			// 
+			pl_components.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			pl_components.BorderStyle = BorderStyle.FixedSingle;
-			pl_components.Location = new Point(20, 352);
+			pl_components.Location = new Point(20, 358);
 			pl_components.Name = "pl_components";
 			pl_components.Size = new Size(782, 61);
 			pl_components.TabIndex = 12;
 			// 
 			// btn_debug
 			// 
-			btn_debug.Location = new Point(101, 584);
+			btn_debug.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btn_debug.Location = new Point(101, 590);
 			btn_debug.Name = "btn_debug";
 			btn_debug.Size = new Size(75, 23);
 			btn_debug.TabIndex = 2;
@@ -171,7 +177,8 @@
 			// 
 			// txt_exp
 			// 
-			txt_exp.Location = new Point(20, 502);
+			txt_exp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			txt_exp.Location = new Point(20, 508);
 			txt_exp.Name = "txt_exp";
 			txt_exp.ReadOnly = true;
 			txt_exp.Size = new Size(782, 81);
@@ -180,7 +187,8 @@
 			// 
 			// btn_run
 			// 
-			btn_run.Location = new Point(20, 584);
+			btn_run.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btn_run.Location = new Point(20, 590);
 			btn_run.Name = "btn_run";
 			btn_run.Size = new Size(75, 23);
 			btn_run.TabIndex = 1;
@@ -189,8 +197,9 @@
 			// 
 			// lbl_preExec
 			// 
+			lbl_preExec.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			lbl_preExec.BackColor = Color.FromArgb(233, 233, 233);
-			lbl_preExec.Location = new Point(637, 587);
+			lbl_preExec.Location = new Point(637, 593);
 			lbl_preExec.Name = "lbl_preExec";
 			lbl_preExec.Size = new Size(75, 23);
 			lbl_preExec.TabIndex = 16;
@@ -199,24 +208,27 @@
 			// 
 			// pl_cmd
 			// 
+			pl_cmd.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			pl_cmd.BackColor = Color.Gainsboro;
-			pl_cmd.Location = new Point(20, 460);
+			pl_cmd.Location = new Point(20, 466);
 			pl_cmd.Name = "pl_cmd";
 			pl_cmd.Size = new Size(782, 39);
 			pl_cmd.TabIndex = 15;
 			// 
 			// pl_Category
 			// 
+			pl_Category.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			pl_Category.BackColor = Color.Gainsboro;
 			pl_Category.Controls.Add(button3);
 			pl_Category.Controls.Add(button2);
-			pl_Category.Location = new Point(20, 419);
+			pl_Category.Location = new Point(20, 425);
 			pl_Category.Name = "pl_Category";
 			pl_Category.Size = new Size(782, 39);
 			pl_Category.TabIndex = 11;
 			// 
 			// button3
 			// 
+			button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			button3.Location = new Point(689, 9);
 			button3.Name = "button3";
 			button3.Size = new Size(42, 23);
@@ -226,6 +238,7 @@
 			// 
 			// button2
 			// 
+			button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			button2.Location = new Point(737, 10);
 			button2.Name = "button2";
 			button2.Size = new Size(42, 23);
@@ -235,8 +248,9 @@
 			// 
 			// btn_send
 			// 
+			btn_send.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btn_send.BackColor = Color.FromArgb(233, 233, 233);
-			btn_send.Location = new Point(727, 587);
+			btn_send.Location = new Point(727, 593);
 			btn_send.Name = "btn_send";
 			btn_send.Size = new Size(75, 23);
 			btn_send.TabIndex = 10;
@@ -245,11 +259,11 @@
 			// 
 			// pl_view
 			// 
-			pl_view.Dock = DockStyle.Top;
+			pl_view.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			pl_view.Location = new Point(0, 45);
 			pl_view.Margin = new Padding(0);
 			pl_view.Name = "pl_view";
-			pl_view.Size = new Size(824, 368);
+			pl_view.Size = new Size(824, 374);
 			pl_view.TabIndex = 21;
 			// 
 			// panel4
@@ -284,26 +298,27 @@
 			// panel2
 			// 
 			panel2.BackColor = Color.FromArgb(236, 233, 231);
+			panel2.Controls.Add(panel1);
 			panel2.Controls.Add(flp_robotList);
-			panel2.Controls.Add(btn_add);
-			panel2.Controls.Add(textBox1);
 			panel2.Dock = DockStyle.Left;
 			panel2.Location = new Point(80, 0);
 			panel2.Name = "panel2";
-			panel2.Size = new Size(201, 621);
+			panel2.Size = new Size(201, 627);
 			panel2.TabIndex = 7;
 			// 
-			// flp_robotList
+			// panel1
 			// 
-			flp_robotList.Dock = DockStyle.Bottom;
-			flp_robotList.Location = new Point(0, 73);
-			flp_robotList.Name = "flp_robotList";
-			flp_robotList.Size = new Size(201, 548);
-			flp_robotList.TabIndex = 2;
+			panel1.Controls.Add(btn_add);
+			panel1.Controls.Add(textBox1);
+			panel1.Dock = DockStyle.Top;
+			panel1.Location = new Point(0, 0);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(201, 45);
+			panel1.TabIndex = 3;
 			// 
 			// btn_add
 			// 
-			btn_add.Location = new Point(139, 12);
+			btn_add.Location = new Point(138, 15);
 			btn_add.Name = "btn_add";
 			btn_add.Size = new Size(58, 23);
 			btn_add.TabIndex = 1;
@@ -312,10 +327,18 @@
 			// 
 			// textBox1
 			// 
-			textBox1.Location = new Point(6, 12);
+			textBox1.Location = new Point(5, 15);
 			textBox1.Name = "textBox1";
 			textBox1.Size = new Size(127, 23);
 			textBox1.TabIndex = 0;
+			// 
+			// flp_robotList
+			// 
+			flp_robotList.Dock = DockStyle.Bottom;
+			flp_robotList.Location = new Point(0, 50);
+			flp_robotList.Name = "flp_robotList";
+			flp_robotList.Size = new Size(201, 577);
+			flp_robotList.TabIndex = 2;
 			// 
 			// panel6
 			// 
@@ -328,12 +351,12 @@
 			panel6.Dock = DockStyle.Left;
 			panel6.Location = new Point(0, 0);
 			panel6.Name = "panel6";
-			panel6.Size = new Size(80, 621);
+			panel6.Size = new Size(80, 627);
 			panel6.TabIndex = 6;
 			// 
 			// button9
 			// 
-			button9.Location = new Point(3, 522);
+			button9.Location = new Point(3, 585);
 			button9.Name = "button9";
 			button9.Size = new Size(60, 23);
 			button9.TabIndex = 4;
@@ -342,7 +365,7 @@
 			// 
 			// button8
 			// 
-			button8.Location = new Point(6, 216);
+			button8.Location = new Point(5, 130);
 			button8.Name = "button8";
 			button8.Size = new Size(60, 23);
 			button8.TabIndex = 3;
@@ -351,7 +374,7 @@
 			// 
 			// button7
 			// 
-			button7.Location = new Point(6, 167);
+			button7.Location = new Point(4, 90);
 			button7.Name = "button7";
 			button7.Size = new Size(60, 23);
 			button7.TabIndex = 2;
@@ -360,7 +383,7 @@
 			// 
 			// button6
 			// 
-			button6.Location = new Point(3, 117);
+			button6.Location = new Point(3, 50);
 			button6.Name = "button6";
 			button6.Size = new Size(60, 23);
 			button6.TabIndex = 1;
@@ -369,7 +392,7 @@
 			// 
 			// button5
 			// 
-			button5.Location = new Point(0, 67);
+			button5.Location = new Point(3, 15);
 			button5.Name = "button5";
 			button5.Size = new Size(60, 23);
 			button5.TabIndex = 0;
@@ -397,7 +420,8 @@
 			panel4.ResumeLayout(false);
 			panel4.PerformLayout();
 			panel2.ResumeLayout(false);
-			panel2.PerformLayout();
+			panel1.ResumeLayout(false);
+			panel1.PerformLayout();
 			panel6.ResumeLayout(false);
 			ResumeLayout(false);
 		}
@@ -436,5 +460,6 @@
 		private Button button7;
 		private Button button6;
 		private Button button5;
+		private Panel panel1;
 	}
 }

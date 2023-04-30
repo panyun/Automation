@@ -107,13 +107,11 @@ namespace EL.Robot.Core
 					self.LogMsgs.AddRange(logs);
 			}
 			self.CurrentDesignFlow = flow;
-
 			if (!self.CurrentDesignFlow.DesignSteps.Any())
 				self.GetDesignSteps(self.CurrentDesignFlow.Steps, default);
 			self.CurrentDesignFlow.ViewSort = TimeHelper.ServerNow();
 			var fea = self.Features.FirstOrDefault(x => x.Id == Id);
 			fea.ViewSort = TimeHelper.ServerNow();
-			self.RefreshAllStepCMD();
 			return flow;
 		}
 		private static void GetSteps(this DesignComponent self)
@@ -121,9 +119,7 @@ namespace EL.Robot.Core
 			var tops = self.CurrentDesignFlow.DesignSteps.Where(x => x.DesignParent == null);
 			self.CurrentDesignFlow.Steps.AddRange(tops);
 			foreach (var item in tops)
-			{
 				self.Get(item);
-			}
 		}
 		private static void Get(this DesignComponent self, Node node)
 		{
@@ -179,10 +175,7 @@ namespace EL.Robot.Core
 		}
 
 
-		public static List<DesignMsg> GetMsg(this DesignComponent self)
-		{
-			return self.LogMsgs.Where(x => self.CurrentDesignFlow.Id == x.Id).ToList();
-		}
+		
 		public static ComponentResponse StartDesign(this DesignComponent self, CommponetRequest requst)
 		{
 			var tempFlow = (long)requst.Data;
@@ -212,40 +205,40 @@ namespace EL.Robot.Core
 			var data = self.SelectVariable(requst.Types);
 			return new ComponentResponse() { Data = data };
 		}
-		public static void WriteFlowLog(this DesignComponent self, string msg, long takeTime = default)
+		public static void WriteDesignLog(this DesignComponent self, string msg)
 		{
 			if (string.IsNullOrWhiteSpace(msg)) return;
 			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
 			if (flow == null)
 			{
-				self.WriteLog(msg);
+				self.WriteDesignLog(msg);
 				return;
 			}
-			var entity = new DesignMsg(flow, msg, takeTime);
+			var entity = new DesignMsg(flow, msg);
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}
-		public static void WriteNodeLog(this DesignComponent self, Node node, string msg, long takeTime = default)
+		public static void WriteDesignLog(this DesignComponent self, Node node, string msg)
 		{
 			if (string.IsNullOrWhiteSpace(msg)) return;
 			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
 			if (node is null)
 			{
-				self.WriteLog(msg);
+				self.WriteDesignLog(msg);
 				return;
 			}
-			var entity = new DesignMsg(node, msg, takeTime);
+			var entity = new DesignMsg(node, msg);
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}
-		public static void WriteNodeLog(this DesignComponent self, Node node, Exception ex, long takeTime = default)
+		public static void WriteDesignLog(this DesignComponent self, Node node, Exception ex)
 		{
 			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
-			var entity = new DesignMsg(node, ex, takeTime);
+			var entity = new DesignMsg(node, ex);
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}
-		public static void WriteLog(this DesignComponent self, string msg, bool isException = false)
+		public static void WriteDesignLog(this DesignComponent self, string msg, bool isException = false)
 		{
 			long id = default;
 			if (self.CurrentDesignFlow != null) id = self.CurrentDesignFlow.Id;
@@ -259,12 +252,12 @@ namespace EL.Robot.Core
 			//保存数据库
 			if (self.CurrentDesignFlow == null)
 			{
-				self.WriteLog("请先打开流程吧");
+				self.WriteDesignLog("请先打开流程吧");
 				return new ComponentResponse();
 			}
 			if (self.CurrentDesignFlow.Id != id)
 			{
-				self.WriteLog("当前设计流程与完成流程不一致");
+				self.WriteDesignLog("当前设计流程与完成流程不一致");
 				return new ComponentResponse();
 			}
 			self.CurrentDesignFlow = null;
@@ -293,7 +286,7 @@ namespace EL.Robot.Core
 		{
 			if (self.CurrentDesignFlow == null)
 			{
-				self.WriteLog("对不起，请先打开机器人哟！");
+				self.WriteDesignLog("对不起，请先打开机器人哟！");
 				return default;
 			}
 			return self.CreateNode(node, self.CurrentDesignFlow.DesignSteps.Count);
@@ -302,7 +295,7 @@ namespace EL.Robot.Core
 		{
 			if (self.CurrentDesignFlow == null)
 			{
-				self.WriteLog("对不起，请先打开机器人哟！");
+				self.WriteDesignLog("对不起，请先打开机器人哟！");
 				return default;
 			}
 
@@ -390,7 +383,7 @@ namespace EL.Robot.Core
 		{
 			if (self.CurrentDesignFlow == null)
 			{
-				self.WriteLog("请先打开机器人才能运行哟！");
+				self.WriteDesignLog("请先打开机器人才能运行哟！");
 				return default;
 			}
 			try
@@ -402,7 +395,7 @@ namespace EL.Robot.Core
 			}
 			catch (Exception ex)
 			{
-				self.WriteLog(ex.Message);
+				self.WriteDesignLog(ex.Message);
 			}
 			return default;
 

@@ -34,12 +34,12 @@ namespace EL.Robot.WindowApiTest
 			};
 			pictureBox1.Click += (x, y) =>
 			{
-	 
+
 				IndexForm.Ins.RefreshRobots((long)Tag);
 			};
 			lbl_Name.Click += (x, y) =>
 			{
-			 
+
 				IndexForm.Ins.RefreshRobots((long)Tag);
 			};
 
@@ -53,7 +53,7 @@ namespace EL.Robot.WindowApiTest
 				this.BackColor = Color.Gainsboro;
 			};
 		}
-		
+
 	}
 
 }

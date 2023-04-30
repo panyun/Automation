@@ -35,6 +35,7 @@
 			// 
 			// pictureBox1
 			// 
+			pictureBox1.BackColor = SystemColors.Info;
 			pictureBox1.Dock = DockStyle.Left;
 			pictureBox1.Location = new Point(0, 0);
 			pictureBox1.Name = "pictureBox1";

@@ -86,15 +86,15 @@ namespace EL.Robot.Core
 		{
 
 		}
-		public DesignMsg(Node node, string msg, long takeTime = default) : this(node?.Id ?? default, node?.Name ?? default, msg, "组件", default, takeTime)
+		public DesignMsg(Node node, string msg) : this(node?.Id ?? default, node?.Name ?? default, msg, "组件", default)
 		{
 
 		}
-		public DesignMsg(Node node, Exception ex, long takeTime = default) : this(node?.Id ?? default, node?.Name ?? default, default, "组件", ex, takeTime)
+		public DesignMsg(Node node, Exception ex) : this(node?.Id ?? default, node?.Name ?? default, default, "组件", ex)
 		{
 
 		}
-		public DesignMsg(Flow flow, string msg, long takeTime = default) : this(flow.Id, flow.Name, msg, "流程", default, takeTime)
+		public DesignMsg(Flow flow, string msg) : this(flow.Id, flow.Name, msg, "流程", default)
 		{
 
 		}
@@ -107,7 +107,7 @@ namespace EL.Robot.Core
 			Time = DateTime.Now.ToString("HH:mm:ss");
 			ShowMsg = $" [{DateTime.Now:HH:mm:ss}]  信息：【 ---  {Msg} ---】";
 		}
-		private DesignMsg(long id, string name, string msg, string type, Exception ex = default, long takeTime = default)
+		private DesignMsg(long id, string name, string msg, string type, Exception ex = default)
 		{
 			Name = name;
 			CreateTime = TimeHelper.ServerNow();
@@ -117,15 +117,15 @@ namespace EL.Robot.Core
 			IsException = ex != default;
 			Msg = ex != null ? ex.Message : msg;
 			StackTrace = ex != null ? ex.StackTrace : default;
-			TakeTime = takeTime;
-			if (TakeTime != default)
-			{
-				string tempMsg = $"耗时{TakeTime}ms";
-				if (TakeTime > 1000)
-					tempMsg = $"耗时{TakeTime / 1000f}s";
-				ShowMsg = $" [{DateTime.Now:HH:mm:ss}] [{Type}] [{Name}/{Id}] 信息：【 ---{tempMsg}  {Msg} ---】";
-				return;
-			}
+			//TakeTime = default;
+			//if (TakeTime != default)
+			//{
+			//	string tempMsg = $"耗时{TakeTime}ms";
+			//	if (TakeTime > 1000)
+			//		tempMsg = $"耗时{TakeTime / 1000f}s";
+			//	ShowMsg = $" [{DateTime.Now:HH:mm:ss}] [{Type}] [{Name}/{Id}] 信息：【 ---{tempMsg}  {Msg} ---】";
+			//	return;
+			//}
 			ShowMsg = $" [{DateTime.Now:HH:mm:ss}] [{Type}] [{Name}/{Id}] 信息：【 --- {Msg} ---】";
 		}
 		/// <summary>

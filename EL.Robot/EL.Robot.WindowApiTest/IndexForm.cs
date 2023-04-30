@@ -25,9 +25,11 @@ namespace EL.Robot.WindowApiTest
 			InitializeComponent();
 			lbl_name.Text = "";
 			DispatcherHelper.BaseForm = this;
-			this.StartPosition = FormStartPosition.CenterParent;
+			this.StartPosition = FormStartPosition.CenterScreen;
 			txt_exp.Font = new Font("黑体", 10);
 			txt_exp.ForeColor = Color.Black;
+			pl_cmd.AutoScroll = true;
+			pl_bottom.Visible = false;
 			var list = designComponent.LoadRobots();
 			RefreshRobots(default, false);
 			InitEvent();
@@ -44,6 +46,12 @@ namespace EL.Robot.WindowApiTest
 			{
 				if (y.Button == MouseButtons.Left)
 					this.Location = new Point(this.Location.X + y.X - mpoint.X, this.Location.Y + y.Y - mpoint.Y);
+			};
+			pl_winTop.DoubleClick += (x, y) =>
+			{
+				if (this.WindowState != FormWindowState.Maximized)
+					this.WindowState = FormWindowState.Maximized;
+				else this.WindowState = FormWindowState.Normal;
 			};
 			pl_components.Visible = false;
 			pl_components.Leave += (x, y) =>
@@ -195,7 +203,6 @@ namespace EL.Robot.WindowApiTest
 				var flow = await designComponent.StartDesign(flowId);
 				if (designComponent.CurrentDesignFlow != null)
 					lbl_name.Text = designComponent.CurrentDesignFlow.Name;
-				var msgs = designComponent.GetDesignMsg();
 				var list = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
 				foreach (var item in list)
 				{
@@ -209,6 +216,7 @@ namespace EL.Robot.WindowApiTest
 				pl_bottom.Controls.Add(viewLogComponent.LogsViewForm);
 				designViewComponent.Main(flow);
 				viewLogComponent.Main();
+				pl_bottom.Visible = true;
 				return;
 			}
 			var list1 = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
@@ -222,8 +230,11 @@ namespace EL.Robot.WindowApiTest
 		}
 		public void CreateExp(Config config)
 		{
-			pl_cmd.Controls.Add(CreateCmd(config.Parameters, pl_cmd.Location.X));
-			pl_cmd.AutoScroll = true;
+			var con = CreateCmd(config.Parameters, pl_cmd.Location.X);
+			if (con != null)
+
+				pl_cmd.Controls.Add(con);
+
 		}
 		public Control CreateCmd(List<Parameter> parameters, int left)
 		{
@@ -231,6 +242,7 @@ namespace EL.Robot.WindowApiTest
 				return null;
 			if (parameters.Count == 1)
 			{
+				if (parameters.First() == null) return default;
 				var pl = CreateControl(parameters.First(), left);
 				pl_cmd.Controls.Add(pl);
 				return pl;

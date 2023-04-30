@@ -14,8 +14,6 @@ namespace EL.Robot.Component
     /// </summary>
     public class ContinueLoopComponent : BaseComponent
     {
-  
-
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);

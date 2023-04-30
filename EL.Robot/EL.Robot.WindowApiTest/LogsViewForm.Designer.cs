@@ -29,23 +29,27 @@
 		private void InitializeComponent()
 		{
 			tabControl1 = new TabControl();
-			tb_FlowRunLog = new TabPage();
-			rtb_rowLogs = new RichTextBox();
-			tb_FlowDesignLog = new TabPage();
-			rtb_designLogs = new RichTextBox();
+			tb_flowInfo = new TabPage();
+			rtb_flowInfo = new RichTextBox();
 			tb_ParamterInfo = new TabPage();
 			lv_paramters = new ListView();
+			tb_FlowRunLog = new TabPage();
+			rtb_execLogs = new RichTextBox();
+			tb_FlowDesignLog = new TabPage();
+			rtb_designLogs = new RichTextBox();
 			tabControl1.SuspendLayout();
+			tb_flowInfo.SuspendLayout();
+			tb_ParamterInfo.SuspendLayout();
 			tb_FlowRunLog.SuspendLayout();
 			tb_FlowDesignLog.SuspendLayout();
-			tb_ParamterInfo.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tabControl1
 			// 
+			tabControl1.Controls.Add(tb_flowInfo);
+			tabControl1.Controls.Add(tb_ParamterInfo);
 			tabControl1.Controls.Add(tb_FlowRunLog);
 			tabControl1.Controls.Add(tb_FlowDesignLog);
-			tabControl1.Controls.Add(tb_ParamterInfo);
 			tabControl1.Dock = DockStyle.Fill;
 			tabControl1.Location = new Point(0, 0);
 			tabControl1.Name = "tabControl1";
@@ -53,9 +57,47 @@
 			tabControl1.Size = new Size(983, 175);
 			tabControl1.TabIndex = 4;
 			// 
+			// tb_flowInfo
+			// 
+			tb_flowInfo.Controls.Add(rtb_flowInfo);
+			tb_flowInfo.Location = new Point(4, 26);
+			tb_flowInfo.Name = "tb_flowInfo";
+			tb_flowInfo.Size = new Size(975, 145);
+			tb_flowInfo.TabIndex = 3;
+			tb_flowInfo.Text = "流程信息";
+			tb_flowInfo.UseVisualStyleBackColor = true;
+			// 
+			// rtb_flowNodes
+			// 
+			rtb_flowInfo.Dock = DockStyle.Fill;
+			rtb_flowInfo.Location = new Point(0, 0);
+			rtb_flowInfo.Name = "rtb_flowNodes";
+			rtb_flowInfo.Size = new Size(975, 145);
+			rtb_flowInfo.TabIndex = 2;
+			rtb_flowInfo.Text = "";
+			// 
+			// tb_ParamterInfo
+			// 
+			tb_ParamterInfo.Controls.Add(lv_paramters);
+			tb_ParamterInfo.Location = new Point(4, 26);
+			tb_ParamterInfo.Name = "tb_ParamterInfo";
+			tb_ParamterInfo.Size = new Size(975, 145);
+			tb_ParamterInfo.TabIndex = 2;
+			tb_ParamterInfo.Text = "参数信息";
+			tb_ParamterInfo.UseVisualStyleBackColor = true;
+			// 
+			// lv_paramters
+			// 
+			lv_paramters.Dock = DockStyle.Fill;
+			lv_paramters.Location = new Point(0, 0);
+			lv_paramters.Name = "lv_paramters";
+			lv_paramters.Size = new Size(975, 145);
+			lv_paramters.TabIndex = 0;
+			lv_paramters.UseCompatibleStateImageBehavior = false;
+			// 
 			// tb_FlowRunLog
 			// 
-			tb_FlowRunLog.Controls.Add(rtb_rowLogs);
+			tb_FlowRunLog.Controls.Add(rtb_execLogs);
 			tb_FlowRunLog.Location = new Point(4, 26);
 			tb_FlowRunLog.Name = "tb_FlowRunLog";
 			tb_FlowRunLog.Padding = new Padding(3);
@@ -66,12 +108,12 @@
 			// 
 			// rtb_rowLogs
 			// 
-			rtb_rowLogs.Dock = DockStyle.Fill;
-			rtb_rowLogs.Location = new Point(3, 3);
-			rtb_rowLogs.Name = "rtb_rowLogs";
-			rtb_rowLogs.Size = new Size(969, 139);
-			rtb_rowLogs.TabIndex = 1;
-			rtb_rowLogs.Text = "";
+			rtb_execLogs.Dock = DockStyle.Fill;
+			rtb_execLogs.Location = new Point(3, 3);
+			rtb_execLogs.Name = "rtb_rowLogs";
+			rtb_execLogs.Size = new Size(969, 139);
+			rtb_execLogs.TabIndex = 1;
+			rtb_execLogs.Text = "";
 			// 
 			// tb_FlowDesignLog
 			// 
@@ -93,25 +135,6 @@
 			rtb_designLogs.TabIndex = 2;
 			rtb_designLogs.Text = "";
 			// 
-			// tb_ParamterInfo
-			// 
-			tb_ParamterInfo.Controls.Add(lv_paramters);
-			tb_ParamterInfo.Location = new Point(4, 26);
-			tb_ParamterInfo.Name = "tb_ParamterInfo";
-			tb_ParamterInfo.Size = new Size(975, 145);
-			tb_ParamterInfo.TabIndex = 2;
-			tb_ParamterInfo.Text = "参数信息";
-			tb_ParamterInfo.UseVisualStyleBackColor = true;
-			// 
-			// lv_paramters
-			// 
-			lv_paramters.Dock = DockStyle.Fill;
-			lv_paramters.Location = new Point(0, 0);
-			lv_paramters.Name = "lv_paramters";
-			lv_paramters.Size = new Size(975, 145);
-			lv_paramters.TabIndex = 0;
-			lv_paramters.UseCompatibleStateImageBehavior = false;
-			// 
 			// LogsViewForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
@@ -120,9 +143,10 @@
 			Name = "LogsViewForm";
 			Size = new Size(983, 175);
 			tabControl1.ResumeLayout(false);
+			tb_flowInfo.ResumeLayout(false);
+			tb_ParamterInfo.ResumeLayout(false);
 			tb_FlowRunLog.ResumeLayout(false);
 			tb_FlowDesignLog.ResumeLayout(false);
-			tb_ParamterInfo.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -130,10 +154,12 @@
 
 		private TabControl tabControl1;
 		private TabPage tb_FlowRunLog;
-		private RichTextBox rtb_rowLogs;
+		private RichTextBox rtb_execLogs;
 		private TabPage tb_FlowDesignLog;
 		private RichTextBox rtb_designLogs;
 		private TabPage tb_ParamterInfo;
 		private ListView lv_paramters;
+		private TabPage tb_flowInfo;
+		private RichTextBox rtb_flowInfo;
 	}
 }

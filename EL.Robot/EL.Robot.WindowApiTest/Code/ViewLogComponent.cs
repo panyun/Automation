@@ -32,19 +32,27 @@ namespace EL.Robot.WindowApiTest.Code
 			};
 			designComponent.RefreshNodeCmdEndAction = async () =>
 			{
+
 			};
 			designComponent.RefreshNodeCmdAction = (x, y) =>
 			{
+				self.LogsViewForm.WriteFlowInfo(y);
 			};
 			designComponent.ClearNodeCmdAction = () =>
 			{
+				self.LogsViewForm.ClearFlowLogs();
 			};
-			self.LogsViewForm.ClearAllLogs();
+			self.LogsViewForm.ClearDesignLogs();
+			var msgs = designComponent.GetDesignMsg();
+			self.LogsViewForm.WriteDesignLogs(msgs.ToArray());
+			self.LogsViewForm.ClearFlowLogs();
+			designComponent.RefreshAllStepCMD();
+
 		}
 		public static void WriteLog(this ViewLogComponent self, string msg)
 		{
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
-			designComponent.WriteLog(msg);
+			designComponent.WriteDesignLog(msg);
 		}
 
 	}
