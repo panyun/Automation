@@ -52,10 +52,10 @@
 			lbl_name = new Label();
 			button1 = new Button();
 			panel2 = new Panel();
+			flp_robotList = new FlowLayoutPanel();
 			panel1 = new Panel();
 			btn_add = new Button();
 			textBox1 = new TextBox();
-			flp_robotList = new FlowLayoutPanel();
 			panel6 = new Panel();
 			button9 = new Button();
 			button8 = new Button();
@@ -153,7 +153,7 @@
 			btn_save.Name = "btn_save";
 			btn_save.Size = new Size(75, 23);
 			btn_save.TabIndex = 4;
-			btn_save.Text = "保存";
+			btn_save.Text = "刷新";
 			btn_save.UseVisualStyleBackColor = true;
 			// 
 			// pl_components
@@ -298,13 +298,21 @@
 			// panel2
 			// 
 			panel2.BackColor = Color.FromArgb(236, 233, 231);
-			panel2.Controls.Add(panel1);
 			panel2.Controls.Add(flp_robotList);
+			panel2.Controls.Add(panel1);
 			panel2.Dock = DockStyle.Left;
 			panel2.Location = new Point(80, 0);
 			panel2.Name = "panel2";
 			panel2.Size = new Size(201, 627);
 			panel2.TabIndex = 7;
+			// 
+			// flp_robotList
+			// 
+			flp_robotList.Dock = DockStyle.Fill;
+			flp_robotList.Location = new Point(0, 45);
+			flp_robotList.Name = "flp_robotList";
+			flp_robotList.Size = new Size(201, 582);
+			flp_robotList.TabIndex = 2;
 			// 
 			// panel1
 			// 
@@ -331,14 +339,6 @@
 			textBox1.Name = "textBox1";
 			textBox1.Size = new Size(127, 23);
 			textBox1.TabIndex = 0;
-			// 
-			// flp_robotList
-			// 
-			flp_robotList.Dock = DockStyle.Bottom;
-			flp_robotList.Location = new Point(0, 50);
-			flp_robotList.Name = "flp_robotList";
-			flp_robotList.Size = new Size(201, 577);
-			flp_robotList.TabIndex = 2;
 			// 
 			// panel6
 			// 

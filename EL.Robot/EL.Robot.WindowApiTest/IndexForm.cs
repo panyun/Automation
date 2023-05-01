@@ -15,12 +15,11 @@ namespace EL.Robot.WindowApiTest
 		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 		public Config CurrentConfig;
 		public Dictionary<string, Parameter> ParamDic = new Dictionary<string, Parameter>();
-		public DesignComponent designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
-		public ViewLogComponent viewLogComponent = Boot.GetComponent<ViewLogComponent>();
-		public DesignViewComponent designViewComponent = Boot.GetComponent<DesignViewComponent>();
+
 		public static IndexForm Ins;
 		public IndexForm()
 		{
+			DesignComponent designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			Ins = this;
 			InitializeComponent();
 			lbl_name.Text = "";
@@ -37,6 +36,8 @@ namespace EL.Robot.WindowApiTest
 		Point mpoint = default;
 		public void InitEvent()
 		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			pl_winTop.MouseDown += (e, y) =>
 			{
 				if (y.Button == MouseButtons.Left)
@@ -66,13 +67,14 @@ namespace EL.Robot.WindowApiTest
 			};
 			btn_add.Click += (x, y) =>
 			{
+
 				var result = new AddRobotForm().ShowDialog();
 				if (result == DialogResult.OK)
 				{
 					var name = designComponent.CurrentDesignFlow.Name;
 					lbl_name.Text = name;
 					RefreshRobots(designComponent.CurrentDesignFlow.Id);
-					viewLogComponent.WriteLog($"你创建了一个[{name}]流程");
+					viewLogComponent.WriteDesignLog($"你创建了一个[{name}]流程");
 				}
 			};
 			btn_send.Click += (x, y) =>
@@ -80,7 +82,7 @@ namespace EL.Robot.WindowApiTest
 				var txt = txt_exp.Text;
 				if (txt.Length == 0)
 				{
-					viewLogComponent.WriteLog("你没有生成指令，我不能为你追加到我的指令集！");
+					viewLogComponent.WriteDesignLog("你没有生成指令，我不能为你追加到我的指令集！", true);
 					return;
 				}
 				var component = Boot.GetComponent<DesignViewComponent>();
@@ -90,9 +92,21 @@ namespace EL.Robot.WindowApiTest
 			btn_run.Click += async (x, y) =>
 			{
 				var logs = await designComponent.RunRobot();
-				viewLogComponent.WriteLog("恭喜哟，你成功运行了执行！");
+				viewLogComponent.WriteDesignLog("恭喜哟，你成功运行了执行！");
 			};
-			btn_save.Click += async (x, y) => { await designComponent.SaveRobot(); };
+			btn_save.Click += async (x, y) =>
+			{
+				try
+				{
+					await designComponent.SaveRobot();
+					RefreshRobots(designComponent.CurrentDesignFlow.Id);
+				}
+				catch (Exception ex)
+				{
+					viewLogComponent.WriteDesignLog("当前保存出错，请退出后重新打开", true);
+				}
+
+			};
 
 			this.Load += async (x, y) =>
 			{
@@ -195,21 +209,26 @@ namespace EL.Robot.WindowApiTest
 		}
 		public async void RefreshRobots(long flowId, bool isVisible = true)
 		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+			var designViewComponent = Boot.GetComponent<DesignViewComponent>();
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			panel5.Visible = !isVisible;
 			if (!designComponent.Features.Any()) return;
 			flp_robotList.Controls.Clear();
+			var list1 = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
+			foreach (var item in list1)
+			{
+				var robot = new RobotListView(item.Id, item.Name, item.HeadImg);
+				robot.Dock = DockStyle.Top;
+				flp_robotList.Controls.Add(robot);
+			}
+			flp_robotList.Refresh();
 			if (isVisible && flowId != default)
 			{
 				var flow = await designComponent.StartDesign(flowId);
 				if (designComponent.CurrentDesignFlow != null)
 					lbl_name.Text = designComponent.CurrentDesignFlow.Name;
-				var list = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
-				foreach (var item in list)
-				{
-					var robot = new RobotListView(item.Id, item.Name, item.HeadImg);
-					robot.Dock = DockStyle.Top;
-					flp_robotList.Controls.Add(robot);
-				}
+				lbl_name.Refresh();
 				pl_view.Controls.Clear();
 				pl_bottom.Controls.Clear();
 				pl_view.Controls.Add(designViewComponent.DesignViewForm);
@@ -219,14 +238,6 @@ namespace EL.Robot.WindowApiTest
 				pl_bottom.Visible = true;
 				return;
 			}
-			var list1 = designComponent.Features.OrderByDescending(x => x.ViewSort).ToList();
-			foreach (var item in list1)
-			{
-				var robot = new RobotListView(item.Id, item.Name, item.HeadImg);
-				robot.Dock = DockStyle.Top;
-				flp_robotList.Controls.Add(robot);
-			}
-			return;
 		}
 		public void CreateExp(Config config)
 		{

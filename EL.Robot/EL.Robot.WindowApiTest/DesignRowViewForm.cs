@@ -51,16 +51,8 @@ namespace EL.Robot.WindowApiTest
 					designViewComponent.SetCurrentNode(this);
 				if (mouse != null && mouse.Button == MouseButtons.Right)
 				{
-					designViewComponent.ContextMenuStrip.Tag = this;
-					foreach (var item in designViewComponent.ContextMenuStrip.Items)
-					{
-						if (item is ToolStripMenuItem ts1) ts1.Tag = this;
-						if (item is ToolStripMenuItem ts && ts.Text == "编辑" && designViewComponent.SelectRowViews.Count > 1)
-							ts.Enabled = false;
-
-					}
-					//var point = this.PointToClient(MousePosition);
-					designViewComponent.ContextMenuStrip.Show(MousePosition.X, MousePosition.Y);
+					if (designViewComponent.SelectRowViews.Count > 0)
+						designViewComponent.ContextMenuStrip.Show(MousePosition.X, MousePosition.Y);
 				}
 			};
 			foreach (var item in pl_Cmd.Controls)
@@ -96,7 +88,6 @@ namespace EL.Robot.WindowApiTest
 		public void Update(RowData row)
 		{
 			if (row == null) return;
-			//lbl_Name.Text = row.Name;
 			if (!string.IsNullOrEmpty(row.Index))
 				lbl_Index.Text = row.Index;
 			lbl_DisplayCmd.Text = row.DisplayExp;

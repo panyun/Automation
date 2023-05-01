@@ -86,18 +86,7 @@ namespace EL.Robot.Core
 		{
 
 		}
-		public DesignMsg(Node node, string msg) : this(node?.Id ?? default, node?.Name ?? default, msg, "组件", default)
-		{
-
-		}
-		public DesignMsg(Node node, Exception ex) : this(node?.Id ?? default, node?.Name ?? default, default, "组件", ex)
-		{
-
-		}
-		public DesignMsg(Flow flow, string msg) : this(flow.Id, flow.Name, msg, "流程", default)
-		{
-
-		}
+		
 		public DesignMsg(long Id, string msg, bool isException = false)
 		{
 			this.Id = Id;
@@ -105,29 +94,9 @@ namespace EL.Robot.Core
 			Msg = msg;
 			CreateTime = TimeHelper.ServerNow();
 			Time = DateTime.Now.ToString("HH:mm:ss");
-			ShowMsg = $" [{DateTime.Now:HH:mm:ss}]  信息：【 ---  {Msg} ---】";
+			ShowMsg = $"[{DateTime.Now:HH:mm:ss}]信息：【---{Msg}---】";
 		}
-		private DesignMsg(long id, string name, string msg, string type, Exception ex = default)
-		{
-			Name = name;
-			CreateTime = TimeHelper.ServerNow();
-			Id = id;
-			Time = DateTime.Now.ToString("yy-MM-dd HH:mm:ss fff");
-			Type = type;
-			IsException = ex != default;
-			Msg = ex != null ? ex.Message : msg;
-			StackTrace = ex != null ? ex.StackTrace : default;
-			//TakeTime = default;
-			//if (TakeTime != default)
-			//{
-			//	string tempMsg = $"耗时{TakeTime}ms";
-			//	if (TakeTime > 1000)
-			//		tempMsg = $"耗时{TakeTime / 1000f}s";
-			//	ShowMsg = $" [{DateTime.Now:HH:mm:ss}] [{Type}] [{Name}/{Id}] 信息：【 ---{tempMsg}  {Msg} ---】";
-			//	return;
-			//}
-			ShowMsg = $" [{DateTime.Now:HH:mm:ss}] [{Type}] [{Name}/{Id}] 信息：【 --- {Msg} ---】";
-		}
+		
 		/// <summary>
 		/// 流程名称
 		/// </summary>

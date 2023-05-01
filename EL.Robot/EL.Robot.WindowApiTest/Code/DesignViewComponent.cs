@@ -50,6 +50,7 @@ namespace EL.Robot.WindowApiTest
 			}
 		}
 		public FlowLayoutPanel VewPanl { get; set; }
+		public List<DesignRowViewForm> CopyRows { get; set; } = new List<DesignRowViewForm>();
 	}
 	public class EditNode
 	{
@@ -73,13 +74,51 @@ namespace EL.Robot.WindowApiTest
 			self.ContextMenuStrip = new ContextMenuStrip();
 			ToolStripMenuItem editItem = new ToolStripMenuItem
 			{
-				Text = "编辑",
+				Text = "删除",
 			};
 			editItem.Click += (x, y) =>
 			{
-				var editItem = x as ToolStripMenuItem;
-				self.EditNode(editItem.Tag as DesignRowViewForm);
+				try
+				{
+					self.RemoveRows();
+				}
+				catch (Exception)
+				{
+					var view = Boot.GetComponent<ViewLogComponent>();
+					view.WriteDesignLog("删除节点出错，请及时保存数据并重新打开！", true);
+				}
+
 			};
+			ToolStripMenuItem copy = new ToolStripMenuItem
+			{
+				Text = "复制",
+			};
+			copy.Click += (x, y) =>
+			{
+				var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+				if (self.SelectRowViews.Count == 0) return;
+				self.CopyRows.Clear();
+				self.CopyRows.AddRange(self.SelectRowViews);
+			};
+			ToolStripMenuItem paste = new ToolStripMenuItem
+			{
+				Text = "粘贴",
+			};
+			paste.Click += (x, y) =>
+			{
+				try
+				{
+					self.PasteRows();
+				}
+				catch (Exception)
+				{
+					var view = Boot.GetComponent<ViewLogComponent>();
+					view.WriteDesignLog("拷贝节点出错，请及时保存数据并重新打开！", true);
+				}
+
+			};
+			self.ContextMenuStrip.Items.Add(copy);
+			self.ContextMenuStrip.Items.Add(paste);
 			self.ContextMenuStrip.Items.Add(editItem);
 		}
 	}
@@ -95,10 +134,139 @@ namespace EL.Robot.WindowApiTest
 			self.CurrentRowView = null;
 			self.DesignViewForm.LoadFlow();
 		}
+		public static void PasteRows(this DesignViewComponent self)
+		{
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+			if (self.CopyRows.Count == 0) return;
+			var list = new List<Node>();
+			var longs = new List<long>();
+			foreach (var item in self.CopyRows)
+			{
+				var node = (item.Tag as Node);
+				if (longs.Contains((item.Tag as Node).Id)) continue;
+				if (node.IsEnd) continue;
+				var temps = self.FindRows(item, self.CurrentNode.DesignParent);
+				if (temps.nodes.Any())
+				{
+					list.AddRange(temps.nodes);
+					longs.AddRange(temps.longs);
+				}
+			}
+			int index = self.RowViews.Count;
+			if (self.CurrentRowView == null)
+				self.CurrentRowView = self.RowViews[index - 1];
+			else
+				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
+			if (self.CurrentNode.IsBlock)
+			{
+				index = self.RowViews.IndexOf(self.CurrentRowView) - 1;
+				self.CurrentRowView = self.RowViews[index];
+
+			}
+
+
+			self.CurrentFlow.DesignSteps.InsertRange(index, list);
+			self.AddRowsViews(list);
+			designComponent.RefreshAllStepCMD();
+		}
+		public static (List<Node> nodes, List<long> longs) FindRows(this DesignViewComponent self, DesignRowViewForm rowViewForm, Node parentNode = null)
+		{
+			List<long> longs = new List<long>();
+			var list = new List<Node>();
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+			var node = rowViewForm.Tag as Node;
+			var newNode = JsonHelper.FromJson<Node>(JsonHelper.ToJson(node));
+			newNode.Id = IdGenerater.Instance.GenerateId();
+			newNode.DesignParent = parentNode;
+			list.Add(newNode);
+			longs.Add(node.Id);
+			if (node.LinkNode == null)
+				return (list, longs);
+			var rowViews = self.RowViews.Where(x => (x.Tag as Node).DesignParent != null && (x.Tag as Node).DesignParent.Id == node.Id).ToList();
+			if (rowViews.Any())
+				foreach (var item in rowViews)
+				{
+					var node1 = (item.Tag as Node);
+					if (node1.IsEnd) continue;
+					var temps = self.FindRows(item, newNode);
+					if (temps.nodes.Any())
+					{
+						list.AddRange(temps.nodes);
+						longs.AddRange(temps.longs);
+					}
+				}
+			var end = self.RowViews.FirstOrDefault(x => (x.Tag as Node).Id == node.LinkNode.Id);
+			var endData = (end.Tag as Node);
+			longs.Add(endData.Id);
+			var newEnd = JsonHelper.FromJson<Node>(JsonHelper.ToJson(endData));
+			newEnd.Id = IdGenerater.Instance.GenerateId();
+			newEnd.DesignParent = parentNode;
+			newNode.LinkNode = newEnd;
+			newNode.DesignParent = parentNode;
+			list.Add(newEnd);
+			return (list, longs);
+		}
+		public static void RemoveRows(this DesignViewComponent self)
+		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+			if (!self.SelectRowViews.Any())
+				viewLogComponent.WriteDesignLog("当前没有选中节点", true);
+			int index = default;
+			foreach (var item in self.SelectRowViews)
+			{
+				var node = item.Tag as Node;
+				if (node.ComponentName == nameof(StartComponent))
+					continue;
+				index = self.RowViews.IndexOf(item);
+				self.RemoveRow(item);
+				if (node.LinkNode != null)
+				{
+					var end = self.RowViews.FirstOrDefault(x => (x.Tag as Node).Id == node.LinkNode.Id);
+					if (end != null)
+					{
+						index = self.RowViews.IndexOf(item);
+						self.RemoveRow(end);
+					}
+				}
+				if (node.ComponentName == nameof(BlockEndComponent))
+				{
+					var start = self.RowViews.FirstOrDefault(x => (x.Tag as Node).LinkNode != null && (x.Tag as Node).LinkNode.Id == node.Id);
+					if (start != null)
+						self.RemoveRow(start);
+				}
+			}
+			int tempIndex = 0;
+			foreach (var nodeTemp in self.RowViews)
+			{
+				tempIndex++;
+				nodeTemp.UpdateIndex(tempIndex + "");
+			}
+			if (index >= self.RowViews.Count || index <= 0)
+				index = self.RowViews.Count - 1;
+			self.SetCurrentNode(self.RowViews[index]);
+			self.SelectRowViews.Clear();
+			self.DesignViewForm.Refresh();
+		}
+		private static void RemoveRow(this DesignViewComponent self, DesignRowViewForm rowViewForm)
+		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+			var node = rowViewForm.Tag as Node;
+			self.CurrentFlow.DesignSteps.Remove(node);
+			var fl = rowViewForm.Parent as FlowLayoutPanel;
+			if (fl != null)
+				fl.Controls.Remove(rowViewForm);
+			self.RowViews.Remove(rowViewForm);
+			viewLogComponent.WriteDesignLog($"删除[{node.DisplayExp}]命令");
+			var rowViews = self.RowViews.Where(x => (x.Tag as Node).DesignParent != null && (x.Tag as Node).DesignParent.Id == node.Id).ToList();
+			foreach (var item in rowViews)
+				self.RemoveRow(item);
+		}
 		public static void SetCurrentNode(this DesignViewComponent self, DesignRowViewForm row)
 		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
 			var node = row.Tag as Node;
-			self.WriteLog("当前选中操作节点" + $"[{node.DisplayExp}]");
+			viewLogComponent.WriteDesignLog("当前选中操作节点" + $"[{node.DisplayExp}]");
 			foreach (var item in self.RowViews)
 				item.SetBackColor(Color.LightSteelBlue);
 			if ((Control.ModifierKeys & Keys.Control) == Keys.Control || (Control.ModifierKeys & Keys.Shift) == Keys.Shift)
@@ -113,21 +281,18 @@ namespace EL.Robot.WindowApiTest
 			}
 
 		}
-		private static void WriteLog(this DesignViewComponent self, string msg)
-		{
-			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
-			viewLogComponent.WriteLog(msg);
-		}
+
 		public static void UpdateRowView(this DesignViewComponent self, DesignRowViewForm rowViewForm, RowData rowInfo)
 		{
 			rowViewForm.Update(rowInfo);
 		}
 		public static void EditNode(this DesignViewComponent self, DesignRowViewForm rowViewForm)
 		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
 			self.CurrentRowView = rowViewForm;
 			if (self.SelectRowViews.Count != 1 && self.SelectRowViews[0].Tag == null)
 			{
-				self.WriteLog("多个节点不能编辑");
+				viewLogComponent.WriteDesignLog("多个节点不能编辑");
 				return;
 			}
 			var edit = new EditNode
@@ -137,7 +302,7 @@ namespace EL.Robot.WindowApiTest
 
 			if (edit.Node == null || edit.Node.ComponentName == (nameof(StartComponent)))
 			{
-				self.WriteLog("开始节点不能编辑");
+				viewLogComponent.WriteDesignLog("开始节点不能编辑");
 				return;
 			}
 			edit.CurrentDesignRowViewForm = rowViewForm;
@@ -169,6 +334,7 @@ namespace EL.Robot.WindowApiTest
 		}
 		public static void AddOrUpdateNode(this DesignViewComponent self)
 		{
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			if (self.EditNode == null) return;
 			if (self.EditNode.Node != null && self.EditNode.Node.Id != default(int))
 			{
@@ -180,11 +346,11 @@ namespace EL.Robot.WindowApiTest
 				}
 				self.EditNode.CurrentDesignRowViewForm.Update(self.EditNode.Node.GetRowData());
 				self.EditNode.Node.Id = default;
-				self.WriteLog($"编辑[{self.EditNode.Node.DisplayExp}]命令");
+				designComponent.WriteDesignLog($"编辑[{self.EditNode.Node.DisplayExp}]命令");
 				return;
 			}
 			var parameters = JsonHelper.FromJson<List<Parameter>>(JsonHelper.ToJson(self.EditNode.ParamDic.Values.ToList()));
-			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+
 			self.EditNode.Node = new Node()
 			{
 				ComponentName = self.EditNode.Config.ComponentName,
@@ -193,20 +359,16 @@ namespace EL.Robot.WindowApiTest
 				IsBlock = self.EditNode.Config.IsBlock,
 				Parameters = parameters
 			};
-			int index = default;
+			int index = self.RowViews.Count;
 			if (self.CurrentRowView == null)
-			{
-				index = self.RowViews.Count;
-				self.CurrentRowView = self.RowViews[self.RowViews.Count - 1];
-			}
-			else index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
+				self.CurrentRowView = self.RowViews[index - 1];
+			else
+				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
 			var nodes = designComponent.CreateNode(self.EditNode.Node, index);
 			self.AddRowsViews(nodes);
-			self.DesignViewForm.Update();
-			self.DesignViewForm.Refresh();
-			
-			self.DesignViewForm.Refresh();
-			self.WriteLog($"新增[{self.EditNode.Node.DisplayExp}]命令");
+			designComponent.RefreshAllStepCMD();
+			var viewLog = Boot.GetComponent<ViewLogComponent>();
+			designComponent.WriteDesignLog($"编辑[{self.EditNode.Node.DisplayExp}]命令");
 			self.EditNode.Node = default;
 		}
 		public static void AddRowsViews(this DesignViewComponent self, List<Node> nodes)
@@ -218,21 +380,19 @@ namespace EL.Robot.WindowApiTest
 				var control = self.FindLayout(item);
 				DesignRowViewForm designRowViewForm = new();
 				designRowViewForm.Tag = item;
-
-				if (control.Controls.Count > 0 && index == -1)
+				try
 				{
-					try
-					{
-						index = control.Controls.GetChildIndex(self.CurrentRowView);
-					}
-					catch (Exception)
-					{
-						index = -1;
-					}
+					index = control.Controls.GetChildIndex(self.CurrentRowView) + 1;
+					var start = (self.CurrentRowView.Tag as Node);
+					if (start.IsBlock && start.LinkNode == item)
+						index = index + 1;
+				}
+				catch (Exception)
+				{
+					index = 0;
 				}
 				control.Controls.Add(designRowViewForm);
 				self.RowViews.Insert(indexNode, designRowViewForm);
-				index++;
 				control.Controls.SetChildIndex(designRowViewForm, index);
 				var row = item.GetRowData(indexNode + "");
 				self.UpdateRowView(designRowViewForm, row);
@@ -266,12 +426,17 @@ namespace EL.Robot.WindowApiTest
 		}
 		public static FlowLayoutPanel FindLayout(this DesignViewComponent self, Node node)
 		{
+
+			var block = self.CurrentFlow.DesignSteps.FirstOrDefault(x => x.LinkNode != null && x.LinkNode == node);
+			if (block != null)
+			{
+				self.CurrentRowView = self.RowViews.FirstOrDefault(x => (x.Tag as Node).Id == block.Id);
+				return self.RowViews.FirstOrDefault(x => (x.Tag as Node).Id == block.Id).Parent as FlowLayoutPanel;
+			}
 			var fl = self.CurrentRowView.Parent as FlowLayoutPanel;
 			if (node.DesignParent == null)
 				return fl;
-			if (!self.CurrentNode.IsBlock)
-				return FindPanel(fl.Parent as FlowLayoutPanel, node);
-			if (self.CurrentNode.LinkNode == node)
+			if (!self.CurrentNode.IsBlock || self.CurrentNode.LinkNode == node)
 				return FindPanel(fl.Parent as FlowLayoutPanel, node);
 			return FindPanel(fl, node);
 		}

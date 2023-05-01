@@ -22,7 +22,6 @@ namespace EL.Robot.WindowApiTest
 			designViewComponent.HideExpansionNodeAction = (node, hide) =>
 			{
 				Hide(this.pl_Content, node, hide);
-				this.Update();
 			};
 			pl_Content.VerticalScroll.SmallChange = 50;
 		}
@@ -42,6 +41,7 @@ namespace EL.Robot.WindowApiTest
 			{
 				index++;
 				designRowViewForm = new();
+				designRowViewForm.Dock = DockStyle.Top;
 				designViewComponent.RowViews.Add(designRowViewForm);
 				var isExists = nodes.Exists(x => x.Id == item.Id);
 				if (isExists && panel != null)
@@ -77,7 +77,7 @@ namespace EL.Robot.WindowApiTest
 							},
 							Margin = new Padding(0, 0, 0, 0),
 							AutoSize = true,
-
+							Dock = DockStyle.Top,
 						};
 
 						this.pl_Content.Controls.Add(panel);
@@ -93,6 +93,7 @@ namespace EL.Robot.WindowApiTest
 							Tag = np,
 							AutoSize = true,
 							Margin = new Padding(0, 0, 0, 0),
+							Dock = DockStyle.Top,
 						};
 						var temp1 = FindPanel(pl_Content, item);
 						if (temp1 != null)
@@ -131,7 +132,8 @@ namespace EL.Robot.WindowApiTest
 				{
 					if (node.DesignParent.Id == nodeTag.Node.Id)
 						return plNode;
-					return FindPanel(plNode, node);
+					var temp = FindPanel(plNode, node);
+					if (temp != null) return temp;
 				}
 			}
 			return default;

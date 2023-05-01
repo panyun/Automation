@@ -34,9 +34,9 @@ namespace EL.Robot.WindowApiTest.Code
 			{
 
 			};
-			designComponent.RefreshNodeCmdAction = (x, y) =>
+			designComponent.RefreshNodeCmdAction = (x) =>
 			{
-				self.LogsViewForm.WriteFlowInfo(y);
+				self.LogsViewForm.WriteFlowInfo(x);
 			};
 			designComponent.ClearNodeCmdAction = () =>
 			{
@@ -49,10 +49,11 @@ namespace EL.Robot.WindowApiTest.Code
 			designComponent.RefreshAllStepCMD();
 
 		}
-		public static void WriteLog(this ViewLogComponent self, string msg)
+
+		public static void WriteDesignLog(this ViewLogComponent self, string msg, bool isEx = false)
 		{
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
-			designComponent.WriteDesignLog(msg);
+			designComponent.WriteDesignLog(msg, isEx);
 		}
 
 	}

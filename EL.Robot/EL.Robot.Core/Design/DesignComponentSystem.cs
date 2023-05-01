@@ -95,7 +95,6 @@ namespace EL.Robot.Core
 		}
 		public static async ELTask<Flow> StartDesign(this DesignComponent self, long Id)
 		{
-			//await self.SaveRobot(false);
 			self.DesignFlowDic.TryGetValue(Id, out Flow flow);
 			if (flow == null)
 			{
@@ -147,26 +146,13 @@ namespace EL.Robot.Core
 		public static void RefreshAllStepCMD(this DesignComponent self)
 		{
 			self.ClearNodeCmdAction?.Invoke();
-			var entity = self.CurrentDesignFlow.DesignSteps.FirstOrDefault(x => x.IsNew);
-			if (entity == null) self.CurrentDesignFlow.DesignSteps[self.CurrentDesignFlow.DesignSteps.Count - 1].IsNew = true;
+			string[] strs = new string[self.CurrentDesignFlow.DesignSteps.Count];
 			foreach (var step in self.CurrentDesignFlow.DesignSteps)
 			{
-				if (step.LinkNode != null)
-				{
-					self.CurrentDesignFlow.DesignSteps.Where(x => x.DesignParent == step).ToList().ForEach((x =>
-					{
-						x.IsView = step.IsView;
-					}));
-					var index = self.CurrentDesignFlow.DesignSteps.IndexOf(step) + 1;
-					self.RefreshNodeCmdAction?.Invoke(step, index + step.DisplayExp);
-					continue;
-				}
-				if (step.IsView)
-				{
-					var index = self.CurrentDesignFlow.DesignSteps.IndexOf(step) + 1;
-					self.RefreshNodeCmdAction?.Invoke(step, index + step.DisplayExp);
-				}
+				var index = self.CurrentDesignFlow.DesignSteps.IndexOf(step);
+				strs[index] = (index + 1) + step.DisplayExp;
 			}
+			self.RefreshNodeCmdAction?.Invoke(strs);
 			self.RefreshNodeCmdEndAction?.Invoke();
 		}
 		public static BaseComponent GetComponentInfo(this DesignComponent self, string componentName)
@@ -175,7 +161,7 @@ namespace EL.Robot.Core
 		}
 
 
-		
+
 		public static ComponentResponse StartDesign(this DesignComponent self, CommponetRequest requst)
 		{
 			var tempFlow = (long)requst.Data;
@@ -207,36 +193,7 @@ namespace EL.Robot.Core
 		}
 		public static void WriteDesignLog(this DesignComponent self, string msg)
 		{
-			if (string.IsNullOrWhiteSpace(msg)) return;
-			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
-			if (flow == null)
-			{
-				self.WriteDesignLog(msg);
-				return;
-			}
-			var entity = new DesignMsg(flow, msg);
-			self.LogMsgs.Add(entity);
-			self.RefreshLogMsgAction?.Invoke(entity);
-		}
-		public static void WriteDesignLog(this DesignComponent self, Node node, string msg)
-		{
-			if (string.IsNullOrWhiteSpace(msg)) return;
-			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
-			if (node is null)
-			{
-				self.WriteDesignLog(msg);
-				return;
-			}
-			var entity = new DesignMsg(node, msg);
-			self.LogMsgs.Add(entity);
-			self.RefreshLogMsgAction?.Invoke(entity);
-		}
-		public static void WriteDesignLog(this DesignComponent self, Node node, Exception ex)
-		{
-			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
-			var entity = new DesignMsg(node, ex);
-			self.LogMsgs.Add(entity);
-			self.RefreshLogMsgAction?.Invoke(entity);
+			self.WriteDesignLog(msg, false);
 		}
 		public static void WriteDesignLog(this DesignComponent self, string msg, bool isException = false)
 		{
@@ -246,41 +203,6 @@ namespace EL.Robot.Core
 			var entity = new DesignMsg(id, msg, isException);
 			self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
-		}
-		public static ComponentResponse FinshDesign(this DesignComponent self, long id)
-		{
-			//保存数据库
-			if (self.CurrentDesignFlow == null)
-			{
-				self.WriteDesignLog("请先打开流程吧");
-				return new ComponentResponse();
-			}
-			if (self.CurrentDesignFlow.Id != id)
-			{
-				self.WriteDesignLog("当前设计流程与完成流程不一致");
-				return new ComponentResponse();
-			}
-			self.CurrentDesignFlow = null;
-			return new ComponentResponse();
-		}
-		public static ComponentResponse FinshDesign(this DesignComponent self, CommponetRequest requst)
-		{
-			var tempFlow = requst.Data as Flow;
-			self.DesignFlowDic.TryGetValue(tempFlow.Id, out Flow flow);
-			if (flow != default) self.DesignFlowDic.Remove(tempFlow.Id);
-			return new ComponentResponse();
-		}
-
-		public static void RefreshStepCMD(this DesignComponent self, Node node)
-		{
-			var index = self.CurrentDesignFlow.DesignSteps.IndexOf(node) + 1;
-			self.RefreshNodeCmdAction?.Invoke(node, index + node.DisplayExp);
-			if (node.Steps == null) return;
-			foreach (var item in node.Steps)
-			{
-				if (!item.IsView)
-					self.RefreshStepCMD(item);
-			}
 		}
 		public static List<Node> CreateNode(this DesignComponent self, Node node)
 		{
@@ -307,7 +229,7 @@ namespace EL.Robot.Core
 			nodes.Add(node);
 			if (node.ComponentName == nameof(IFStartComponent))
 			{
-				var component = self.GetComponentInfo(nameof(IFEndComponent));
+				var component = self.GetComponentInfo(nameof(BlockEndComponent));
 				component.GetConfig();
 				var temp = new Node()
 				{
@@ -320,7 +242,7 @@ namespace EL.Robot.Core
 				node.LinkNode = temp;
 				self.CurrentDesignFlow.DesignSteps.Insert(index + 1, temp);
 			}
-			self.RefreshAllStepCMD();
+			// self.RefreshAllStepCMD();
 			var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
 			if (parameter == null || parameter.Value == null)
 				return nodes;
@@ -330,7 +252,6 @@ namespace EL.Robot.Core
 				var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
 				self.CurrentDesignFlow.SetFlowParam(parameter.Value.Value + "", parameterValue.Value);
 			}
-
 			return nodes;
 		}
 		public static Node FindParent(this DesignComponent self, int index)
@@ -338,6 +259,7 @@ namespace EL.Robot.Core
 			Node node = default;
 			for (int i = index - 1; i > 0; i--)
 			{
+				if (i >= self.CurrentDesignFlow.DesignSteps.Count) return default;
 				node = self.CurrentDesignFlow.DesignSteps[i];
 				if (node.LinkNode != null)
 				{

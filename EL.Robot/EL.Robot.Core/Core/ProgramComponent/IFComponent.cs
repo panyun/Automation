@@ -84,10 +84,10 @@ namespace EL.Robot.Component
         }
 
     }
-    public class IFEndComponent : BaseComponent
+    public class BlockEndComponent : BaseComponent
     {
-        public long IFId { get; set; }
-        public IFEndComponent()
+        public long StartId { get; set; }
+        public BlockEndComponent()
         {
             Config.Category = Category.流程控制;
             Config.IsView = false;
@@ -102,7 +102,7 @@ namespace EL.Robot.Component
             {
                 new Parameter()
                 {
-                    Key = nameof(IFId),
+                    Key = nameof(StartId),
                     DisplayName = "表达式",
                     CmdDisplayName="表达式",
                     Value = VariableSystem.InputVariable("1==1"),
@@ -135,8 +135,6 @@ namespace EL.Robot.Component
             self.Value = true;
             return self;
         }
-
-
         public bool Evaluation(string expression)
         {
             ICodeCompiler comp = new Microsoft.CSharp.CSharpCodeProvider().CreateCompiler();
