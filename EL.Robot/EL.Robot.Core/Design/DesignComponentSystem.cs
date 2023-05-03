@@ -159,9 +159,6 @@ namespace EL.Robot.Core
 		{
 			return self.NodeComponentRoot.FindComponent(componentName);
 		}
-
-
-
 		public static ComponentResponse StartDesign(this DesignComponent self, CommponetRequest requst)
 		{
 			var tempFlow = (long)requst.Data;
@@ -311,6 +308,8 @@ namespace EL.Robot.Core
 			try
 			{
 				var robot = Boot.GetComponent<RobotComponent>();
+				self.CurrentDesignFlow.Steps.Clear();
+				self.GetSteps();
 				await robot.LocalMain(self.CurrentDesignFlow, false);
 				var logs = robot.GetComponent<FlowComponent>().LogMsgs;
 				return logs;
@@ -322,6 +321,7 @@ namespace EL.Robot.Core
 			return default;
 
 		}
+		 
 
 	}
 }

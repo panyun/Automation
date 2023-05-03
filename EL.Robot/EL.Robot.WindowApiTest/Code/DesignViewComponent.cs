@@ -134,12 +134,66 @@ namespace EL.Robot.WindowApiTest
 			self.CurrentRowView = null;
 			self.DesignViewForm.LoadFlow();
 		}
+		public static void MoveRows(this DesignViewComponent self, DesignRowViewForm designRowViewForm)
+		{
+			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
+
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+			if (designRowViewForm == self.CurrentRowView || self.CurrentRowView == null) return;
+			var moveRow = self.CurrentRowView;
+			var node = moveRow.Tag as Node;
+			if (node.ComponentName == nameof(BlockEndComponent))
+			{
+				viewLogComponent.WriteDesignLog("结束节点不能操作", true);
+				return;
+			}
+			self.CurrentRowView = designRowViewForm;
+			var list = new List<Node>();
+			int index = self.RowViews.Count;
+			if (self.CurrentRowView == null)
+				self.CurrentRowView = self.RowViews[index - 1];
+			else
+				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
+			if (self.CurrentNode.IsBlock)
+			{
+				index = self.RowViews.IndexOf(self.CurrentRowView) - 1;
+				self.CurrentRowView = self.RowViews[index];
+			}
+			var temps = self.FindRows(moveRow, self.CurrentNode.DesignParent);
+			list = temps.nodes;
+			index = self.RowViews.Count;
+			if (self.CurrentRowView == null)
+				self.CurrentRowView = self.RowViews[index - 1];
+			else
+				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
+			self.CurrentFlow.DesignSteps.InsertRange(index, list);
+
+			if (node.LinkNode != null)
+			{
+				var end = self.RowViews.FirstOrDefault(x => (x.Tag as Node).Id == node.LinkNode.Id);
+				if (end != null)
+					self.RemoveRow(end);
+			}
+			self.AddRowsViews(list);
+			self.RemoveRow(moveRow);
+			designComponent.RefreshAllStepCMD();
+		}
 		public static void PasteRows(this DesignViewComponent self)
 		{
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			if (self.CopyRows.Count == 0) return;
 			var list = new List<Node>();
 			var longs = new List<long>();
+			int index = self.RowViews.Count;
+			if (self.CurrentRowView == null)
+				self.CurrentRowView = self.RowViews[index - 1];
+			else
+				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
+			if (self.CurrentNode.IsBlock)
+			{
+				index = self.RowViews.IndexOf(self.CurrentRowView) - 1;
+				self.CurrentRowView = self.RowViews[index];
+			}
 			foreach (var item in self.CopyRows)
 			{
 				var node = (item.Tag as Node);
@@ -152,19 +206,11 @@ namespace EL.Robot.WindowApiTest
 					longs.AddRange(temps.longs);
 				}
 			}
-			int index = self.RowViews.Count;
+			index = self.RowViews.Count;
 			if (self.CurrentRowView == null)
 				self.CurrentRowView = self.RowViews[index - 1];
 			else
 				index = self.RowViews.IndexOf(self.CurrentRowView) + 1;
-			if (self.CurrentNode.IsBlock)
-			{
-				index = self.RowViews.IndexOf(self.CurrentRowView) - 1;
-				self.CurrentRowView = self.RowViews[index];
-
-			}
-
-
 			self.CurrentFlow.DesignSteps.InsertRange(index, list);
 			self.AddRowsViews(list);
 			designComponent.RefreshAllStepCMD();
@@ -264,6 +310,7 @@ namespace EL.Robot.WindowApiTest
 		}
 		public static void SetCurrentNode(this DesignViewComponent self, DesignRowViewForm row)
 		{
+			if (self.CurrentRowView == row) return;
 			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
 			var node = row.Tag as Node;
 			viewLogComponent.WriteDesignLog("当前选中操作节点" + $"[{node.DisplayExp}]");
@@ -332,10 +379,10 @@ namespace EL.Robot.WindowApiTest
 			self.GenerateCmd();
 
 		}
-		public static void AddOrUpdateNode(this DesignViewComponent self)
+		public static List<Node> PreNodes(this DesignViewComponent self)
 		{
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
-			if (self.EditNode == null) return;
+			if (self.EditNode == null) return null;
 			if (self.EditNode.Node != null && self.EditNode.Node.Id != default(int))
 			{
 				self.EditNode.Node.IsNew = true;
@@ -347,10 +394,9 @@ namespace EL.Robot.WindowApiTest
 				self.EditNode.CurrentDesignRowViewForm.Update(self.EditNode.Node.GetRowData());
 				self.EditNode.Node.Id = default;
 				designComponent.WriteDesignLog($"编辑[{self.EditNode.Node.DisplayExp}]命令");
-				return;
+				return new List<Node>() { self.EditNode.Node };
 			}
 			var parameters = JsonHelper.FromJson<List<Parameter>>(JsonHelper.ToJson(self.EditNode.ParamDic.Values.ToList()));
-
 			self.EditNode.Node = new Node()
 			{
 				ComponentName = self.EditNode.Config.ComponentName,
@@ -359,6 +405,12 @@ namespace EL.Robot.WindowApiTest
 				IsBlock = self.EditNode.Config.IsBlock,
 				Parameters = parameters
 			};
+			return new List<Node>() { self.EditNode.Node };
+		}
+		public static void AddOrUpdateNode(this DesignViewComponent self)
+		{
+			self.PreNodes();
+			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			int index = self.RowViews.Count;
 			if (self.CurrentRowView == null)
 				self.CurrentRowView = self.RowViews[index - 1];

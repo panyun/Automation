@@ -1,5 +1,7 @@
 ﻿using EL.Async;
 using EL.Robot.Component;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace EL.Robot.WindowApiTest
 {
@@ -17,6 +19,37 @@ namespace EL.Robot.WindowApiTest
 		public DesignViewForm()
 		{
 			InitializeComponent();
+
+			//pl_Content.AllowDrop = true;
+			//var lbl = new Label()
+			//{
+			//	Height = 100,
+			//	Width = this.Width,
+			//	BackColor = Color.Red,
+			//	BorderStyle = BorderStyle.Fixed3D
+
+			//};
+			//this.Controls.Add(lbl);
+			//lbl.Hide();
+			//pl_Content.DragEnter += (x, y) =>
+			//{
+			//	lbl.Show();
+			//};
+			//pl_Content.DragOver += (x, y) =>
+			//{
+			//	y.Effect = DragDropEffects.All;
+			//	var point1 = this.PointToClient(MousePosition);
+			//	Point point = new Point(0, point1.Y);
+			//	lbl.BringToFront();
+			//	lbl.Height = 5;
+			//	lbl.Width = this.Width;
+			//	lbl.Location = point;
+			//	lbl.Refresh();
+			//};
+			//pl_Content.DragLeave += (x, y) =>
+			//{
+			//	lbl.Hide();
+			//};
 			this.Height = 300;
 			var designViewComponent = Boot.GetComponent<DesignViewComponent>();
 			designViewComponent.HideExpansionNodeAction = (node, hide) =>
@@ -110,6 +143,9 @@ namespace EL.Robot.WindowApiTest
 
 				}
 			}
+
+
+
 		}
 		public void Scroll(int row)
 		{

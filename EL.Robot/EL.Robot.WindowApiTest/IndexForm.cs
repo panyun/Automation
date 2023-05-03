@@ -94,6 +94,17 @@ namespace EL.Robot.WindowApiTest
 				var logs = await designComponent.RunRobot();
 				viewLogComponent.WriteDesignLog("恭喜哟，你成功运行了执行！");
 			};
+			lbl_preExec.Click += async (x, y) =>
+			{
+				var nodes = Boot.GetComponent<DesignViewComponent>().PreNodes();
+				if (nodes.Any())
+				{
+					await designComponent.PreviewNodes(nodes);
+					viewLogComponent.WriteDesignLog("恭喜哟，你成功预览了当前命令！");
+					return;
+				}
+				viewLogComponent.WriteDesignLog("没有生成任何节点", true);
+			};
 			btn_save.Click += async (x, y) =>
 			{
 				try
