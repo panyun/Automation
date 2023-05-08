@@ -22,7 +22,7 @@ namespace EL.Robot.WindowApiTest
 			Boot.AddComponent<ViewLogComponent>();
 			var com = Boot.AddComponent<DesignViewComponent>();
 			var com1 = Boot.AddComponent<DesignFlowViewComponent>();
-			Application.Run(com1.IndexForm);
+			Application.Run(new Index());
 		}
 	}
 }
