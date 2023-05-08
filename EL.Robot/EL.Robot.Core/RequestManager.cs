@@ -68,8 +68,8 @@ namespace EL.Robot.Core
                 return await ExecFlow(request);
             if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(DesignComponentSystem.CreateRobot).ToLower())
                 return designComponent.CreateRobot(request);
-            if (request is SelectVariableRequest selectVariableRequest)
-                return designComponent.SelectVariable(selectVariableRequest);
+            if (request.ComponentName != null && request.ComponentName ==nameof(SelectVariableRequest))
+                return designComponent.SelectVariable(request as SelectVariableRequest);
             if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(ComponentSystem).ToLower())
                 return ComponentSystem.Main(request);
             if (request.ComponentName != null && request.ComponentName.ToLower() == nameof(DesignComponentSystem.PreviewNodes).ToLower())

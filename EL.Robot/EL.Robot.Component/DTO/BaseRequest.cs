@@ -1,9 +1,11 @@
 ﻿using Automation.Inspect;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EL.Robot.Component
 {
+	
 	public class CommponetRequest : IRequest
 	{
 		public long FlowId { get; set; }

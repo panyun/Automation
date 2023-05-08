@@ -8,6 +8,10 @@ namespace EL.Robot.Component.DTO
 {
 	public class SelectVariableRequest : CommponetRequest
 	{
+		public SelectVariableRequest()
+		{
+			ComponentName = nameof(SelectVariableRequest);
+		}
 		public List<Type> Types { get; set; }
 	}
 }

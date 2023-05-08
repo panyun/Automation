@@ -21,7 +21,8 @@ namespace EL.Robot.WindowApiTest
 			Boot.App.EventSystem.Add(typeof(DesignViewComponent).Assembly);
 			Boot.AddComponent<ViewLogComponent>();
 			var com = Boot.AddComponent<DesignViewComponent>();
-			Application.Run(com.IndexForm);
+			var com1 = Boot.AddComponent<DesignFlowViewComponent>();
+			Application.Run(com1.IndexForm);
 		}
 	}
 }

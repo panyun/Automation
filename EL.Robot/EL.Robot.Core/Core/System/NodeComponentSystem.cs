@@ -54,7 +54,7 @@ namespace EL.Robot.Core
 			var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
 			if (parameter != null && parameter.Value != null)
 			{
-				if (node.ComponentName.ToLower() == nameof(SetVariableComponent).ToLower())
+				if (node.ComponentName == nameof(SetVariableComponent))
 				{
 					var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
 					node.Flow.SetFlowParam(parameter.Value.Value + "", parameterValue.Value);
@@ -137,6 +137,7 @@ namespace EL.Robot.Core
 						flowComponent.WriteNodeLog(node, msg);
 						content = await component.Main(self.CreateNodeContent(node));
 						msg = node.Flow.SetFlowParam(node.OutParameterName, content.Out);
+						flowComponent.WriteNodeLog(node, msg);
 						msg = node.Flow.SetFlowParam("current", content.Out);
 						flowComponent.WriteNodeLog(node, msg);
 						flowComponent.WriteNodeLog(node, $"执行完成", takeTimeComponent.Stop());

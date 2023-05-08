@@ -1,6 +1,7 @@
 ﻿using Automation.Inspect;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
 
 namespace EL.Robot.Component
@@ -73,7 +74,9 @@ namespace EL.Robot.Component
 		{
 			get; set;
 		} = new List<Parameter>();
-
+		[IgnoreDataMember]
+		[BsonIgnore]
+		[JsonIgnore]
 		public string DisplayExp
 		{
 			get
@@ -146,14 +149,7 @@ namespace EL.Robot.Component
 		{
 			get
 			{
-				if (Value == null) return default;
-				if (Types.Contains(typeof(ElementPath)) && Value.ActionType == ValueActionType.RequestValue)
-				{
-					if (Value.Value == null || string.IsNullOrEmpty(Value.Value + "")) return default;
-					var path = JsonHelper.FromJson<ElementPath>(Value.Value.ToString());
-					return path.Path;
-				}
-				return Value.Value + "";
+				return UtilsComponent.GetDisplayVlaue(Value);
 			}
 		}
 		public string DisplayExp
@@ -202,11 +198,11 @@ namespace EL.Robot.Component
 	}
 	public class ValueInfo
 	{
-		public ValueInfo(string displayName, object value, List<Type> types, ValueActionType acationType = ValueActionType.Value, CommponetRequest action = null)
+		public ValueInfo(string displayName, object value, Type type, ValueActionType acationType = ValueActionType.Value, CommponetRequest action = null)
 		{
 			DisplayName = displayName;
 			Value = value;
-			Types = types;
+			Type = type;
 			ActionType = acationType;
 			Action = action;
 		}
@@ -224,8 +220,9 @@ namespace EL.Robot.Component
 		}
 		public string DisplayName { get; set; }
 		public object Value { get; set; }
-		public List<Type> Types { get; set; }
+		public Type Type { get; set; } = typeof(string);
 		public ValueActionType ActionType { get; set; } = ValueActionType.Value;
+		[JsonConverter(typeof(PolyConverter))]
 		public CommponetRequest Action { get; set; }
 	}
 	public enum ValueActionType
@@ -362,6 +359,39 @@ namespace EL.Robot.Component
 			}
 		}
 	}
+	/// <summary>
+	/// 用于多态序列化
+	/// </summary>
+	public class PolyConverter : JsonConverter
+	{
+		public override bool CanConvert(Type objectType)
+		{
+			return true;
+		}
 
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
+			var jObject = JObject.Load(reader);
+
+			foreach (var item in jObject.Properties())
+			{
+				Type type = Type.GetType(item.Name);
+
+				var value = item.Value.ToObject(type);
+
+				return value;
+			}
+			return null;
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			JObject jObject = new JObject();
+
+			jObject.Add(value.GetType().FullName, JToken.FromObject(value));
+
+			serializer.Serialize(writer, jObject);
+		}
+	}
 
 }

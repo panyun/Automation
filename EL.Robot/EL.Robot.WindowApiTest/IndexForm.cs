@@ -1,6 +1,8 @@
 ﻿using EL.Robot.Component;
+using EL.Robot.Component.DTO;
 using EL.Robot.Core;
 using EL.Robot.WindowApiTest.Code;
+using SixLabors.Fonts.Tables.AdvancedTypographic;
 using System.Runtime.InteropServices;
 using System.Text;
 using static EL.Robot.Core.ComponentSystem;
@@ -15,6 +17,7 @@ namespace EL.Robot.WindowApiTest
 		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 		public Config CurrentConfig;
 		public Dictionary<string, Parameter> ParamDic = new Dictionary<string, Parameter>();
+		public int ControlWidth = 85;
 
 		public static IndexForm Ins;
 		public IndexForm()
@@ -36,6 +39,7 @@ namespace EL.Robot.WindowApiTest
 		Point mpoint = default;
 		public void InitEvent()
 		{
+			var component = Boot.GetComponent<DesignFlowViewComponent>();
 			var viewLogComponent = Boot.GetComponent<ViewLogComponent>();
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			pl_winTop.MouseDown += (e, y) =>
@@ -85,31 +89,25 @@ namespace EL.Robot.WindowApiTest
 					viewLogComponent.WriteDesignLog("你没有生成指令，我不能为你追加到我的指令集！", true);
 					return;
 				}
-				var component = Boot.GetComponent<DesignViewComponent>();
-				component.AddOrUpdateNode();
+
+				component.AddOrUpdateRows();
 				return;
 			};
 			btn_run.Click += async (x, y) =>
 			{
-				var logs = await designComponent.RunRobot();
+				var logs = await component.RunRobot();
 				viewLogComponent.WriteDesignLog("恭喜哟，你成功运行了执行！");
 			};
 			lbl_preExec.Click += async (x, y) =>
 			{
-				var nodes = Boot.GetComponent<DesignViewComponent>().PreNodes();
-				if (nodes.Any())
-				{
-					await designComponent.PreviewNodes(nodes);
-					viewLogComponent.WriteDesignLog("恭喜哟，你成功预览了当前命令！");
-					return;
-				}
-				viewLogComponent.WriteDesignLog("没有生成任何节点", true);
+				var nodes = component.PreExecNodes();
+				
 			};
 			btn_save.Click += async (x, y) =>
 			{
 				try
 				{
-					await designComponent.SaveRobot();
+					await Boot.GetComponent<DesignFlowViewComponent>().SaveFlowAsync();
 					RefreshRobots(designComponent.CurrentDesignFlow.Id);
 				}
 				catch (Exception ex)
@@ -193,7 +191,7 @@ namespace EL.Robot.WindowApiTest
 							btn.Click += async (x, y) =>
 							{
 								var tag = (x as Button).Tag as Config;
-								Boot.GetComponent<DesignViewComponent>().CreateNewNode(tag);
+								Boot.GetComponent<DesignFlowViewComponent>().CreateNewNode(tag);
 							};
 							index++;
 						}
@@ -242,10 +240,11 @@ namespace EL.Robot.WindowApiTest
 				lbl_name.Refresh();
 				pl_view.Controls.Clear();
 				pl_bottom.Controls.Clear();
-				pl_view.Controls.Add(designViewComponent.DesignViewForm);
+				var fv = Boot.GetComponent<DesignFlowViewComponent>();
+				pl_view.Controls.Add(fv.DesignFlowViewForm);
 				pl_bottom.Controls.Add(viewLogComponent.LogsViewForm);
-				designViewComponent.Main(flow);
 				viewLogComponent.Main();
+				fv.Main(flow);
 				pl_bottom.Visible = true;
 				return;
 			}
@@ -275,14 +274,14 @@ namespace EL.Robot.WindowApiTest
 		{
 			Panel panel = new Panel();
 			panel.Left = left;
-			panel.Width = 70;
+			panel.Width = ControlWidth;
 			panel.Height = 22;
 			panel.Top = 10;
 			ComboBox comboBox = new()
 			{
 				DisplayMember = nameof(Parameter.DisplayName),
 				Left = 0,
-				Width = 70
+				Width = ControlWidth
 			};
 			comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 			panel.Controls.Add(comboBox);
@@ -302,8 +301,8 @@ namespace EL.Robot.WindowApiTest
 					var cb = new ComboBox
 					{
 						Name = param.Key,
-						Left = 70,
-						Width = 70
+						Left = ControlWidth,
+						Width = ControlWidth
 					};
 					cb.DropDownStyle = ComboBoxStyle.DropDownList;
 					cb.DisplayMember = nameof(ValueInfo.DisplayName);
@@ -343,8 +342,10 @@ namespace EL.Robot.WindowApiTest
 							param.Value = valueInfo;
 						}
 					};
-					var componment = Boot.GetComponent<DesignViewComponent>();
-					componment.EditNode.ParamDic[param.Key] = param;
+					var componment = Boot.GetComponent<DesignFlowViewComponent>();
+					componment.ComponentInfo.ParamDic[param.Key] = param;
+					//var componment = Boot.GetComponent<DesignViewComponent>();
+					//componment.EditNode.ParamDic[param.Key] = param;
 					//ParamDic[param.Key] = param;
 					txt_exp.Text = "";
 					componment.GenerateCmd();
@@ -380,16 +381,16 @@ namespace EL.Robot.WindowApiTest
 			link.TextAlign = ContentAlignment.MiddleRight;
 			link.Tag = param;
 			link.Text = param.DisplayName + ":";
-			link.Width = 70;
+			link.Width = ControlWidth;
 			panel.Controls.Add(link);
-			panel.Width = 70;
+			panel.Width = ControlWidth;
 			if (param.IsInput)
 			{
-				panel.Width += 70;
+				panel.Width += ControlWidth;
 				var cb = new ComboBox
 				{
-					Left = 70,
-					Width = 70
+					Left = ControlWidth,
+					Width = ControlWidth
 				};
 				cb.DropDownStyle = ComboBoxStyle.DropDownList;
 				cb.DisplayMember = nameof(ValueInfo.DisplayName);
@@ -410,10 +411,7 @@ namespace EL.Robot.WindowApiTest
 							var popu = new PopuForm(valueInfo, p, listStr);
 							var result = popu.ShowDialog();
 							if (result == DialogResult.OK)
-							{
 								param.Value = popu.Value;
-							}
-
 						}
 					}
 					if (valueInfo.ActionType == ValueActionType.RequestValue)
@@ -430,12 +428,9 @@ namespace EL.Robot.WindowApiTest
 							param.Value = popu.Value;
 					}
 					if (valueInfo.ActionType == ValueActionType.Value)
-					{
 						param.Value = valueInfo;
-					}
-					var componment = Boot.GetComponent<DesignViewComponent>();
-					componment.EditNode.ParamDic[param.Key] = param;
-
+					var componment = Boot.GetComponent<DesignFlowViewComponent>();
+					componment.ComponentInfo.ParamDic[param.Key] = param;
 					this.Invoke(() =>
 					{
 						txt_exp.Text = "";

@@ -24,7 +24,7 @@ namespace EL.Robot.Component
             var robot = Boot.GetComponent<RobotComponent>();
             var flowComponent = robot.GetComponent<FlowComponent>();
             flowComponent.InitParam(self.CurrentNode);
-            flowComponent.GetSteps();
+            //flowComponent.GetSteps();
             self.Value = true;
             return self;
         }

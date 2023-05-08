@@ -42,16 +42,16 @@ namespace EL.Robot.Core
             self.LogMsgs.Add(entity);
             self.RefreshLogMsgAction?.Invoke(entity);
         }
-        public static Dictionary<long, Node> GetSteps(this FlowComponent self)
-        {
-            var stemps = self.GetSteps(self.CurrentFlow.Steps);
-            foreach (var item in stemps)
-            {
-                if (!self.Steps.ContainsKey(item.Key))
-                    self.Steps.Add(item.Key, item.Value);
-            }
-            return self.Steps;
-        }
+        //public static Dictionary<long, Node> GetSteps(this FlowComponent self)
+        //{
+        //    var stemps = self.GetSteps(self.CurrentFlow.Steps);
+        //    foreach (var item in stemps)
+        //    {
+        //        if (!self.Steps.ContainsKey(item.Key))
+        //            self.Steps.Add(item.Key, item.Value);
+        //    }
+        //    return self.Steps;
+        //}
         private static Dictionary<long, Node> GetSteps(this FlowComponent self, List<Node> nodes)
         {
             Dictionary<long, Node> steps = new Dictionary<long, Node>();

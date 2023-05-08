@@ -28,7 +28,14 @@ namespace EL.Robot.WindowApiTest.Code
 			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
 			designComponent.RefreshLogMsgAction = (x) =>
 			{
-				self.LogsViewForm.WriteDesignLogs(x);
+				if (self.LogsViewForm != null)
+				{
+					self.LogsViewForm.Invoke(() =>
+					{
+						self.LogsViewForm.WriteDesignLogs(x);
+					});
+				}
+
 			};
 			designComponent.RefreshNodeCmdEndAction = async () =>
 			{
@@ -46,15 +53,25 @@ namespace EL.Robot.WindowApiTest.Code
 			var msgs = designComponent.GetDesignMsg();
 			self.LogsViewForm.WriteDesignLogs(msgs.ToArray());
 			self.LogsViewForm.ClearFlowLogs();
-			designComponent.RefreshAllStepCMD();
+			//designComponent.RefreshAllStepCMD();
 
 		}
 
 		public static void WriteDesignLog(this ViewLogComponent self, string msg, bool isEx = false)
 		{
-			var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
-			designComponent.WriteDesignLog(msg, isEx);
+			self.LogsViewForm.Invoke(() =>
+			{
+				var designComponent = Boot.GetComponent<RobotComponent>().GetComponent<DesignComponent>();
+				designComponent.WriteDesignLog(msg, isEx);
+			});
+	
 		}
-
+		public static void WriteRunLog(this ViewLogComponent self, params string[] msg)
+		{
+			self.LogsViewForm.Invoke(() =>
+			{
+				self.LogsViewForm.WriteRunLogs(msg);
+			});
+		}
 	}
 }

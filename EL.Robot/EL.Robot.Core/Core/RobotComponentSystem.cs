@@ -24,7 +24,6 @@ namespace EL.Robot.Core
 			self.AddComponent<DispatchComponent>();
 			self.AddComponent<HotkeyComponent>();
 			var sqliteComponent = self.AddComponent<SqliteComponent, string>("robot.db");
-
 			if (!ConfigItemsHelper.IsExist)
 				self.InitRobotData();
 			var videoRecorderSettings = new VideoRecorderSettings
@@ -40,10 +39,6 @@ namespace EL.Robot.Core
 			};
 			var video = self.AddComponent<VideoRecorderComponent, VideoRecorderSettings, Func<VideoRecorderComponent, Task<CaptureImage>>>(videoRecorderSettings, _recorder);
 			self.AddComponent<AudioRecorderComponent>();
-			//var tests = RobotDataManagerService.GetFlowHistorys(0, 10);
-			//var count = RobotDataManagerService.GetFlowHistorysLength();
-			//var data = RobotDataManagerService.GetFlowById(243);
-			//var datas = RobotDataManagerService.GetFlowSummarys();
 		}
 	}
 	/// <summary>

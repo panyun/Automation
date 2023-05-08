@@ -1,4 +1,5 @@
 ﻿using Automation;
+using Automation.Inspect;
 using Automation.Parser;
 using EL.Async;
 using EL.Robot.Core;
@@ -98,6 +99,17 @@ namespace EL.Robot.Component
 			//把字符串存入对应索引的输出数组
 			return outChars;
 
+		}
+
+		public static string GetDisplayVlaue(ValueInfo variable)
+		{
+			if (variable == default || variable.Value == default) return "";
+			var obj = variable.Value;
+			if (variable.Value != default && variable.Value.GetType() != variable.Type)
+				obj = JsonHelper.FromJson(variable.Type, variable.Value + "");
+			if (obj is ElementPath ep)
+				obj = $"{ep.ProcessName}.{ep.ControlType}.{ep.Name}";
+			return obj + "";
 		}
 	}
 	public class WinParserCallValue

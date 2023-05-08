@@ -5,6 +5,7 @@ using EL.Robot.Core.SqliteEntity;
 using NPOI.HSSF.Record;
 using NPOI.SS.Formula.Functions;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -50,35 +51,21 @@ namespace EL.Robot.Core
 		}
 		public static async ELTask<int> SaveRobot(this DesignComponent self, bool isAll = true)
 		{
-			if (!self.DesignFlowDic.Any()) return default;
-			if (isAll)
+			var flow = self.CurrentDesignFlow;
+			string flowData = JsonHelper.ToJson(self.CurrentDesignFlow);
+			var features = new Features()
 			{
-				int row = 0;
-				foreach (var flow in self.DesignFlowDic.Values)
-					row += await SaveAsync(flow);
-				return row;
-			}
-			return await SaveAsync(self.CurrentDesignFlow);
-			async Task<int> SaveAsync(Flow flow)
-			{
-				self.CurrentDesignFlow.Steps.Clear();
-				self.GetSteps();
-				self.CurrentDesignFlow.DesignSteps.Clear();
-				string flowData = JsonHelper.ToJson(flow);
-				var features = new Features()
-				{
-					Id = flow.Id,
-					Name = flow.Name,
-					HeadImg = flow.HeadImg,
-					CreateDate = flow.CreateDate,
-					ViewSort = flow.ViewSort,
-				};
+				Id = flow.Id,
+				Name = flow.Name,
+				HeadImg = flow.HeadImg,
+				CreateDate = flow.CreateDate,
+				ViewSort = flow.ViewSort,
+			};
 
-				string featuresData = JsonHelper.ToJson(features);
-				var logs = self.LogMsgs.Where(x => x.Id == flow.Id).ToList();
-				string log = JsonHelper.ToJson(logs);
-				return await RobotDataManagerService.SaveFlow(flow.Id, flowData, featuresData, log);
-			}
+			string featuresData = JsonHelper.ToJson(features);
+			var logs = self.LogMsgs.Where(x => x.Id == flow.Id).ToList();
+			string log = JsonHelper.ToJson(logs);
+			return await RobotDataManagerService.SaveFlow(flow.Id, flowData, featuresData, log);
 		}
 		public static List<Features> LoadRobots(this DesignComponent self)
 		{
@@ -106,19 +93,11 @@ namespace EL.Robot.Core
 					self.LogMsgs.AddRange(logs);
 			}
 			self.CurrentDesignFlow = flow;
-			if (!self.CurrentDesignFlow.DesignSteps.Any())
-				self.GetDesignSteps(self.CurrentDesignFlow.Steps, default);
+			self.LoadVariable(self.CurrentDesignFlow.Steps);
 			self.CurrentDesignFlow.ViewSort = TimeHelper.ServerNow();
 			var fea = self.Features.FirstOrDefault(x => x.Id == Id);
 			fea.ViewSort = TimeHelper.ServerNow();
 			return flow;
-		}
-		private static void GetSteps(this DesignComponent self)
-		{
-			var tops = self.CurrentDesignFlow.DesignSteps.Where(x => x.DesignParent == null);
-			self.CurrentDesignFlow.Steps.AddRange(tops);
-			foreach (var item in tops)
-				self.Get(item);
 		}
 		private static void Get(this DesignComponent self, Node node)
 		{
@@ -169,6 +148,27 @@ namespace EL.Robot.Core
 		{
 			return self.LogMsgs.Where(x => x.Id == self.CurrentDesignFlow.Id).ToList();
 		}
+		public static void LoadVariable(this DesignComponent self, List<Node> nodes)
+		{
+			foreach (var node in nodes)
+			{
+				if (node.Parameters is null) return;
+				var parameter = node.Parameters.FirstOrDefault(x => x.Key == nameof(Node.OutParameterName));
+				if (parameter != null && parameter.Value != null && !self.CurrentDesignFlow.ParamsManager.ContainsKey(parameter.Value.Value + ""))
+				{
+					self.CurrentDesignFlow.SetFlowParam(parameter.Value.Value + "", null);
+					if (node.ComponentName == nameof(SetVariableComponent))
+					{
+						var parameterValue = node.Parameters.FirstOrDefault(x => x.Key == nameof(SetVariableComponent.VariableValue));
+						self.CurrentDesignFlow.SetFlowParam(parameter.Value.Value + "", parameterValue.Value);
+					}
+				}
+				if (parameter is not null && parameter.Key == nameof(Node.OutParameterName))
+					node.OutParameterName = (string)parameter.Value.Value;
+				if (node.Steps.Any())
+					self.LoadVariable(node.Steps);
+			}
+		}
 		public static List<string> SelectVariable(this DesignComponent self, List<Type> types)
 		{
 			var keys = new List<string>();
@@ -176,9 +176,8 @@ namespace EL.Robot.Core
 			if (self.CurrentDesignFlow.ParamsManager != null)
 				foreach (var item in self.CurrentDesignFlow.ParamsManager)
 				{
-					if (item.Value == null || item.Value.Types == default) continue;
-					var isExist = item.Value.Types.Where(x => types.Contains(x));
-					if (isExist.Any())
+					if (item.Value == null || item.Value.Type == default) continue;
+					if (types.Contains(item.Value.Type))
 						keys.Add(item.Key);
 				}
 			return keys;
@@ -198,7 +197,7 @@ namespace EL.Robot.Core
 			if (self.CurrentDesignFlow != null) id = self.CurrentDesignFlow.Id;
 			var flow = Boot.GetComponent<RobotComponent>().GetComponent<FlowComponent>().MainFlow;
 			var entity = new DesignMsg(id, msg, isException);
-			self.LogMsgs.Add(entity);
+			//self.LogMsgs.Add(entity);
 			self.RefreshLogMsgAction?.Invoke(entity);
 		}
 		public static List<Node> CreateNode(this DesignComponent self, Node node)
@@ -308,8 +307,6 @@ namespace EL.Robot.Core
 			try
 			{
 				var robot = Boot.GetComponent<RobotComponent>();
-				self.CurrentDesignFlow.Steps.Clear();
-				self.GetSteps();
 				await robot.LocalMain(self.CurrentDesignFlow, false);
 				var logs = robot.GetComponent<FlowComponent>().LogMsgs;
 				return logs;
@@ -321,7 +318,7 @@ namespace EL.Robot.Core
 			return default;
 
 		}
-		 
+
 
 	}
 }

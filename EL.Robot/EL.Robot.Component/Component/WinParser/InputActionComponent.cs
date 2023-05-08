@@ -71,12 +71,12 @@ namespace EL.Robot.Component
                                         new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                               DisplayName = "事件输入",
-                                              Value=InputType.ElementInput,
+                                              Value=InputType.ElementInput.ToString(),
                                         },
                                         new ValueInfo{
                                              ActionType = ValueActionType.Value,
                                               DisplayName = "复制粘贴",
-                                              Value=InputType.Paste,
+                                              Value=InputType.Paste.ToString(),
                                         }
                                      }
                                  }

@@ -17,25 +17,24 @@ namespace EL.Robot.Component
 			DisplayName = "录入值",
 			Value = defalutValue,
 			ActionType = ValueActionType.Input,
-			Types = new List<Type>() { typeof(string) }
+			Type = typeof(string)
 		};
-		public static ValueInfo SelectVariable(params Type[] types) => new()
+		public static ValueInfo SelectVariable(Type type) => new()
 		{
 			DisplayName = "选择值",
 			Value = "",
 			ActionType = ValueActionType.RequestList,
-			Types = types.ToList(),
+			Type = type,
 			Action = new SelectVariableRequest()
 			{
-				ComponentName = "SelectVariable",
-				Types = types.ToList(),
+				Types = new List<Type>() { type },
 			},
 		};
 		public static ValueInfo UpVariable(string defalutValue = "UpNode") => new()
 		{
 			DisplayName = "上一条结果",
 			Value = defalutValue,
-			Types = new List<Type>() { typeof(string) },
+			Type = typeof(string),
 			ActionType = ValueActionType.Value,
 		};
 		public static ValueInfo CatchVariable() => new()
@@ -43,7 +42,7 @@ namespace EL.Robot.Component
 			DisplayName = "捕获值",
 			Value = "",
 			ActionType = ValueActionType.RequestValue,
-			Types = new List<Type>() { typeof(ElementPath) },
+			Type = typeof(ElementPath),
 			Action = new CommponetRequest()
 			{
 				ComponentName = nameof(CatchElementComponent)
