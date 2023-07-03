@@ -105,7 +105,7 @@ namespace EL.Robot.Component
 		/// <summary>
 		/// 子节点
 		/// </summary>
-		public List<Node> Steps { get; set; } = new List<Node>();
+		public List<Node> Children { get; set; } = new List<Node>();
 		[BsonIgnoreIfNull]
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		/// <summary>

@@ -1,0 +1,480 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/BaseConverter.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--基础数据-->
+    <sys:Double x:Key="Control_DisabledOpacity">0.3</sys:Double>
+    <sys:Double x:Key="Control_PressedOpacity">0.8</sys:Double>
+    <Thickness x:Key="ControlToBorderThickness">12 0 0 0</Thickness>
+    <Thickness x:Key="ControlToRightBorderThickness">0 0 16 0</Thickness>
+    <Thickness x:Key="ControlToControlThickness">12 0 0 0</Thickness>
+    <Thickness x:Key="ControlToRightControlThickness">0 0 12 0</Thickness>
+    <Thickness x:Key="ControlToTopControlThickness">0 12 0 0</Thickness>
+    <Thickness x:Key="ControlInMiddleThickness">12 12 12 12</Thickness>
+    <!--字体-->
+    <sys:Double x:Key="FontSize_MainWindowTitle">26</sys:Double>
+    <sys:Double x:Key="FontSize_Title">24</sys:Double>
+    <sys:Double x:Key="FontSize_Message">22</sys:Double>
+    <sys:Double x:Key="FontSize_Main">20</sys:Double>
+    <sys:Double x:Key="FontSize_Second">18</sys:Double>
+    <sys:Double x:Key="FontSize_Help">16</sys:Double>
+    <sys:Double x:Key="FontSize_SystemTitle">30</sys:Double>
+    <sys:Double x:Key="FontSize_LoginTopTitle">40</sys:Double>
+    <sys:Double x:Key="FontSize_LoginTopTitle2">56</sys:Double>
+    <FontFamily x:Key="FontFamily_default">微软雅黑</FontFamily>
+    <SolidColorBrush x:Key="Font_Title_ForegroundBrush"
+                     Color="#E5EBF7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Main_ForegroundBrush"
+                     Color="#B0BAD1"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Second_ForegroundBrush"
+                     Color="#8894AE"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Help_ForegroundBrush"
+                     Color="#8894AE"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Link_ForegroundBrush"
+                     Color="#0C6BA7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Warning_ForegroundBrush"
+                     Color="#F04134"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_MenuDefault_ForegroundBrush"
+                     Color="#B1BBD5"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Three_ForegroundBrush"
+                     Color="#E3ECF9"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_Letters_ForegroundBrush"
+                     Color="#9BB6C6"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_PubliConfigTitle_ForegroundBrush"
+                     Color="#E2E9F6"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_PubliConfigSecordTitle_ForegroundBrush"
+                     Color="#8894AE"></SolidColorBrush>
+
+
+
+    <!--#region 颜色 -->
+    <!--Control-->
+    <SolidColorBrush x:Key="Control_Transparent"
+                     Color="Transparent"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_BackgroundBrush"
+                     Color="#050F22"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_BackgroundBrush2"
+                     Color="#0F1D33"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_BackgroundBrush3"
+                     Color="#182A43"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_BackgroundBrush4"
+                     Color="#192C47" />
+    <SolidColorBrush x:Key="Control_BackgroundBrush5"
+                     Color="#2B3A50" />
+    <SolidColorBrush x:Key="Control_BackgroundBrush6"
+                     Color="#203A5D" />
+    <SolidColorBrush x:Key="Control_BackgroundBrush7"
+                     Color="#66AEF5" />
+    <SolidColorBrush x:Key="Control_BackgroundBrush8"
+                     Color="#DEDFE0" />
+    <SolidColorBrush x:Key="Control_BackgroundBrush9"
+                     Color="#1D3074" />
+    <SolidColorBrush x:Key="Control_BorderBrush"
+                     Color="#8894AE"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_MouseOver_Brush"
+                     Color="#5A6579"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_Pressed_Brush"
+                     Color="#00A6E4"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_White_BackgroundBrush"
+                     Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_Black_BackgroundBrush"
+                     Color="#000000"></SolidColorBrush>
+    <!--界面背景色-->
+    <SolidColorBrush x:Key="UserControl_BackgroundBrush"
+                     Color="#061228"></SolidColorBrush>
+    <!--Disabled颜色一般不用，使用Control_DisabledOpacity-->
+    <SolidColorBrush x:Key="Control_Disabled_Brush"
+                     Color="#919191"></SolidColorBrush>
+    <SolidColorBrush x:Key="Control_Focused_Brush"
+                     Color="#0C6BA7"></SolidColorBrush>
+
+    <!--Button_Default-->
+    <SolidColorBrush x:Key="Button_Default_BackgroundBrush"
+                     Color="#1A304E"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Default_MouseOverBrush"
+                     Color="#243f63"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Default_PressedBrush"
+                     Color="#1A304E"></SolidColorBrush>
+
+    <!--Button_Confirm border为0-->
+    <SolidColorBrush x:Key="Button_Confirm_ForegroundBrush"
+                     Color="#E2E9F6"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Confirm_BackgroundBrush"
+                     Color="#0C6BA7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Confirm_MouseOverBrush"
+                     Color="#257ab0"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Confirm_PressedBrush"
+                     Color="#0c6ba7"></SolidColorBrush>
+    <!--Button_Cancel-->
+    <SolidColorBrush x:Key="Button_Cancel_BackgroundBrush"
+                     Color="#394D6C"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Cancel_BorderBrush"
+                     Color="#394D6C"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Cancel_MouseOverBrush"
+                     Color="#243f63"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Cancel_PressedBrush"
+                     Color="#394D6C"></SolidColorBrush>
+
+    <!--Button_Menu-->
+    <SolidColorBrush x:Key="Button_Menu_MouseOverBrush"
+                     Color="#0C52A7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Menu_PressedBrush"
+                     Color="#0C52A7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Menu_CheckedBrush"
+                     Color="#0C52A7"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_SubMenu_CheckedBrush"
+                     Color="#0581F5"></SolidColorBrush>
+    <!--Button_Delete-->
+    <SolidColorBrush x:Key="Button_Delete_BackgroundBrush"
+                     Color="#CA1D5D"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Delete_MouseOverBrush"
+                     Color="#d52566"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Delete_PressedBrush"
+                     Color="#ca1d5d"></SolidColorBrush>
+
+    <!--Button_Orange-->
+    <SolidColorBrush x:Key="Button_Orange_BackgroundBrush"
+                     Color="#BF6300"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Orange_MouseOverBrush"
+                     Color="#d2791a"></SolidColorBrush>
+    <SolidColorBrush x:Key="Button_Orange_PressedBrush"
+                     Color="#BF6300"></SolidColorBrush>
+    <!--Button_Waiting-->
+    <SolidColorBrush x:Key="Button_Waiting_BackgroundBrush"
+                     Color="#BF6300"></SolidColorBrush>
+    <!--ItemsControl_Item-->
+    <SolidColorBrush x:Key="ItemsControl_Item_MouseOver_BackgroundBrush"
+                     Color="#0C6BA7"></SolidColorBrush>
+    <SolidColorBrush x:Key="ItemsControl_Item_Selected_BackgroundBrush"
+                     Color="#0C6BA7"></SolidColorBrush>
+    <!--window-->
+    <SolidColorBrush x:Key="Window_BorderBrush"
+                     Color="#394D6C"></SolidColorBrush>
+    <SolidColorBrush x:Key="MainWindow_Header_BackgroundBrush"
+                     Color="#0D1E38"></SolidColorBrush>
+    <SolidColorBrush x:Key="MainWindow_Content_BackgroundBrush"
+                     Color="#061228"></SolidColorBrush>
+    <SolidColorBrush x:Key="ChildWindow_Header_BackgroundBrush"
+                     Color="#1D2F48"></SolidColorBrush>
+    <SolidColorBrush x:Key="ChildWindow_Content_BackgroundBrush"
+                     Color="#1D2F48" Opacity="0.9"></SolidColorBrush>
+    <SolidColorBrush x:Key="MainWindow_Menu_BackgroundBrush"
+                     Color="#142135"></SolidColorBrush>
+    <!--TabControl  TabItem-->
+    <SolidColorBrush x:Key="Font_TabControl_TabItem_ForegroundBrush" Color="#B1BBD5"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_TabControl_TabItem_Selected_ForegroundBrush" Color="#B1BBD5"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_TabControl_TabItem_BackgrounBrush" Color="#1A304E"></SolidColorBrush>
+    <SolidColorBrush x:Key="Font_TabControl_TabItem_Move_BackgrounBrush" Color="#0C52A7"></SolidColorBrush>
+
+    <!--popup-->
+    <SolidColorBrush x:Key="Popup_BorderBrush"
+                     Color="#E8EBEF"></SolidColorBrush>
+    <!--line-->
+    <SolidColorBrush x:Key="Line_BorderBrush"
+                     Color="#FFFFFF" Opacity="0.1"></SolidColorBrush>
+
+    <!--摄像头控制颜色-->
+    <SolidColorBrush x:Key="CameraControl_Border_BorderBrush" Color="#394D6C"></SolidColorBrush>
+    <SolidColorBrush x:Key="CameraControl_Border_Background" Color="#1D2F48"></SolidColorBrush>
+
+    <!--系统任务颜色 -->
+    <SolidColorBrush x:Key="Cotasking_Button_BackgrounBrush" Color="#2080BD"></SolidColorBrush>
+    <SolidColorBrush x:Key="Cotasking_Button_BackgrounBrush2" Color="#B3894D"></SolidColorBrush>
+    <SolidColorBrush x:Key="Cotasking_Button_BackgrounBrush3" Color="#245A6E"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="Material_Listbox_BackgroundBrush" Color="#18263B"></SolidColorBrush>
+    <SolidColorBrush x:Key="Material_Card_BackgroundBrush" Color="#132B51"></SolidColorBrush>
+    <SolidColorBrush x:Key="Material_Linke_BackgroundBrush" Color="#273448"></SolidColorBrush>
+
+    <!--DataGrid-->
+    <SolidColorBrush x:Key="DataGrid_AlternationIndex0_BackgroundBrush"
+                     Color="#FFFFFF" Opacity="0.04"></SolidColorBrush>
+    <SolidColorBrush x:Key="DataGrid_AlternationIndex1_BackgroundBrush"
+                     Color="#112138"></SolidColorBrush>
+    <SolidColorBrush x:Key="DataGrid_ColumnHeader_BackgroundBrush" Color="#1A304E"></SolidColorBrush>
+    <SolidColorBrush x:Key="DataGrid_SelectedBackgroundBrush" Color="#0e3556"></SolidColorBrush>
+
+
+    <SolidColorBrush x:Key="Light_Blue_ModeBrush"
+                     Color="#5CB8FF"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="Day_light_ModeBrush"
+                     Color=" #FF9D5C"></SolidColorBrush>
+    <SolidColorBrush x:Key="InOperationBrush" Color="#FFD675"/>
+    <SolidColorBrush x:Key="TextBlock_ClientStatusFree_Foreground"
+                     Color="#0EAE83"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBlock_ClientStatusOffline_Foreground"
+                     Color="#5E6574"></SolidColorBrush>
+    <SolidColorBrush x:Key="TextBlock_ClientStatusOccupy_Foreground"
+                     Color="#BF6300"></SolidColorBrush>
+    <!--panel-->
+    <!--
+    <SolidColorBrush x:Key="Panel_HeaderBackgroundBrush"
+                     Color="#1B2B44"></SolidColorBrush>-->
+    <!--#endregion-->
+    <!--#region 图片 -->
+    <!--CommonMessageBox-->
+    <!--<BitmapImage UriSource="../Image/CommonMessageBox/提示.png"
+                 x:Key="CommonMessageBox_InformationImage"></BitmapImage>
+    <BitmapImage UriSource="../Image/CommonMessageBox/警告.png"
+                 x:Key="CommonMessageBox_WarningImage"></BitmapImage>
+    <BitmapImage UriSource="../Image/CommonMessageBox/错误.png"
+                 x:Key="CommonMessageBox_ErrorImage"></BitmapImage>
+    <BitmapImage UriSource="../Image/CommonMessageBox/询问.png"
+                 x:Key="CommonMessageBox_QuestionImage"></BitmapImage>
+    --><!--登录窗体--><!--
+    <BitmapImage  x:Key="Comm_Login_UserNameImageKey"
+                  UriSource="../Image/Login/用户名icon.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Login_PasswordImageKey"
+                  UriSource="../Image/Login/登录密码.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Login_IllustrationsImageKey"
+                  UriSource="../Image/Login/插画.png"></BitmapImage>
+    --><!--主窗体--><!--
+    <BitmapImage  x:Key="Comm_TopLogoImageKey"
+                  UriSource="../Image/MainWindow/Logo.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_TopBigLogoImageKey"
+                  UriSource="../Image/MainWindow/Logo_Big.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_CloseImageKey"
+                  UriSource="../Image/MainWindow/Close.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Close2ImageKey"
+                  UriSource="../Image/MainWindow/Close2.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_MinImageKey"
+                  UriSource="../Image/MainWindow/Min.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SystemSetImageKey"
+                  UriSource="../Image/MainWindow/Config.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_UserInformationImageKey"
+                  UriSource="../Image/MainWindow/UserInformation.png"></BitmapImage>
+    --><!--标记画线--><!--
+    <BitmapImage  x:Key="Comm_Mark_ArrowImage"
+                  UriSource="../Image/MarkCtrl/Arrow.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_ConfigImage"
+                  UriSource="../Image/MarkCtrl/Config.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_DeleteSingleImage"
+                  UriSource="../Image/MarkCtrl/DeleteSingle.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_LineThinImage"
+                  UriSource="../Image/MarkCtrl/LineThin.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_LineMiddleImage"
+                  UriSource="../Image/MarkCtrl/LineMiddle.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_LineThickImage"
+                  UriSource="../Image/MarkCtrl/LineThick.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_PenImage"
+                  UriSource="../Image/MarkCtrl/Pen.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_SubtitleImage"
+                  UriSource="../Image/MarkCtrl/Subtitle.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_TriangleUpImage"
+                  UriSource="../Image/MarkCtrl/TriangleUp.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_Mark_TriangleDownImage"
+                  UriSource="../Image/MarkCtrl/TriangleDown.png"></BitmapImage>
+    --><!--数据源--><!--
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_ScreenImage"
+                  UriSource="../Image/VideoSource/SplitMode_Screen.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_BipartiteScreenImage"
+                  UriSource="../Image/VideoSource/SplitMode_BipartiteScreen.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_FiveToOneImage"
+                  UriSource="../Image/VideoSource/SplitMode_FiveToOne.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_PicInPicImage"
+                  UriSource="../Image/VideoSource/SplitMode_PicInPic.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_PicInPic_LeftBottomImage"
+                  UriSource="../Image/VideoSource/SplitMode_PicInPic_LeftBottom.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_PicInPic_LeftTopImage"
+                  UriSource="../Image/VideoSource/SplitMode_PicInPic_LeftTop.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_PicInPic_RightTopImage"
+                  UriSource="../Image/VideoSource/SplitMode_PicInPic_RightTop.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_QuarterscreenImage"
+                  UriSource="../Image/VideoSource/SplitMode_Quarterscreen.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_SevenToOneImage"
+                  UriSource="../Image/VideoSource/SplitMode_SevenToOne.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_SixSplitScreenImage"
+                  UriSource="../Image/VideoSource/SplitMode_SixSplitScreen.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_SplitMode_ThreeToOneImage"
+                  UriSource="../Image/VideoSource/SplitMode_ThreeToOne.png"></BitmapImage>
+
+    <BitmapImage  x:Key="Comm_VideoSource_Input_CBiImage"
+                  UriSource="../Image/VideoSource/C臂.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Input_JianHuImage"
+                  UriSource="../Image/VideoSource/监护.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Input_DefaultImage"
+                  UriSource="../Image/VideoSource/默认输入.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Input_QiangJingImage"
+                  UriSource="../Image/VideoSource/腔镜.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Input_QuanJingImage"
+                  UriSource="../Image/VideoSource/全景.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Input_WaiKeTaImage"
+                  UriSource="../Image/VideoSource/外科塔.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VideoSource_Output_GuanKongImage"
+                  UriSource="../Image/VideoSource/管控.png"></BitmapImage>
+
+    --><!--日历--><!--
+    <BitmapImage  x:Key="Comm_DatePicker_CalendarImage"
+                  UriSource="../Image/DatePicker/日历icon.png"></BitmapImage>
+
+    --><!--系统配置--><!--
+    <BitmapImage  x:Key="Comm_SystemSetting_PublicConfigurationImage"
+                  UriSource="../Image/SystemSetting/公共配置.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SystemSetting_OperConfigurationImage"
+                  UriSource="../Image/SystemSetting/手术室配置.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SystemSetting_AudioConfigurationImage"
+                  UriSource="../Image/SystemSetting/音频配置.png"></BitmapImage>
+
+    --><!--#endregion--><!--
+    <ImageBrush ImageSource="../Image/Login/bg.png"
+                x:Key="CommonLogin_BGStyle"></ImageBrush>
+    <ImageBrush ImageSource="../Image/Login/登录框.png"
+                x:Key="CommonLogin_TextBoxBGStyle"></ImageBrush>
+    <ImageBrush ImageSource="../Image/Login/指纹登录.png"
+                x:Key="CommonLogin_FingerprintStyle"></ImageBrush>
+    <ImageBrush ImageSource="../Image/Login/掌纹登录.png"
+                x:Key="CommonLogin_PalmprintStyle"></ImageBrush>
+    <BitmapImage  x:Key="CommonLogin_UserNameImage"
+                  UriSource="../Image/Login/用户名.png"></BitmapImage>
+    <BitmapImage  x:Key="CommonLogin_PwdImage"
+                  UriSource="../Image/Login/密码.png"></BitmapImage>
+    --><!--音乐播放器--><!--
+    <ImageBrush  x:Key="Music_PlayImage"
+                  ImageSource="../Image/Music/音乐_播放_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_PauseImage"
+                  ImageSource="../Image/Music/音乐_暂停_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_MuteImage"
+                  ImageSource="../Image/Music/内容_音量静音_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_VolumeMinImage"
+                  ImageSource="../Image/Music/内容_音量小_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_VolumeMaxImage"
+                  ImageSource="../Image/Music/音乐_音量大_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_VolumeMiddleImage"
+                  ImageSource="../Image/Music/音乐_音量中_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_SingleImage"
+                  ImageSource="../Image/Music/音乐_单曲循环_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_RandomImage"
+                  ImageSource="../Image/Music/音乐_随机播放_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_LastSongImage"
+                  ImageSource="../Image/Music/音乐_上一曲_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_NextSongImage"
+                  ImageSource="../Image/Music/音乐_下一曲_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_MoreImage"
+                  ImageSource="../Image/Music/音乐_更多_画板.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_Pause2Image"
+                  ImageSource="../Image/Music/音乐_暂停 _画板2.png"></ImageBrush>
+    <ImageBrush  x:Key="Music_Play2Image"
+                  ImageSource="../Image/Music/音乐_播放 _画板2.png"></ImageBrush>
+    <BitmapImage  x:Key="Music_backgroundTestImage"
+                  UriSource="../Image/Music/背景图_测试.jpg"></BitmapImage>
+    --><!--通用--><!--
+    <BitmapImage  x:Key="Comm_ConnectImage"
+                  UriSource="../Image/按钮上的电话.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ConnectBreakImage"
+                  UriSource="../Image/按钮上的挂断.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ConnectWhiteImage"
+                  UriSource="../Image/按钮上的电话_白色.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ConnectBreakWhiteImage"
+                  UriSource="../Image/按钮上的挂断_白色.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_FamilyCallImage"
+                  UriSource="../Image/按钮上的召唤家属.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SaveImage"
+                  UriSource="../Image/保存.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_EditImage"
+                  UriSource="../Image/编辑.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_CircleCloseImage"
+                  UriSource="../Image/弹窗关闭.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ReturnImage"
+                  UriSource="../Image/返回.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_CloseImage"
+                  UriSource="../Image/关闭.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ArrowUpImage"
+                  UriSource="../Image/箭头上.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ArrowDownImage"
+                  UriSource="../Image/箭头下.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ArrowRightImage"
+                  UriSource="../Image/箭头右.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ArrowLeftImage"
+                  UriSource="../Image/箭头左.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_DateImage"
+                  UriSource="../Image/日历.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_DeleteImage"
+                  UriSource="../Image/删除.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SearchImage"
+                  UriSource="../Image/搜索.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_AddImage"
+                  UriSource="../Image/添加.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_FolderImage"
+                  UriSource="../Image/文件夹.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeHighImage"
+                  UriSource="../Image/音量大.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeMuteImage"
+                  UriSource="../Image/音量静音.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeLowImage"
+                  UriSource="../Image/音量小.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeMiddleImage"
+                  UriSource="../Image/音量中.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_AutoVoiceImage"
+                  UriSource="../Image/自动语音播报.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_PlayImage"
+                  UriSource="../Image/Webplayer/播放.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SuspendImage"
+                  UriSource="../Image/Webplayer/暂停.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_LeftBlockImage"
+                  UriSource="../Image/Webplayer/左滑块.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_RightBlockImage"
+                  UriSource="../Image/Webplayer/右滑块.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_MiddleBlockImage"
+                  UriSource="../Image/Webplayer/中间滑块.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_WebSign_PlayImage"
+                  UriSource="../Image/WebSignPlayer/播放.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeDefaultImage"
+                  UriSource="../Image/WebSignPlayer/音量_默认.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_VolumeClickImage"
+                  UriSource="../Image/WebSignPlayer/音量_点击.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_FullScreenImage"
+                  UriSource="../Image/WebSignPlayer/全屏.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_ExitFullScreenImage"
+                  UriSource="../Image/WebSignPlayer/退出全屏.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_HornImage"
+                  UriSource="../Image/喇叭.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_MoreImage"
+                  UriSource="../Image/更多.png"></BitmapImage>
+    <BitmapImage x:Key="Comm_ReturnDeleteImage" UriSource="../Image/回删.png"></BitmapImage>
+
+    <BitmapImage  x:Key="Comm_SetImageKey"
+                  UriSource="../Image/设置.png"></BitmapImage>
+    <BitmapImage  x:Key="Comm_SetMouseClickImageKey"
+                  UriSource="../Image/设置_点击.png"></BitmapImage>
+
+
+    <ImageBrush  x:Key="Comm_EquipmentPositioningImage"
+                  ImageSource="../Image/设备定位.png"></ImageBrush>
+    <ImageBrush  x:Key="Patinet_ThreePartiesCheckImage"
+                  ImageSource="../Image/患者管理_三方核查_手术开始前.png"></ImageBrush>
+    <ImageBrush  x:Key="PathologicalSynergyImage"
+                  ImageSource="../Image/病理协同-接通后.png"></ImageBrush>
+    <BitmapImage  x:Key="AllReportsImage"
+                  UriSource="../Image/术前_患者管理_检查-全部报告.png"></BitmapImage>
+    <BitmapImage  x:Key="FivePointedStarImage"
+                  UriSource="../Image/五角星.png"></BitmapImage>
+    <ImageBrush  x:Key="CollaborativeTaskImage"
+                  ImageSource="../Image/协同任务.png"></ImageBrush>
+    <ImageBrush  x:Key="FamilyTalkImage"
+                  ImageSource="../Image/术中-家属谈话-家属画面.png"></ImageBrush>
+    <ImageBrush  x:Key="FamilyTalkDoctorImage"
+                  ImageSource="../Image/术中-家属谈话-医生画面.png"></ImageBrush>
+
+    <ImageBrush  x:Key="FamilyTalkOperImage"
+                  ImageSource="../Image/术中-家属谈话-手术画面.png"></ImageBrush>
+    <ImageBrush  x:Key="EnvironmentalManagementImage"
+                  ImageSource="../Image/设备管理-环境管理.png"></ImageBrush>
+    <ImageBrush x:Key="DeleteArrowImage" ImageSource="../Image/删除箭头.png" />
+    <ImageBrush x:Key="ClearArrowImage" ImageSource="../Image/关闭.png" />
+
+    <BitmapImage x:Key="MatrixPlayImage" UriSource="../Image/播放.png" />
+    <BitmapImage x:Key="MatrixDownloadImage" UriSource="../Image/下载.png" />
+    <BitmapImage x:Key="MatrixPreviewImage" UriSource="../Image/图片预览.png" />
+    <BitmapImage x:Key="DeleteForkImage" UriSource="../Image/删除箭头.png" />
+
+    <ImageBrush  x:Key="Comm_ReturnBrush"
+                  ImageSource="../Image/返回.png"></ImageBrush>
+
+    <ImageBrush  x:Key="Comm_PasswordFrame"
+                  ImageSource="../Image/框.png"></ImageBrush>
+    <ImageBrush  x:Key="LockScreenBgImage"
+                  ImageSource="../Image/LockScreenBg.png"></ImageBrush>-->
+</ResourceDictionary>

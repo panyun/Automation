@@ -1,0 +1,143 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\add.png" />
+    <None Remove="img\close.png" />
+    <None Remove="img\debug.png" />
+    <None Remove="img\editIcon.png" />
+    <None Remove="img\Ellipse 10.png" />
+    <None Remove="img\Ellipse 101.PNG" />
+    <None Remove="img\function.png" />
+    <None Remove="img\headimg.png" />
+    <None Remove="img\hostory.png" />
+    <None Remove="img\logo.png" />
+    <None Remove="img\lot.png" />
+    <None Remove="img\market.png" />
+    <None Remove="img\market_select.PNG" />
+    <None Remove="img\more.png" />
+    <None Remove="img\plan.png" />
+    <None Remove="img\robot.png" />
+    <None Remove="img\robot_select.PNG" />
+    <None Remove="img\save.png" />
+    <None Remove="img\teach.png" />
+    <None Remove="img\teach_select.PNG" />
+    <None Remove="img\画板 8.png" />
+    <None Remove="img\选中.PNG" />
+    <None Remove="img\页面 1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EL.Robot\EL.Robot.Component\EL.Robot.Component.csproj" />
+    <ProjectReference Include="..\..\EL.Robot\EL.Robot.Core\EL.Robot.Core.csproj" />
+    <ProjectReference Include="..\EL.BaseUI.AduSkin\AduSkin\AduSkin.csproj" />
+    <ProjectReference Include="..\EL.BaseUI.Themes\EL.BaseUI.Themes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EL.Basic.Component">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="EL.Basic.Core">
+      <HintPath>..\..\EL.Bin\1.EL.CommonComponent.DLL\EL.Basic.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\add.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\close.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\debug.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\editIcon.png" />
+    <Resource Include="img\Ellipse 10.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Ellipse 101.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\function.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\hostory.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\lot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\market.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\market_select.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\more.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\plan.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\robot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\robot_select.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\save.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\teach.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\teach_select.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\headimg.png" />
+    <Resource Include="img\画板 8.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\选中.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\页面 1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DesignWindow\DesignMainWindow.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+  </ItemGroup>
+
+</Project>

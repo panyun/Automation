@@ -77,7 +77,7 @@ namespace EL.Robot.Component
                 var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(elements[i - 1]));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
-                await nodeComponent.Exec(self.CurrentNode.Steps);
+                await nodeComponent.Exec(self.CurrentNode.Children);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环结束");
                 if (robot.ExecState == ExecState.IsBreak || robot.ExecState == ExecState.IsStop)
                     break;
@@ -108,7 +108,7 @@ namespace EL.Robot.Component
                 var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(i));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
-                await nodeComponent.Exec(self.CurrentNode.Steps);
+                await nodeComponent.Exec(self.CurrentNode.Children);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环结束");
                 if (robot.ExecState == ExecState.IsBreak)
                     break;
@@ -130,7 +130,7 @@ namespace EL.Robot.Component
                 var msg = self.CurrentFlow.SetFlowParamBy(self.CurrentNode.OutParameterName, new ValueInfo(i));
                 flowComponent.WriteNodeLog(self.CurrentNode, msg);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环开始");
-                await nodeComponent.Exec(self.CurrentNode.Steps);
+                await nodeComponent.Exec(self.CurrentNode.Children);
                 flowComponent.WriteNodeLog(self.CurrentNode, $"{i}次 循环结束");
                 if (robot.ExecState == ExecState.IsBreak)
                     break;

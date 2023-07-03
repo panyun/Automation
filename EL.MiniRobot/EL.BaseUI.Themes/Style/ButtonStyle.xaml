@@ -1,0 +1,1633 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:attach="clr-namespace:EL.BaseUI.Themes"
+                    >
+    <!--#region Button -->
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Default_BackgroundBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.MouseOverBrush"
+                Value="{StaticResource Button_Default_MouseOverBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.PressedBrush"
+                Value="{StaticResource Button_Default_PressedBrush}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Button_Confirm_ForegroundBrush}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource FontSize_Second}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal" Height="{TemplateBinding Height}"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Image Stretch="None" Margin="0"
+                               Source="{TemplateBinding attach:AttachedPropertyHelper.ImageSource}"
+                                   Visibility="{TemplateBinding attach:AttachedPropertyHelper.ImageSource,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                            <Grid x:Name="gdMiddle" Width="8"></Grid>
+                            <ContentPresenter x:Name="contentPresenter"  Margin="0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="attach:AttachedPropertyHelper.ImageSource" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Opacity" Value="{StaticResource Control_PressedOpacity}" />
+                        </Trigger>
+                        <!--<Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{Binding (attach:AttachedPropertyHelper.MouseOverBrush), RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Trigger>-->
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{Binding (attach:AttachedPropertyHelper.PressedBrush), RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_DisabledOpacity}" />
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="InHeaderButtonStyle">
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Background"
+                Value="{StaticResource Control_Transparent}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Button_Confirm_ForegroundBrush}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource FontSize_Second}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Image Stretch="None" x:Name="img"
+                               Source="{TemplateBinding attach:AttachedPropertyHelper.ImageSource}"
+                                   Visibility="{TemplateBinding attach:AttachedPropertyHelper.ImageSource,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                            <Grid x:Name="gdMiddle" Width="8"></Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="attach:AttachedPropertyHelper.ImageSource" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_DisabledOpacity}" />
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="CornerButtonStyle" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="attach:AttachedPropertyHelper.CornerRadius"
+                Value="20" />
+    </Style>
+
+    <!--确定按钮-->
+    <Style x:Key="ConfirmButtonStyle"
+           TargetType="{x:Type Button}" BasedOn="{StaticResource CornerButtonStyle}">
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Confirm_BackgroundBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.MouseOverBrush"
+                Value="{StaticResource Button_Confirm_MouseOverBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.PressedBrush"
+                Value="{StaticResource Button_Confirm_PressedBrush}" />
+    </Style>
+    <!--取消按钮-->
+    <Style x:Key="CancelButtonStyle"
+           TargetType="{x:Type Button}" BasedOn="{StaticResource CornerButtonStyle}">
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Cancel_BackgroundBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.MouseOverBrush"
+                Value="{StaticResource Button_Cancel_MouseOverBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.PressedBrush"
+                Value="{StaticResource Button_Cancel_PressedBrush}" />
+    </Style>
+    <!--删除按钮-->
+    <Style x:Key="DeleteButtonStyle"
+           TargetType="{x:Type Button}" BasedOn="{StaticResource CornerButtonStyle}">
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Delete_BackgroundBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.MouseOverBrush"
+                Value="{StaticResource Button_Delete_MouseOverBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.PressedBrush"
+                Value="{StaticResource Button_Delete_PressedBrush}" />
+    </Style>
+    <!--橙色按钮-->
+    <Style x:Key="OrangeButtonStyle"
+           TargetType="{x:Type Button}" BasedOn="{StaticResource CornerButtonStyle}">
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Orange_BackgroundBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.MouseOverBrush"
+                Value="{StaticResource Button_Orange_MouseOverBrush}" />
+        <Setter Property="attach:AttachedPropertyHelper.PressedBrush"
+                Value="{StaticResource Button_Orange_PressedBrush}" />
+    </Style>
+    <!--圆圈按钮-->
+    <Style x:Key="CircleButtonStyle"
+           TargetType="{x:Type Button}" BasedOn="{StaticResource CornerButtonStyle}">
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Width"
+                Value="66" />
+        <Setter Property="Height"
+                Value="66" />
+        <Setter Property="attach:AttachedPropertyHelper.CornerRadius"
+                Value="33" />
+    </Style>
+
+
+    <!--关闭按钮-->
+    <Style x:Key="CloseButtonStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="attach:AttachedPropertyHelper.ImageSource"
+                Value="{StaticResource Comm_CloseImageKey}"></Setter>
+    </Style>
+
+    <!--最小化按钮-->
+    <Style x:Key="MinButtonStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="attach:AttachedPropertyHelper.ImageSource"
+                Value="{StaticResource Comm_MinImageKey}"></Setter>
+    </Style>
+
+    <!--子窗体关闭按钮-->
+    <Style x:Key="Close2ButtonStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource InHeaderButtonStyle}">
+        <Setter Property="attach:AttachedPropertyHelper.ImageSource"
+                Value="{StaticResource Comm_Close2ImageKey}"></Setter>
+    </Style>
+
+
+
+    <!--登录按钮样式-->
+    <Style x:Key="LoginButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="Width"
+                Value="426" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Confirm_BackgroundBrush}" />
+        <Setter Property="Foreground"
+                Value="#FFFFFF" />
+        <Setter Property="FontSize"
+                Value="22" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Bottom" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="4">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Button_Confirm_MouseOverBrush}" />
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Button_Confirm_PressedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_Disabled_Brush}" />
+                            <Setter Property="Content"
+                                    TargetName="contentPresenter"
+                                    Value="登录中..." />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--超文本链接按钮-->
+    <Style x:Key="LinkTextButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="{StaticResource Control_Transparent}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource Control_BorderBrush}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource FontSize_Main}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="2" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Font_Link_ForegroundBrush}" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="5 0 0 0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource Control_Disabled_Brush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button"
+           x:Key="CommonLogin_FingerprintButtonStyle">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Image Source="../Image/Login/指纹登录.png"
+                                   Stretch="Fill"></Image>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button"
+           x:Key="CommonLogin_PalmprintButtonStyle">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Image Source="../Image/Login/掌纹登录.png"
+                                   Width="50"
+                                   Height="50"></Image>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+
+    <!--#region ToggleButton -->
+    <Style TargetType="{x:Type ToggleButton}">
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Background"
+                Value="{StaticResource Button_Default_BackgroundBrush}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Button_Confirm_ForegroundBrush}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource FontSize_Second}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Image Stretch="None"
+                               Source="{TemplateBinding attach:AttachedPropertyHelper.ImageSource}"
+                                   Visibility="{TemplateBinding attach:AttachedPropertyHelper.ImageSource,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                            <Grid x:Name="gdMiddle" Width="8"></Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="attach:AttachedPropertyHelper.ImageSource" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_Focused_Brush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_DisabledOpacity}" />
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="InHeaderToggleButtonStyle">
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Background"
+                Value="{StaticResource Control_Transparent}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Button_Confirm_ForegroundBrush}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource FontSize_Second}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Image Stretch="None"
+                               Source="{TemplateBinding attach:AttachedPropertyHelper.ImageSource}"
+                                   Visibility="{TemplateBinding attach:AttachedPropertyHelper.ImageSource,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                            <Grid x:Name="gdMiddle" Width="8"></Grid>
+                            <ContentPresenter x:Name="contentPresenter" 
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="attach:AttachedPropertyHelper.ImageSource" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter Property="Width"
+                                    Value="0" TargetName="gdMiddle"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_Focused_Brush}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="border"
+                                    Value="{StaticResource Control_DisabledOpacity}" />
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="CornerToggleButtonStyle" BasedOn="{StaticResource {x:Type ToggleButton}}">
+        <Setter Property="attach:AttachedPropertyHelper.CornerRadius"
+                Value="20" />
+    </Style>
+
+    <!--圆圈按钮-->
+    <Style x:Key="CircleToggleButtonStyle"
+           TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource CornerToggleButtonStyle}">
+        <Setter Property="Width"
+                Value="66" />
+        <Setter Property="Height"
+                Value="66" />
+        <Setter Property="attach:AttachedPropertyHelper.CornerRadius"
+                Value="33" />
+    </Style>
+
+    <!--标记画线-->
+    <Style x:Key="MarkControlToggleButtonStyle"
+           TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+        <Setter Property="Background"
+                Value="{StaticResource Control_BackgroundBrush2}" />
+    </Style>
+
+    <!--颜色选择控件Toggle按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="ColorPickerToggleBtnStyle">
+        <Setter Property="Background"
+                Value="{StaticResource Control_BackgroundBrush3}" />
+        <Setter Property="Width"
+                Value="106" />
+        <Setter Property="Height"
+                Value="44" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="Transparent">
+                        <Grid Background="{TemplateBinding Background}"
+                              Height="{TemplateBinding Height}"
+                              Width="{TemplateBinding Width}"
+                              >
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid VerticalAlignment="Center"
+                                  HorizontalAlignment="Center">
+                                <Rectangle Height="28"
+                                           Width="48"
+                                           Fill="{Binding RelativeSource={RelativeSource AncestorLevel=1,AncestorType={x:Type ToggleButton},Mode=FindAncestor},Path=Tag}" />
+                            </Grid>
+                            <Grid Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center">
+                                <Image Source="{StaticResource Comm_Mark_TriangleUpImage}"
+                                       x:Name="_img1"
+                                       Height="15"
+                                       Width="20"
+                                       Visibility="Hidden"
+                                       Stretch="UniformToFill"
+                                       Margin="10 0 0 0" />
+                                <Image Source="{StaticResource Comm_Mark_TriangleDownImage}"
+                                       x:Name="_img2"
+                                       Height="15"
+                                       Width="20"
+                                       Stretch="UniformToFill"
+                                       Margin="10 0 0 0" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="true">
+                            <Setter TargetName="_img1"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                            <Setter TargetName="_img2"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="false">
+                            <Setter TargetName="_img1"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="_img2"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--音乐播放控件按钮-->
+    <!--上一曲按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicLastSong_ButtonStyle">
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_LastSongImage}" />
+        <Setter Property="Margin" Value="30 0 30 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--下一曲按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicNextSong_ButtonStyle">
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_NextSongImage}" />
+        <Setter Property="Margin" Value="30 0 30 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--播放按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicPlay_ButtonStyle">
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_PlayImage}" />
+        <Setter Property="Margin" Value="30 0 30 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="true">
+                            <Setter Property="Background"
+                                    Value="{StaticResource Music_PauseImage}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="false">
+                            <Setter Property="Background"
+                                    Value="{StaticResource Music_PlayImage}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--播放按钮2-->
+    <Style TargetType="ToggleButton" x:Key="MusicPlay2_ButtonStyle">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_Play2Image}" />
+        <Setter Property="Margin" Value="30 0 30 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="true">
+                            <Setter Property="Background"
+                                    Value="{StaticResource Music_Pause2Image}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPlaying}" Value="false">
+                            <Setter Property="Background"
+                                    Value="{StaticResource Music_Play2Image}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--播放模式按钮(单曲循环、随机播放)-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicPlayMode_ButtonStyle">
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_SingleImage}" />
+        <Setter Property="Margin" Value="30 0 30 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="true">
+                            <Setter 
+                                    Property="Background"
+                                    Value="{StaticResource Music_RandomImage}" />
+
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="false">
+                            <Setter 
+                                    Property="Background"
+                                    Value="{StaticResource Music_SingleImage}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--音量大小按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicVolume_ButtonStyle">
+        <Setter Property="Width"
+                Value="32" />
+        <Setter Property="Height"
+                Value="32" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_VolumeMiddleImage}" />
+        <Setter Property="Margin" Value="20 0 20 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="true">
+                            <Setter 
+                                    Property="Background"
+                                    Value="{StaticResource Music_VolumeMaxImage}" />
+
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="false">
+                            <Setter 
+                                    Property="Background"
+                                    Value="{StaticResource Music_VolumeMiddleImage}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--音量大小按钮-->
+    <Style TargetType="ToggleButton"
+           x:Key="MusicMore_ButtonStyle">
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource Music_MoreImage}" />
+        <Setter Property="Margin" Value="20 0 20 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="true"
+                            CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}">
+                        <StackPanel Orientation="Horizontal"  Margin="{TemplateBinding Padding}" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter x:Name="contentPresenter"  Margin="2 0 2 0"
+                                              Focusable="False"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                              Visibility="{TemplateBinding Content,Converter={StaticResource ObjectIsNullOrEmptyToVisibilityConverter} }"/>
+                        </StackPanel>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--选项卡按钮-->
+    <Style x:Key="TabControl_Item_ButtonStyle" TargetType="RadioButton" >
+        <Setter Property="Background" Value="{StaticResource Font_TabControl_TabItem_BackgrounBrush}" />
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="40" />
+        <Setter Property="BorderThickness" Value ="0" />
+        <Setter Property="Foreground" Value ="{StaticResource Font_TabControl_TabItem_ForegroundBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily_default}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Main}" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                        <Border x:Name="radioButtonBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding attach:AttachedPropertyHelper.CornerRadius}"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1,1,2,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid x:Name="markGrid" Margin="2">
+                                <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground"  Value="{StaticResource Control_White_BackgroundBrush}"/>
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Foreground"  Value="{StaticResource Control_White_BackgroundBrush}"/>
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <!--<Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--选项卡按钮-->
+    <Style x:Key="Tab_ButtonStyle" TargetType="RadioButton" >
+        <Setter Property="Background" Value="{StaticResource Font_TabControl_TabItem_BackgrounBrush}" />
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="40" />
+        <Setter Property="BorderThickness" Value ="0" />
+        <Setter Property="Foreground" Value ="{StaticResource Font_TabControl_TabItem_ForegroundBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily_default}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Main}" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                        <Border x:Name="radioButtonBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=Tag,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=RadioButton,Mode=FindAncestor}}"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1,1,2,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid x:Name="markGrid" Margin="2">
+                                <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground"  Value="{StaticResource Control_White_BackgroundBrush}"/>
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Foreground"  Value="{StaticResource Control_White_BackgroundBrush}"/>
+                            <Setter Property="Background"  Value="{StaticResource Font_TabControl_TabItem_Move_BackgrounBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <!--<Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Button"
+           x:Key="MainWindowTopButtonStyle"
+           BasedOn="{StaticResource InHeaderButtonStyle}">
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Width"
+                Value="30" />
+        <Setter Property="Height"
+                Value="30" />
+        <Setter Property="Margin"
+                Value="19,0,19,0" />
+    </Style>
+
+    <Style TargetType="Button"
+           x:Key="apply_PageButtonStyle">
+        <Setter Property="Margin"
+                Value="10 0 0 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="1"
+                            x:Name="_border"
+                            Background="#192941"
+                            Width="30"
+                            CornerRadius="30"
+                            Height="30" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsChecked}"
+                                     Value="true">
+                            <Setter Property="Background"
+                                    TargetName="_border"
+                                    Value="#0C6BA7" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="teach_VolumeButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="Transparent" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Width"
+                Value="44" />
+        <Setter Property="Height"
+                Value="44" />
+        <Setter Property="Margin"
+                Value="0 0 20 0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox x:Name="vbox">
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                SnapsToDevicePixels="true">
+                            <Grid>
+                                <Image x:Name="img"
+                                       Source="{StaticResource Teach_VolumeImageStyle}"
+                                       Width="44"
+                                       Height="44" />
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Focusable="False"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                        </Border>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#00A98D" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="Content"
+                                    TargetName="contentPresenter"
+                                    Value="{DynamicResource MuteImageStyle}" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter Property="Cursor"
+                                    Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="Height"
+                                    TargetName="vbox"
+                                    Value="44" />
+                            <Setter Property="Width"
+                                    TargetName="vbox"
+                                    Value="44" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsMute}"
+                                     Value="True">
+                            <Setter TargetName="img"
+                                    Property="Source"
+                                    Value="{StaticResource Teach_MuteImageStyle}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsMute}"
+                                     Value="False">
+                            <Setter TargetName="img"
+                                    Property="Source"
+                                    Value="{StaticResource Teach_VolumeImageStyle}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsMuteVisibility}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsMuteVisibility}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Hidden" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="teach_SpliteButtonStyle"
+           TargetType="Button">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="#061228" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Width"
+                Value="50" />
+        <Setter Property="Height"
+                Value="50" />
+        <Setter Property="Margin"
+                Value="0 0 20 0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="RenderTransformOrigin"
+                Value="0.5,0.5"></Setter>
+        <Setter Property="IsEnabled"
+                Value="{Binding IsSplitEnabled}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                        <Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <!--<Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#030b1a" />-->
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="#0c6ba7" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border"
+                                    Value="1" />
+                        </Trigger>
+
+                        <!--<DataTrigger Binding="{Binding SplitMode}"
+                         Value="2">
+                            <Setter Property="Background"
+                        TargetName="border"
+                        Value="#0c6ba7" />
+                        </DataTrigger>-->
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius"
+                        Value="2" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="Observ_ScreenShotButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="#1F3758" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Width"
+                Value="68" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="Margin"
+                Value="0,0,20,0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="100">
+                        <Image x:Name="img"
+                               Source="{StaticResource Observe_DefaultScreenShotImage}"
+                               Stretch="None"></Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter TargetName="img"
+                                    Property="Source"
+                                    Value="{StaticResource Observe_ScreenShotImage}" />
+                            <Setter Property="Background"
+                                    Value="#E2E9F6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Observ_FullScreenButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="#1F3758" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Width"
+                Value="68" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="Margin"
+                Value="0,0,20,0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="100">
+                        <Image x:Name="img"
+                               Source="{StaticResource Observe_DefaultFullScreenImage}"
+                               Stretch="None"></Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter TargetName="img"
+                                    Property="Source"
+                                    Value="{StaticResource Observe_FullScreenImage}" />
+                            <Setter Property="Background"
+                                    Value="#E2E9F6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Observ_PushScreenButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="#1F3758" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Width"
+                Value="68" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="Margin"
+                Value="0,0,20,0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="100">
+                        <Image x:Name="img"
+                               Source="{StaticResource Observe_DefaultPushScreenImage}"
+                               Stretch="None"></Image>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter TargetName="img"
+                                    Property="Source"
+                                    Value="{StaticResource Observe_PushScreenImage}" />
+                            <Setter Property="Background"
+                                    Value="#E2E9F6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Demand_QueryButtonStyle"
+           TargetType="Button">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="#0C6BA7 " />
+        <Setter Property="Foreground"
+                Value="#FFFFFF" />
+        <Setter Property="Background"
+                Value="#0C6BA7" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FontSize"
+                Value="21" />
+        <Setter Property="Width"
+                Value="150" />
+        <Setter Property="Height"
+                Value="56" />
+        <Setter Property="Margin"
+                Value="0 0 20 0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                        <Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius"
+                        Value="28" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="Apply_ApplyObservationButtonStyle"
+           TargetType="Button">
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="#0C6BA7 " />
+        <Setter Property="Foreground"
+                Value="#FFFFFF" />
+        <Setter Property="Background"
+                Value="#0C6BA7" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="FontSize"
+                Value="24" />
+        <Setter Property="Width"
+                Value="150" />
+        <Setter Property="Height"
+                Value="48" />
+        <Setter Property="Margin"
+                Value="0 0 20 0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true" CornerRadius="24">
+                        <Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ExpandCollapseToggleStyle1"
+           TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Width"
+                Value="23" />
+        <Setter Property="Height"
+                Value="23" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Background="Transparent"
+                            Height="23"
+                            Padding="0"
+                            Width="23">
+                        <Path x:Name="ExpandPath" Data="M352.19299999 96.196l415.63200001 415.804-415.632 415.803-63.445-63.616 352.017-352.209-352.017-352.102z" Stretch="Uniform" Width="12" Fill="{StaticResource Brush}">
+                        </Path>
+                        <!--<Path x:Name="ExpandPath"
+                              Data="{StaticResource TreeArrow}"
+                              Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
+                              Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="180"
+                                                 CenterY="11"
+                                                 CenterX="11" />
+                            </Path.RenderTransform>
+                        </Path>-->
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="RenderTransform" TargetName="ExpandPath">
+                                <Setter.Value>
+                                    <RotateTransform Angle="90" CenterY="3" CenterX="3"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Margin" TargetName="ExpandPath" Value="0,0,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Stroke"
+                                    TargetName="ExpandPath"
+                                    Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
+                            <Setter Property="Fill"
+                                    TargetName="ExpandPath"
+                                    Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsChecked"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Stroke"
+                                    TargetName="ExpandPath"
+                                    Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
+                            <Setter Property="Fill"
+                                    TargetName="ExpandPath"
+                                    Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

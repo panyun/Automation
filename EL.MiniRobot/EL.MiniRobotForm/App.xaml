@@ -1,0 +1,16 @@
+﻿<Application x:Class="MiniRobotForm.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MiniRobotForm"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aduskin;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="/Aduskin;component/Themes/Icon.xaml" />
+                <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/BaseResource.xaml" />
+                <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

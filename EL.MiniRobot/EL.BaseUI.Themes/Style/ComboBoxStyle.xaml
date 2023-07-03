@@ -1,0 +1,238 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:attach="clr-namespace:EL.BaseUI.Themes"
+                    >
+
+    <!--#region 默认样式 -->
+    <!-- Simple ComboBox Toggle Button - This is used in ComboBox to expand and collapse the ComboBox Popup-->
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Stretch" x:Name="Rectangle" VerticalAlignment="Stretch" Width="Auto" Height="Auto" RadiusX="2" RadiusY="2" Fill="{DynamicResource Control_BackgroundBrush}" Stroke="{DynamicResource Control_BorderBrush}" StrokeThickness="0"/>
+            <Rectangle Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" RadiusX="2" RadiusY="2" Fill="{DynamicResource Control_Transparent}" Stroke="{DynamicResource Control_Transparent}"/>
+            <Path Grid.Column="1" HorizontalAlignment="Center" x:Name="Arrow" VerticalAlignment="Center" Fill="{DynamicResource Control_MouseOver_Brush}" Data="M 0 0 L 4 4 L 8 0 Z"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Stroke" Value="{DynamicResource Control_MouseOver_Brush}" TargetName="Rectangle"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="true">
+                <Setter Property="Stroke" Value="{DynamicResource Control_Focused_Brush}" TargetName="Rectangle"/>
+            </Trigger>
+
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- This is the area which contains the selected item in the ComboBox -->
+
+    <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+        <!-- This must be named as PART_ContentHost -->
+        <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}"/>
+    </ControlTemplate>
+
+    <!-- Simple ComboBoxItem - This is used for each item inside of the ComboBox. You can change the selected color of each item below-->
+    <Style x:Key="SimpleComboBoxItem" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Main}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Font_Main_ForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <DockPanel Margin="16 0 0 0">
+                            <CheckBox DockPanel.Dock="Left" Margin="0 0 10 0"
+                                      IsChecked="{Binding IsChecked}"
+                                      Visibility="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ComboBox},AncestorLevel=1},Path=(attach:AttachedPropertyHelper.IsMultiSelected) ,Converter={StaticResource BoolToVisibilityConverter}}"></CheckBox>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </DockPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <!-- Change IsHighlighted SelectedBackgroundBrush to set the selection color for the items -->
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource ItemsControl_Item_Selected_BackgroundBrush}" TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource ItemsControl_Item_MouseOver_BackgroundBrush}" TargetName="Border"/>
+                            <Setter Property="Foreground" Value="{DynamicResource ItemsControl_Item_MouseOver_ForegroundBrush}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="{DynamicResource Control_DisabledOpacity}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Simple ComboBox 
+    This uses the ComboBoxToggleButton to expand and collapse a Popup control
+    SimpleScrollViewer to allow items to be scrolled and SimpleComboBoxItem to define the look of each item 
+    The Popup shows a list of items in a StackPanel-->
+
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Main}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Font_Main_ForegroundBrush}"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SimpleComboBoxItem}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <!-- The ToggleButton is databound to the ComboBox itself to toggle IsDropDownOpen -->
+                        <ToggleButton Grid.Column="2" Template="{StaticResource ComboBoxToggleButton}" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" HorizontalAlignment="Stretch"/>
+                        <ContentPresenter HorizontalAlignment="Left" Margin="16,3,23,3" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+
+                        <!-- The TextBox must be named PART_EditableTextBox or ComboBox will not recognize it -->
+                        <TextBox Visibility="Hidden" HorizontalAlignment="Stretch" Margin="16,3,23,3" x:Name="PART_EditableTextBox" VerticalAlignment="Center" Focusable="True" Background="Transparent" IsReadOnly="{TemplateBinding IsReadOnly}" />
+                        <Image Visibility="Hidden" Source="{StaticResource Comm_CloseImageKey}" 
+                               Width="20"
+                               HorizontalAlignment="Right" Margin="0,3,20,3" x:Name="PART_ClearButton" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Cursor="Hand"/>
+                        <TextBox Visibility="Hidden" HorizontalAlignment="Stretch" Margin="16,3,23,3" x:Name="PART_MultiSelectedTextBox" VerticalAlignment="Center" Focusable="True" Background="{StaticResource Control_BackgroundBrush}" IsReadOnly="True"
+                                 FontSize="{StaticResource FontSize_Main}"
+                                 Foreground="{StaticResource Font_Main_ForegroundBrush}"
+                                 />
+
+                        <!-- The Popup shows the list of items in the ComboBox. IsOpen is databound to IsDropDownOpen which is toggled via the ComboBoxToggleButton -->
+                        <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                <Border x:Name="DropDownBorder" Background="{DynamicResource Control_BackgroundBrush}" BorderBrush="{DynamicResource Control_MouseOver_Brush}" BorderThickness="1"/>
+                                <ScrollViewer Margin="1 3 1 1" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- This forces the DropDown to have a minimum size if it is empty -->
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="MinHeight" Value="95" TargetName="DropDownBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="{StaticResource Control_DisabledOpacity}"/>
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </Trigger>
+                        <Trigger Property="AllowsTransparency" SourceName="Popup" Value="true">
+                            <Setter Property="CornerRadius" Value="2" TargetName="DropDownBorder"/>
+                            <Setter Property="Margin" Value="0,2,0,0" TargetName="DropDownBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="true">
+                            <Setter Property="IsTabStop" Value="false"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_EditableTextBox"/>
+                            <Setter Property="Visibility" Value="Hidden" TargetName="ContentSite"/>
+                        </Trigger>
+                        <Trigger Property="attach:AttachedPropertyHelper.IsMultiSelected" Value="true">
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_MultiSelectedTextBox"/>
+                        </Trigger>
+                        <Trigger Property="attach:AttachedPropertyHelper.IsAllowClear" Value="true">
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_ClearButton"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--带多选框的ComboBox-->
+    <Style x:Key="MultiSelectedComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Setter Property="attach:AttachedPropertyHelper.IsMultiSelected" Value="True"/>
+    </Style>
+
+    <!--popup带搜索的ComboBox-->
+    <Style x:Key="CustomComboBoxStyle" TargetType="{x:Type attach:CustomComboBox}">
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Main}"/>
+        <Setter Property="Foreground" Value="{StaticResource Font_Main_ForegroundBrush}"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SimpleComboBoxItem}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type attach:CustomComboBox}">
+                    <Grid>
+                        <!-- The ToggleButton is databound to the ComboBox itself to toggle IsDropDownOpen -->
+                        <ToggleButton Grid.Column="2" Template="{DynamicResource ComboBoxToggleButton}" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" HorizontalAlignment="Stretch"/>
+                        <ContentPresenter HorizontalAlignment="Left" Margin="16,3,23,3" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+
+                        <!-- The TextBox must be named PART_EditableTextBox or ComboBox will not recognize it -->
+                        <TextBox Visibility="Hidden" Template="{DynamicResource ComboBoxTextBox}" HorizontalAlignment="Stretch" Margin="16,3,23,3" x:Name="PART_EditableTextBox" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Background="Transparent" IsReadOnly="{TemplateBinding IsReadOnly}" 
+                                 Foreground="{TemplateBinding Foreground}"/>
+                        <Image Visibility="Hidden" Source="{StaticResource Comm_CloseImageKey}" 
+                               Width="20"
+                               HorizontalAlignment="Right" Margin="0,3,20,3" x:Name="PART_ClearButton" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Cursor="Hand"/>
+                        <TextBox Visibility="Hidden" Template="{DynamicResource ComboBoxTextBox}" HorizontalAlignment="Stretch" Margin="16,3,23,3" x:Name="PART_MultiSelectedTextBox" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Background="{StaticResource Control_BackgroundBrush}" IsReadOnly="True"
+                                 FontSize="{StaticResource FontSize_Main}"
+                                 Foreground="{StaticResource Font_Main_ForegroundBrush}"
+                                 />
+
+                        <!-- The Popup shows the list of items in the ComboBox. IsOpen is databound to IsDropDownOpen which is toggled via the ComboBoxToggleButton -->
+                        <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                <Border x:Name="DropDownBorder" Background="{DynamicResource Control_BackgroundBrush}" BorderBrush="{DynamicResource Control_MouseOver_Brush}" BorderThickness="1" />
+                                <DockPanel LastChildFill="True">
+                                    <attach:SearchTextBox DockPanel.Dock="Top" x:Name="PART_SearchButton" Margin="20 12 20 12"  Width="auto"
+                                                            HorizontalAlignment="Stretch"
+                                                            Text="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ComboBox},AncestorLevel=1},Path=SearchText}"
+                                                            BorderThickness="1" BorderBrush="{DynamicResource Control_MouseOver_Brush}" ></attach:SearchTextBox>
+                                    <ScrollViewer Margin="1 3 1 1" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+
+                                        <!-- The StackPanel is used to display the children by setting IsItemsHost to be True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+
+                                    </ScrollViewer>
+                                </DockPanel>
+                                
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- This forces the DropDown to have a minimum size if it is empty -->
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter Property="MinHeight" Value="95" TargetName="DropDownBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="{StaticResource Control_DisabledOpacity}"/>
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </Trigger>
+                        <Trigger Property="AllowsTransparency" SourceName="Popup" Value="true">
+                            <Setter Property="CornerRadius" Value="2" TargetName="DropDownBorder"/>
+                            <Setter Property="Margin" Value="0,2,0,0" TargetName="DropDownBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsEditable" Value="true">
+                            <Setter Property="IsTabStop" Value="false"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_EditableTextBox"/>
+                            <Setter Property="Visibility" Value="Hidden" TargetName="ContentSite"/>
+                        </Trigger>
+                        <Trigger Property="attach:AttachedPropertyHelper.IsMultiSelected" Value="true">
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_MultiSelectedTextBox"/>
+                        </Trigger>
+                        <Trigger Property="attach:AttachedPropertyHelper.IsAllowClear" Value="true">
+                            <Setter Property="Visibility" Value="Visible" TargetName="PART_ClearButton"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

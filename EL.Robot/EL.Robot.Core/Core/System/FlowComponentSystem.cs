@@ -59,9 +59,9 @@ namespace EL.Robot.Core
             foreach (var node in nodes)
             {
                 steps.Add(node.Id, node);
-                if (node.Steps != null)
+                if (node.Children != null)
                 {
-                    var dics = GetSteps(self, node.Steps);
+                    var dics = GetSteps(self, node.Children);
                     if (dics != null && dics.Values.Count > 0)
                         dics.Values.ToList().ForEach(x => steps.Add(x.Id, x));
                 }
@@ -163,7 +163,7 @@ namespace EL.Robot.Core
             foreach (var node in nodes)
             {
                 result.Add(node);
-                var datas = self.GetFlowNods(node.Steps);
+                var datas = self.GetFlowNods(node.Children);
                 result.AddRange(datas);
             }
             return result;

@@ -147,7 +147,7 @@ namespace EL.Robot.Core
 						//await Boot.GetComponent<TimerComponent>().WaitAsync(tryInfo.RearTimeDelay <= 0 ? 1 : tryInfo.RearTimeDelay);
 						Thread.Sleep(time);
 						if (content.Value)
-							await self.Exec(node.Steps);
+							await self.Exec(node.Children);
 						if (robot.ExecState == ExecState.IsContinue || robot.ExecState == ExecState.IsBreak)
 							return;
 					});

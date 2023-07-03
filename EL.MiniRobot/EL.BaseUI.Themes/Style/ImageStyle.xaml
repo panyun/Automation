@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif" >
+
+
+    <Style TargetType="Image">
+        <Setter Property="Stretch"
+                Value="None" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled"
+                                 Value="false">
+                <Setter Property="Opacity"
+                                    Value="{StaticResource Control_DisabledOpacity}" />
+
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--<Style TargetType="Image" x:Key="LoadingImageStyle" BasedOn="{StaticResource {x:Type Image}}">
+        <Setter Property="gif:AnimationBehavior.SourceUri"
+                Value="/Rivamed.OR.Themes;component/Common/Image/MainWindow/加载动画.gif" />
+    </Style>-->
+
+</ResourceDictionary>

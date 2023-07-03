@@ -42,8 +42,8 @@ namespace EL.Robot.Component
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
-            if (self.CurrentNode.Steps != null) self.CurrentNode.Steps.Clear();
-            if (self.CurrentNode.Steps == null) self.CurrentNode.Steps = new List<Node>();
+            if (self.CurrentNode.Children != null) self.CurrentNode.Children.Clear();
+            if (self.CurrentNode.Children == null) self.CurrentNode.Children = new List<Node>();
             var type = self.CurrentNode.GetParamterInt("ifType");
             var exrp = self.CurrentNode.GetParamterValueExrp("ifexpression") + "";
 
@@ -58,7 +58,7 @@ namespace EL.Robot.Component
             }
             int index = isIf ? 0 : 1;
             if (self.CurrentNode.Switch.Count > index + 1)
-                self.CurrentNode.Steps = self.CurrentNode.Switch[index].ToList();
+                self.CurrentNode.Children = self.CurrentNode.Switch[index].ToList();
             self.Value = true;
             return self;
         }
@@ -115,8 +115,8 @@ namespace EL.Robot.Component
         public override async ELTask<INodeContent> Main(INodeContent self)
         {
             await base.Main(self);
-            if (self.CurrentNode.Steps != null) self.CurrentNode.Steps.Clear();
-            if (self.CurrentNode.Steps == null) self.CurrentNode.Steps = new List<Node>();
+            if (self.CurrentNode.Children != null) self.CurrentNode.Children.Clear();
+            if (self.CurrentNode.Children == null) self.CurrentNode.Children = new List<Node>();
             var type = self.CurrentNode.GetParamterInt("ifType");
             var exrp = self.CurrentNode.GetParamterValueExrp("ifexpression") + "";
 
@@ -131,7 +131,7 @@ namespace EL.Robot.Component
             }
             int index = isIf ? 0 : 1;
             if (self.CurrentNode.Switch.Count > index + 1)
-                self.CurrentNode.Steps = self.CurrentNode.Switch[index].ToList();
+                self.CurrentNode.Children = self.CurrentNode.Switch[index].ToList();
             self.Value = true;
             return self;
         }

@@ -1,0 +1,154 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                   xmlns:attach="clr-namespace:EL.BaseUI.Themes"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ButtonStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="Window" x:Key="CommonChildWindowStyle">
+        <Setter Property="WindowStyle"
+                Value="None">
+        </Setter>
+        <Setter Property="AllowsTransparency"
+                Value="True">
+        </Setter>
+        <Setter Property="ResizeMode"
+                Value="NoResize">
+        </Setter>
+        <Setter Property="BorderBrush"
+                Value="{StaticResource Window_BorderBrush}">
+        </Setter>
+        <Setter Property="BorderThickness"
+                Value="1">
+        </Setter>
+        <Setter Property="Background"
+                Value="{StaticResource ChildWindow_Content_BackgroundBrush}">
+        </Setter>
+        <Setter Property="attach:AttachedPropertyHelper.CancelButtonMargin"
+                Value="0 0 20 0">
+        </Setter>
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+                            BorderBrush="{TemplateBinding Border.BorderBrush}"
+                            Background="{TemplateBinding Panel.Background}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="72"></RowDefinition>
+                                <RowDefinition Height="*">
+
+                                </RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DockPanel LastChildFill="True" Background="{StaticResource Control_Transparent}" >
+                                <Button DockPanel.Dock="Right"
+                                        x:Name="btnClose"
+                                        Margin="0 0 30 0"
+                                        Style="{StaticResource Close2ButtonStyle}"
+                                        Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext.CloseCommand}"></Button>
+                                <TextBlock FontSize="20"
+                                           Margin="30 0 0 0"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource Font_Title_ForegroundBrush}"
+                                           Text="{TemplateBinding Title}"></TextBlock>
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction  Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext.WindowMoveCommand}" 
+                                                                PassEventArgsToCommand="True">
+                                        </i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>-->
+                            </DockPanel>
+                            <Grid Grid.Row="0" Height="1" Background="{StaticResource Control_BackgroundBrush}"
+                                  VerticalAlignment="Bottom"></Grid>
+                            <AdornerDecorator Grid.Row="1">
+                                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                                  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                                  ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" />
+                            </AdornerDecorator>
+                            <Grid Grid.Row="2" Height="80" Visibility="{TemplateBinding attach:AttachedPropertyHelper.IsShowChildWindowButton,Converter={StaticResource BoolToVisibilityConverter}}">
+                                <StackPanel VerticalAlignment="Top"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <Button x:Name="btnCancel"
+                                            Style="{StaticResource CancelButtonStyle}"
+                                            Margin="{TemplateBinding attach:AttachedPropertyHelper.CancelButtonMargin}"
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext.CancelCommand}">取消</Button>
+                                    <Button x:Name="btnOK"
+                                            Style="{StaticResource ConfirmButtonStyle}"
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext.OKCommand}">确定</Button>
+                                    
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Window" x:Key="CommonContentWindowStyle">
+        <Setter Property="WindowStyle"
+                Value="None">
+        </Setter>
+        <Setter Property="AllowsTransparency"
+                Value="True">
+        </Setter>
+        <Setter Property="SizeToContent"
+                Value="WidthAndHeight">
+        </Setter>
+        <Setter Property="ResizeMode"
+                Value="NoResize">
+        </Setter>
+        
+        <Setter Property="BorderThickness"
+                Value="0">
+        </Setter>
+        <Setter Property="Background"
+                Value="{StaticResource ChildWindow_Content_BackgroundBrush}">
+        </Setter>
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Grid>
+                        <Border Margin="0 20 14 0" BorderThickness="{TemplateBinding Border.BorderThickness}"
+                            BorderBrush="{TemplateBinding Border.BorderBrush}"
+                            Background="{TemplateBinding Panel.Background}">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                                  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                                  ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" />
+                        </Border>
+                        <Button VerticalAlignment="Top" HorizontalAlignment="Right"
+                    Style="{StaticResource InHeaderButtonStyle}"
+                        attach:AttachedPropertyHelper.ImageSource="{StaticResource Comm_CircleCloseImage}">
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1}}" MethodName="Close"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                        </Button>
+                    </Grid>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="Window" x:Key="MainWindowStyle">
+        <Setter Property="WindowStyle" Value="None">
+
+        </Setter>
+        <Setter Property="WindowState" Value="Maximized">
+
+        </Setter>
+        <Setter Property="AllowsTransparency" Value="True">
+        </Setter>
+
+        <Setter Property="Background" Value="{StaticResource Control_BackgroundBrush}">
+
+        </Setter>
+    </Style>
+</ResourceDictionary>

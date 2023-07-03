@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net4.7;net48</TargetFrameworks>
+    <GenerateDocumentFile>true</GenerateDocumentFile>
+    <UseWpf>true</UseWpf>
+    <UseWindowsForms>true</UseWindowsForms>
+    <NoWarn>$(NoWarn);0067</NoWarn>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.1.1.5</Version>
+    <Authors>Adu</Authors>
+    <IconFile>http://www.dmskin.com/image/aduskin.ico</IconFile>
+    <RepositoryUrl>https://github.com/aduskin/AduSkin</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Add new controls and demo</PackageLicenseExpression>
+    <PackageIcon>http://www.dmskin.com/image/aduskin.ico</PackageIcon>
+    <Description>vlc视频播放组件</Description>
+    <Copyright>Copyright @ 2019 - 2020 AduSkin - WPFUI</Copyright>
+    <PackageTags>AduSkin WPF Controls</PackageTags>
+    <PackageReleaseNotes>Add new controls and demo</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="4.7.0" />
+    <PackageReference Include="Vlc.DotNet.Wpf" Version="3.1.0-develop364" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'net48'">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AduSkin\AduSkin.csproj" />
+  </ItemGroup>
+
+</Project>

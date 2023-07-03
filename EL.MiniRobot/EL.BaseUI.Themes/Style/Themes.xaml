@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/BorderStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ButtonStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/CheckBoxStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ComboBoxStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ContextMenuStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/DataGridStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/DateTimePicker.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ExpanderStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ImageStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ListBoxStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/MarkBaseCtrlStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/PasswordBoxStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ProgressBar.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/RadioButtonStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/ScrollViewerStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/SliderStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/TextBlockStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/TextBoxStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/TreeViewStyle.xaml" />
+        <ResourceDictionary Source="/EL.BaseUI.Themes;component/Style/Window.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
