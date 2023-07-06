@@ -147,16 +147,24 @@
                             <Metro:MetroScrollViewer Margin="0,5,0,0">
                                 <StackPanel Width="235" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                                     <Metro:AduTreeView
+                                        Name="tv_Component"
                                         Width="235"
-                                        AduAttach:TreeViewExtensions.SelectedItems="{Binding SelectNodeModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        AduAttach:TreeViewExtensions.SelectedItems="{Binding SelectNodeComponent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         BorderThickness="1"
-                                        ItemsSource="{Binding CurrentRobot.Children}"
+                                        ItemsSource="{Binding NodeComponentModels}"
                                         PreviewMouseWheel="AduTreeView_PreviewMouseWheel"
                                         ScrollViewer.HorizontalScrollBarVisibility="Visible"
                                         Style="{StaticResource TreeView_component}">
                                         <i:Interaction.Behaviors>
                                             <AduAttach:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
                                         </i:Interaction.Behaviors>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseDown">
+                                                <i:InvokeCommandAction Command="{Binding ComponentMouseDownCommand}"
+                                                                       CommandParameter="{Binding ElementName=tv_Component,
+                                                    Path=SelectedItem}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </Metro:AduTreeView>
                                 </StackPanel>
                             </Metro:MetroScrollViewer>
@@ -210,7 +218,7 @@
                     <Metro:MetroScrollViewer Name="scrollFlow">
                         <StackPanel>
                             <Metro:AduTreeView
-                                Name="tv_Test"
+                                Name="tv_Robot"
                                 AduAttach:TreeViewExtensions.EnableMultiSelect="True"
                                 AduAttach:TreeViewExtensions.SelectedItems="{Binding SelectNodeModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BorderThickness="1"

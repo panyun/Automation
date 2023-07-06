@@ -10,6 +10,13 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using MiniRobotForm.Mode;
 using EL.Robot.Component;
+using static EL.Robot.Core.ComponentSystem;
+using System.Threading.Tasks;
+using SixLabors.Fonts.Tables.AdvancedTypographic;
+using System.Collections.Generic;
+using EL.Robot;
+using EL.Async;
+using System.Windows.Input;
 
 namespace ViewModel
 {
@@ -30,6 +37,12 @@ namespace ViewModel
             get => _SelectNodeModels;
             set => SetProperty(ref _SelectNodeModels, value);
         }
+
+
+        public ObservableCollection<NodeComponentModel> SelectNodeComponent
+        {
+            get; set;
+        }
         private NodeModel _SelectedItem;
         public NodeModel SelectedItem
         {
@@ -46,10 +59,14 @@ namespace ViewModel
                 StartDesign();
             }
         }
+
+        public ObservableCollection<NodeComponentModel> NodeComponentModels { get; set; } = new ObservableCollection<NodeComponentModel>();
+
+
         public async void StartDesign()
         {
             if (CurrentModel == null) return;
-            var flow = await designComponent.StartDesign(CurrentModel.Id);
+            var flow = designComponent.StartDesign(CurrentModel.Id);
             CurrentRobotModel = ModelConvert.To<Flow, FlowModel>(flow);
         }
         private FlowModel _CurrentRobotModel;
@@ -75,8 +92,12 @@ namespace ViewModel
         {
             var list = designComponent.LoadRobots();
             RobotListModels = ModelConvert.TosUI<Feature, FeatureModel>(list);
+            GetCompoenntTreeAsync().Coroutine();
         }
-
+        public RelayCommand<object> ComponentMouseDownCommand => new((e) =>
+        {
+            //System.Windows.Forms.MessageBox.Show(SelectedItem.Name);
+        });
         public RelayCommand CreateRobotCommand => new(() =>
         {
             var createRobot = new CreateRobotWindow();
@@ -84,7 +105,63 @@ namespace ViewModel
             if (!rtn ?? true) return;
             RobotListModels = ModelConvert.TosUI<Feature, FeatureModel>(designComponent.Features);
         });
+        private async ELTask GetCompoenntTreeAsync()
+        {
+            CommponetRequest commponetRequest = new CommponetRequest()
+            {
+                ComponentName = nameof(ComponentSystem),
+                Data = new ComponentSystemReuqest
+                {
 
+                    Action = nameof(ComponentSystem.GetCategorys)
+                }
+            };
+            var categorys = await RequestManager.StartAsync(commponetRequest);
+            foreach (var item in categorys.Data)
+            {
+                NodeComponentModel temp = new NodeComponentModel()
+                {
+                    Id = Helper.GetValue<int>(item, "CategoryId") + "",
+                    Name = Helper.GetValue<string>(item, "CategoryName")
+                };
+                CommponetRequest commponetRequest1 = new CommponetRequest()
+                {
+                    ComponentName = nameof(ComponentSystem),
+                    Data = new ComponentSystemReuqest
+                    {
+                        Action = nameof(ComponentSystem.GetComponentsById),
+                        Paramters = new Dictionary<string, object>()
+                                {
+                                    {"Id",  Helper.GetValue<int>(item, "CategoryId") }
+                                }
+                    }
+                };
+                var componentConfigs = await RequestManager.StartAsync(commponetRequest1);
+                if (componentConfigs == null || componentConfigs.Data == null) continue;
+                foreach (Config component in componentConfigs.Data)
+                {
+                    temp.Children.Add(new NodeComponentModel()
+                    {
+                        Name = component.ButtonDisplayName,
+                        Id = component.ComponentName
+                    });
+                }
+                NodeComponentModels.Add(temp);
+            }
+
+        }
+
+    }
+    public class NodeComponentModel : ModelBase
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        private ObservableCollection<NodeComponentModel> _Children = new();
+        public ObservableCollection<NodeComponentModel> Children
+        {
+            get => _Children;
+            set => SetProperty(ref _Children, value);
+        }
     }
     public class NodeModel : ModelBase
     {

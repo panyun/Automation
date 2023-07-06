@@ -138,7 +138,7 @@ namespace EL.Robot.Core
             self.Features = features;
             return features;
         }
-        public static async ELTask<Flow> StartDesign(this DesignComponent self, long Id)
+        public static Flow StartDesign(this DesignComponent self, long Id)
         {
             self.DesignFlowDic.TryGetValue(Id, out Flow flow);
             if (flow == null)

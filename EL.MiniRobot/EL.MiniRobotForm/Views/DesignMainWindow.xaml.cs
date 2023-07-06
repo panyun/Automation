@@ -1,6 +1,7 @@
 ﻿using AduSkin;
 using AduSkin.Controls.Attach;
 using AduSkin.Controls.Metro;
+using EL.BaseUI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,44 @@ namespace MiniRobotForm.Views
         {
             InitializeComponent();
             scrollFlow.ScrollToBottom();
-          
+            tv_Component.PreviewMouseDown += Tv_Component_PreviewMouseDown;
+            tv_Component.MouseMove += Tv_Component_MouseMove;
+            tv_Robot.AllowDrop= true;
+            tv_Robot.Drop += Tv_Robot_Drop;
         }
+
+        private void Tv_Robot_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(typeof(NodeComponentModel)) is NodeComponentModel nodeComponentModel)
+            {
+
+            }
+        }
+
+        private void Tv_Component_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                var c = sender as FrameworkElement;
+                DragDrop.DoDragDrop(c, moveTreeItem, DragDropEffects.Copy);
+            }
+        }
+
+        private Point _lastMouseDown;
+        private NodeComponentModel moveTreeItem;
+        private void Tv_Component_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var ele = e.OriginalSource as FrameworkElement;
+                if (ele != null)
+                {
+                     _lastMouseDown = e.GetPosition(tv_Component);
+                     moveTreeItem = (NodeComponentModel)ele.DataContext;
+                }
+            }
+        }
+
         private void AduTreeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is TreeView && !e.Handled)

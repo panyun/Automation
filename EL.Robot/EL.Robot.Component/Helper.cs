@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace EL.Robot
 {
-	public static class Helper
-	{
-		public static T GetValue<T>(this object obj, string propertyName)
-		{
-			return (T)obj.GetType().GetProperty(propertyName).GetValue(obj, null);
-		}
-	}
+    public static class Helper
+    {
+        public static T GetValue<T>(this object obj, string propertyName)
+        {
+            try
+            {
+                var t= (T)obj.GetType().GetProperty(propertyName).GetValue(obj, null);
+                return t;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+    }
 }

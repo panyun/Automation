@@ -476,9 +476,8 @@
                         </Grid.RowDefinitions>
                         <Border
                             Name="itemBackground"
-                            Margin="0,0,0,0"
                             Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
+                            Background="White"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid Background="Transparent">
@@ -550,9 +549,9 @@
                         <Trigger Property="IsExpanded" Value="False">
                             <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <!--<Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" TargetName="itemBackground" Value="{StaticResource SelectForeground}"/>
-                        </Trigger>-->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="itemBackground" Property="Background" Value="{StaticResource SelectForeground}" />
+                        </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsFocused" Value="False" />

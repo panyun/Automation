@@ -9,6 +9,7 @@ namespace AduSkin.Interactivity
     {
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(InvokeCommandAction), null);
+        
 
         public static readonly DependencyProperty CommandParameterProperty =
             DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(InvokeCommandAction),
